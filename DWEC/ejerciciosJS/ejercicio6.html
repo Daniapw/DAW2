@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="ejercicio4.js"></script>
+    <script src="ejercicio6.js"></script>
 </head>
 <body>
     <form name="formulario4">
-        <input type="button" name="boton" onclick="escribirNumeros()" value="Numeros">
+        <input type="number" name="texto" min="2" max="9"/>
+        <input type="button" name="boton" onclick="tablaMultiplicar(parseInt(texto.value))" value="Tabla"/>
     </form>
 </body>
 </html>

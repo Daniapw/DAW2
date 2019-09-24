@@ -1,9 +1,9 @@
 function comprobarTriangulo(l1, l2, l3, a1, a2, a3){
 
     sumaAngulos=(a1+a2+a3);
-
-    if(!l1 || !l2 || !l3){
-        alert("No es un triángulo, faltan lados")
+    
+    if((!l1 || !l2 || !l3) || sumaAngulos!=180){
+        alert("No es un triángulo");
     }
     else{
 
@@ -18,9 +18,9 @@ function comprobarTriangulo(l1, l2, l3, a1, a2, a3){
         }
 
         if (isRectangulo(a1,a2,a3))
-            alert("Es rectángulo")
+            alert("Es rectángulo");
         else
-            alert("No es rectángulo")
+            alert("No es rectángulo");
     }
 }
 
