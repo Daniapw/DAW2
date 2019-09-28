@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package repaso;
+package proyectopararun;
 
 import javax.swing.JOptionPane;
 
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class RepasoArrays {
     
     public static void main(String[] args) {
-        ejercicio14();
+        ejercicio20();
     }
     
     //Ejercicio 10
@@ -30,14 +30,10 @@ public class RepasoArrays {
             array2[i]=(int)(Math.random()*100);
         }
         
+        System.arraycopy(array1, 0, arrayFinal, 0, array1.length);
         
-        for (int i=0; i < array1.length; i++){
-            arrayFinal[i]=array1[i];
-        }
         
-        for (int i=0; i < array2.length; i++){
-            arrayFinal[i+array2.length]=array2[i];
-        }
+        System.arraycopy(array2, 0, arrayFinal, array1.length, array2.length);
         
         return arrayFinal;
     }
@@ -51,8 +47,6 @@ public class RepasoArrays {
         for (int i=0; i < array.length; i++){
             System.out.print(array[i] + " ");
         }
-        
-        
         
         //Ordenar array
         int aux;
@@ -154,49 +148,179 @@ public class RepasoArrays {
         int posiciones[]=new int[10];
         int contador=0;
         
-        //Pedir números
-        for(int i=0; i<numeros.length;i++){
-            
-            try{
-                numeros[i]=Integer.parseInt(JOptionPane.showInputDialog("Introduzca un número entero " + (i+1) + " de 10"));
-                
-                if (numeros[i]%10==4){
-                    posiciones[contador]=i;
-                    contador++;
-                }
-                
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Solo números enteros");
-                i--;
-            }
-        }
+        numeros=pedirNumeros(numeros.length);
         
-        //Imprimir posiciones
-        System.out.println("Posiciones: ");
-        for (int i=0; i < contador; i++){   
-            System.out.print(posiciones[i] + " ");
+        //Guardar posiciones e imprimir los numeros
+        System.err.println("Posiciones: ");
+        for(int i=0;i<numeros.length;i++){
+            if (numeros[i]%10==4){
+                posiciones[contador]=i;
+                System.out.print(posiciones[contador] + " ");
+                contador++;
+                
+            }   
         }
-        
-    
     }
     
     //Ejercicio 14
     public static void ejercicio14(){
         
         for (int i=100; i < 300; i++){
-            
             if (isPrimo(i))
-                System.out.print(i + " ");
-            
+                System.out.print(i + " ");   
+        }    
+    }
+    
+    //Ejercicio 15
+    public static void ejercicio15(){
+        
+        int numeros[] = new int[10];
+        int mayor=0;
+        
+        numeros=pedirNumeros(numeros.length);
+       
+        //Buscar numero primo mayor
+        for (int i=0; i < numeros.length; i++){
+            if (isPrimo(numeros[i]) && numeros[i]>mayor)
+                mayor=numeros[i];
+        }
+        
+        //Resultado
+        if (mayor==0)
+            JOptionPane.showMessageDialog(null, "Ninguno de los numeros introducidos era primo");
+        else
+            JOptionPane.showMessageDialog(null, "El numero primo mas grande es " + mayor);
+        
+    }
+    
+    //Ejercicio 16
+    public static void ejercicio16(){
+        int numeros[] = new int[10];
+        int factoriales[]=new int[10];
+        
+        numeros=pedirNumeros(numeros.length);
+        
+        System.out.println("Factoriales: ");
+        for (int i=0; i < numeros.length; i++){
+            //Calcular y guardar factorial
+            factoriales[i]=factorial(numeros[i]);
+            System.out.print(factoriales[i] + " ");
         }
         
     }
     
+    //Ejercicio 17
+    public static void ejercicio17(){
+        int numeros[] = new int[3];
+        
+        numeros=pedirNumeros(numeros.length);
+        
+        for (int i=0; i < numeros.length; i++){
+            
+            System.out.println("Entre 1 y " + numeros[i] +":");
+            for(int j=2; j<numeros[i]; j++){
+                System.out.print(j + " ");
+            }
+            System.out.println("");
+        }
+    }
     
+    //Ejercicio 18
+    public static void ejercicio18(){
+        int matriz[][]=new int[6][5];
+        int numero=0;
+        
+        for (int i=0; i < matriz.length; i++){
+            for (int j=0; j < matriz[i].length;j++){
+                matriz[i][j]= (int) (Math.random() * 100);
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
     
+    //Ejercicio 19
+    public static void ejercicio19(){
+        
+        int matriz[][]=new int[6][5];
+        int numero=0;
+        
+        //Rellenar e imprimir matriz inicial
+        System.out.println("Matriz inicial:");
+        for (int i=0; i < matriz.length; i++){
+            for (int j=0; j < matriz[i].length;j++){
+                matriz[i][j]= (int) (Math.random() * 100);
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println("");
+        }
+        
+        //Matriz inicial traspuesta
+        System.out.println("Matriz inicial traspuesta");
+        int matrizTraspuesta[][]=new int[matriz[0].length][matriz.length];
+        
+        for (int i=0; i < matrizTraspuesta[0].length; i++){
+            for (int j=0; j < matrizTraspuesta.length;j++){
+                matrizTraspuesta[j][i]=matriz[i][j];
+            }
+        }
+        
+        //Imprimir matriz traspuesta
+        for (int i=0; i < matrizTraspuesta.length; i++){
+            for (int j=0; j < matrizTraspuesta[0].length;j++){
+                System.out.print(matrizTraspuesta[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
     
-    //Método para calcular números primos
+    //Ejercicio 20
+    public static void ejercicio20(){
+        int matriz[][]=new int[7][4];
+        int numero=0;
+        
+        //Rellenar e imprimir matriz inicial
+        for (int i=0; i < matriz.length; i++){
+            for (int j=0; j < matriz[0].length;j++){
+                
+                if (i<6)
+                    matriz[i][j]= (int) (Math.random() * 10);
+                else
+                    matriz[i][j] = sumarColumnas(matriz, j);
+                
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+    
+    ///////////Funciones auxiliares/////////////
+    //Funcion para pedir numeros
+    public static int[] pedirNumeros(int cantidad){
+        
+        int numeros[] = new int[cantidad];
+        
+        for (int i=0; i < numeros.length; i++){
+            try{
+                numeros[i]=Integer.parseInt(JOptionPane.showInputDialog("Introduce un numero entero (0 para salir) ("+(i+1)+")"));
+                
+                //Si el n�mero es 0 se para el programa
+                if (numeros[i]==0)
+                    System.exit(0);
+                
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros");
+                i--;
+            }
+        }
+        return numeros;
+    }
+    
+    //Funcion para comprobar si un numero es primo
     public static boolean isPrimo(int numero){
+        
+        if(numero==1)
+            return false;
         
         for (int i=2; i < numero; i++){
             if(numero%i==0){
@@ -209,5 +333,26 @@ public class RepasoArrays {
         }
         
         return true;
+    }
+    
+    //Funcion para calcular factorial
+    public static int factorial(int numero){
+        
+        if(numero<=0){
+            return 1;
+        }
+        
+        return factorial(numero-1)*numero;
+    }
+ 
+    //Sumar columna matriz
+    public static int sumarColumnas(int[][] matriz, int indiceCol){
+        
+        int resultado=0;
+        for (int i=0; i < matriz.length; i++){
+            resultado+=matriz[i][indiceCol];
+        }
+        
+        return resultado;
     }
 }
