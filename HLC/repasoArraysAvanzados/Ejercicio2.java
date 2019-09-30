@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package repaso.repasoArraysAvanzados;
+package proyectopararun.arrayAvanzado;
 
 /**
  *
@@ -19,19 +19,27 @@ public class Ejercicio2 {
         
         for(int i=0; i < arrayInicial.length; i++){
             
+            //Si el numero es impar
             if (arrayInicial[i]%2!=0){
                 
-                if(i==0)
-                    arraySinImpares[i]=0; 
-                else
+                //Si hay un numero impar en la primera posicion se cambia por 0
+                if(i==0){
+                    arraySinImpares[i]=0;
+                }
+                /*Si no esta en la primera posicion se guarda el siguiente numero
+                par en arraySinImpares y se guarda en ultimoPar*/
+                else{
                     arraySinImpares[i]=ultimoPar+2;
+                    ultimoPar=arraySinImpares[i];
+                }
             }
+            /*Si el numero es par se guarda directamente en arraySinImpares y
+            en ultimoPar*/
             else{
                 arraySinImpares[i]=arrayInicial[i];
                 ultimoPar=arrayInicial[i];
             }
-                
-           
+            
         }
         
         return arraySinImpares;
