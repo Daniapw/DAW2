@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        fecha=new Date();
+
+        var dias=["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Sabado"];
+        var meses=["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        document.write(dias[fecha.getDay()] + ", " + fecha.getDate()  +" de " + meses[fecha.getMonth()] + ", " + quarter);
+        
+        function getCuatrimestre(){
+            
+            if (fecha.getMonth()<=3){
+               return "primer cuatrimestre";
+            }
+            else if(fecha.getMonth()>3 && fecha.getMonth()<=7){
+                return "segundo cuatrimestre";
+            }
+            
+            return "tercer cuatrimestre";
+            
+        }
+
+    </script>
+</body>
+</html>
