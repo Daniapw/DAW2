@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectopararun.repasoObjetos.ejercicio3;
+package repasoObjetos.ejercicio3;
 /**
  *
  * @author danir
@@ -16,5 +16,6 @@ public class MainPassword {
         
         Password conLongitud=new Password(30);
         
+        System.out.println(conLongitud.esFuerte());
     }    
 }

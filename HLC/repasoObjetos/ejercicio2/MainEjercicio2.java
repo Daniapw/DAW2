@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectopararun.repasoObjetos.ejercicio2;
+package repasoObjetos.ejercicio2;
 import javax.swing.JOptionPane;
-import proyectopararun.repasoObjetos.*;
 /**
  *
  * @author danir
@@ -13,6 +12,16 @@ import proyectopararun.repasoObjetos.*;
 public class MainEjercicio2 {
     
     public static void main(String[] args) {
+        //Creacion de objetos Persona
+        Persona personas[]=creacionPersonas();
+        
+        //Comprobar y mostrar datos
+        comprobarYMostrarDatos(personas);
+        
+    }
+    
+    //Creacion objetos Persona
+    public static Persona[] creacionPersonas(){
         
         //Pedir nombre, edad, sexo, peso y altura
         String nombre=JOptionPane.showInputDialog("Introduce el nombre");
@@ -22,8 +31,6 @@ public class MainEjercicio2 {
         double peso=Double.parseDouble(JOptionPane.showInputDialog("Introduce el peso"));
         double altura=Double.parseDouble(JOptionPane.showInputDialog("Introduce el altura"));
         
-        
-        //Creacion de objetos Persona
         Persona persona1=new Persona(nombre, edad, sexo, peso, altura);
         Persona persona2=new Persona(nombre, edad, sexo);
         Persona persona3=new Persona();
@@ -36,9 +43,10 @@ public class MainEjercicio2 {
         
         Persona personas[] = {persona1, persona2, persona3};
         
-        comprobarYMostrarDatos(personas);
-        
+        return personas;
     }
+    
+    
     
     //Mostrar y comprobar datos personas
     public static void comprobarYMostrarDatos(Persona personas[]){

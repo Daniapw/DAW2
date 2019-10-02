@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectopararun.repasoObjetos.ejercicio3;
+package repasoObjetos.ejercicio3;
 
 /**
  *
@@ -61,7 +61,8 @@ public class Password {
             }
             
         }
-        System.out.println("Numeros: " + numeros +
+        System.out.println(contrasena +
+                "\nNumeros: " + numeros +
                 "\nMayusculas: " + mayusculas+
                 "\nMinusculas: " + minusculas);
         
