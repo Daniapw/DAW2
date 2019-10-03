@@ -17,11 +17,11 @@ public class MainCasino {
      */
     public static void main(String[] args) {
         
-        Casino casino=new Casino("Gomorrah", 10000);
+        Casino casino=new Casino("Lucky 38", 10000);
         
         Jugador jugador=new Jugador("Dani", 1000);
         
-        casino.rojoYNegro(jugador);
+        casino.blackJack(jugador);
         
     }
     

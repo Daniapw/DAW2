@@ -32,7 +32,7 @@ public class MainEjercicio2 {
         double altura=Double.parseDouble(JOptionPane.showInputDialog("Introduce el altura"));
         
         Persona persona1=new Persona(nombre, edad, sexo, peso, altura);
-        Persona persona2=new Persona(nombre, edad, sexo);
+        Persona persona2=new Persona("Maria", 23, 'M');
         Persona persona3=new Persona();
         
         persona3.setNombre("Antonio");

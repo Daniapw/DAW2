@@ -24,7 +24,7 @@ public class Persona {
         this.nombre=nombre;
         this.edad=edad;
         this.sexo=sexo;
-        
+        comprobarSexo();
     }
     
     public Persona(String nombre, int edad, char sexo, double peso, double altura){
@@ -33,6 +33,7 @@ public class Persona {
         this.sexo=sexo;
         this.peso=peso;
         this.altura=altura;
+        comprobarSexo();
     }
     
     public Persona(String nombre, int edad, String dni, char sexo, double peso, double altura){
@@ -42,6 +43,7 @@ public class Persona {
         this.sexo=sexo;
         this.peso=peso;
         this.altura=altura;
+        comprobarSexo();
     }
     
     //Metodos
@@ -73,8 +75,10 @@ public class Persona {
     }
     
     //Comprobar sexo
-    private void comprobarSexo(char sexo){
-        
+    private void comprobarSexo(){
+        if (sexo!='H' && sexo!='M'){
+            sexo='H';
+        }
     }
 
     //Generar DNI

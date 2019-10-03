@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectopararun.repasoObjetos;
+package repasoObjetos.ejercicio1;
 
 /**
  *
@@ -63,6 +63,7 @@ public class Cuenta {
         this.cantidad=titular;
     }
 
+    //toString
     @Override
     public String toString() {
         return "Titular: " + titular +

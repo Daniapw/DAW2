@@ -1,6 +1,6 @@
 //Constructor Empresa
 function Empresa(nombre, direccion, telefono, nif){
-    this.nombre= nombres;
+    this.nombre= nombre;
     this.direccion= direccion;
     this.telefono= telefono;
     this.nif=nif;

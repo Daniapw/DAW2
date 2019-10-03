@@ -12,8 +12,9 @@
 
         var dias=["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Sabado"];
         var meses=["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        document.write(dias[fecha.getDay()] + ", " + fecha.getDate()  +" de " + meses[fecha.getMonth()] + ", " + quarter);
+        document.write(dias[fecha.getDay()] + ", " + fecha.getDate()  +" de " + meses[fecha.getMonth()] + ", " + getCuatrimestre() + " de " +  fecha.getFullYear());
         
+        //Funcion para calcular cuatrimestre
         function getCuatrimestre(){
             
             if (fecha.getMonth()<=3){
