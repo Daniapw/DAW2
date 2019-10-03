@@ -5,35 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="ejercicio2.js"></script>
 </head>
 <body>
     <script>
-        var empresa = {
-            nombre,
-            direccion,
-            telefono,
-            nif
-        };
 
-        var cliente={
-            numCliente,
-            dni,
-            nombre,
-            domicilio,
-            cp,
-            ciudad,
-            provincia
-        }
-    
-        var producto={
-            descripcion,
-            precio
-        }
+        //Creacion objetos
+        var productos=[new Producto("Tarjeta Grafica NVIDIA GTX 770", 150), new Producto("Auriculares Corsair VOID Wireless", 85)];
+        var empresaFactura=new Empresa("PCComponentes", "C/ Lorem Ipsum 1, Madrid", "1111111");
+        var clienteFactura= new Cliente(1, "50614384D", "Daniel Ruiz", "C/ La Estrella nº9", "14900", "Lucena", "Cordoba");
+        var factura=new Factura(empresaFactura, clienteFactura, productos, 100, "Efectivo");
 
-        var factura={
-            nombreCliente,
-            nombreEmpresa
-        }
+        console.log(factura);
+        //Calculo importe
+        factura.calcularImporte();
+        document.write("Importe: " + factura.importe);
     </script>
 </body>
 </html>
