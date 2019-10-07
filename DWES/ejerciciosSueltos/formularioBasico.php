@@ -82,8 +82,13 @@ if (isSet($_POST["enviar"]) && formularioRelleno()){
     //Estudios
     foreach ($_POST["estudios"] as $value) {
         echo("$value ");
-    }        
-        
+    }      
+?>
+    <br>
+    <form action="formularioBasico.php">
+        <input type="submit" value="Volver al formulario" />
+    </form>
+<?php
 }
 //Si no ha sido rellenado se muestra un mensaje de error y vuelve a salir el formulario con los datos que habia introducido el usuario
 else{
