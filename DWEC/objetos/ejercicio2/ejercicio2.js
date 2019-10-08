@@ -4,6 +4,14 @@ function Empresa(nombre, direccion, telefono, nif){
     this.direccion= direccion;
     this.telefono= telefono;
     this.nif=nif;
+
+    this.toString=function(){
+        return "<h2>Empresa</h2>"+
+        "Nombre: " + nombre +"<br>"
+        +"Direccion: " + direccion + "<br>"
+        +"Telefono: " + telefono + "<br>"
+        +"NIF: " + nif;
+    }
 }
 
 //Constructor Cliente
@@ -15,6 +23,17 @@ function Cliente(numCliente, dni, nombre, domicilio, cp, ciudad, provincia){
     this.cp=cp;
     this.ciudad=ciudad;
     this.provincia=provincia;
+
+    this.toString=function(){
+        return "<h2>Cliente</h2>"+
+        "Nombre: " + nombre +"<br>"
+        +"Domicilio: " + domicilio + "<br>"
+        +"DNI: " + dni + "<br>"
+        +"Ciudad: " + ciudad + "<br>"
+        +"Provincia: " + provincia + "<br>"
+        +"CP: " + cp + "<br>"
+        +"Numero cliente: " + numCliente;
+    };
 }
 
 //Constructor Producto
@@ -38,6 +57,42 @@ function Factura(empresa, cliente, productos, importe, formaPago){
             total+=element.precio;
         });
         this.importe=total;
+    };
+
+    //Funcion mostrar en tabla
+    this.imprimirFactura=function(){
+        document.write(cliente.toString());
+        document.write("<br>Forma de pago: " + this.formaPago);
+        document.write(empresa.toString() +"<br>");
+        
+        document.write(
+            "<table border='1' id='tablaProductos'>" +
+                "<tr><td colspan='2'><h2>Productos</h2></td></tr>"+
+                "<tr>"+
+                    "<th>Descripcion</th>"+
+                    "<th>Precio (€)</th>"+
+                "</tr>"
+        );
+        
+        //Imprimir lineas productos
+        this.productos.forEach(producto=>{
+            document.write(
+                "<tr>"+
+                    "<td>"+producto.descripcion+"</td>"+
+                    "<td>"+producto.precio+"</td>"+
+                "</tr>"
+            )
+        });
+
+        //Importe
+        document.write(
+                "<tr>"+
+                    "<th>Importe total</th>"+
+                    "<th>"+this.importe+"</th>"+
+                "</tr>" +
+            "</table>"
+        );
+        
     };
     
 }

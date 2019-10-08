@@ -6,13 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="ejercicio2.js"></script>
+    <style>
+    
+        #tablaProductos{
+            text-align:center;
+            border-collapse:collapse;
+            margin-top:10px;
+        }
+
+        #tablaProductos td, th{
+            padding:5px;
+        }
+
+    </style>
 </head>
 <body>
     <script>
 
         //Creacion objetos
         var productos=[new Producto("Tarjeta Grafica NVIDIA GTX 770", 150), new Producto("Auriculares Corsair VOID Wireless", 85)];
-        var empresaFactura=new Empresa("PCComponentes", "C/ Lorem Ipsum 1, Madrid", "1111111");
+        var empresaFactura=new Empresa("PCComponentes", "C/ Lorem Ipsum 1, Madrid", "957957957","1111111");
         var clienteFactura= new Cliente(1, "50614384D", "Daniel Ruiz", "C/ La Estrella nº9", "14900", "Lucena", "Cordoba");
         var factura=new Factura(empresaFactura, clienteFactura, productos, 100, "Efectivo");
 
@@ -20,9 +33,11 @@
         
         //Calculo importe
         factura.calcularImporte();
-        document.write("Importe: " + factura.importe);
 
+        //Mostrar información en pantalla
+        factura.imprimirFactura();
 
     </script>
+
 </body>
 </html>
