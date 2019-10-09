@@ -4,7 +4,9 @@
 
 <body>
 <?php
-    include 'practicaArrays/Ejercicio11.php';
+    include 'ejerciciosSueltos/ejercicioFechas.php';
+    
+    fechaCastellano();
     
 ?>
 </body>

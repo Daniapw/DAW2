@@ -10,7 +10,8 @@ $peliculas = array(
 );
 
 foreach ($peliculas as $clave=>$value) {
-    if($value>0)
+    if($value>0){
         echo("$clave: $value <br>");
+    }
 }
 

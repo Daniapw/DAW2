@@ -1,13 +1,16 @@
 <?php
 
-function fechaCastellano(){
-    $diaSem=date("w");
-    $diaMes=date("d");
-    $mes=date("n");
-    $anio=date("Y");
+function fechaCastellano($dia, $mes, $anio){
+    
+    //DIA SEMANA
+    $fechaUnix= mktime(0, 0, 0, $mes, $dia, $anio);
+    $diaSem=date("w", $fechaUnix);
     $diaSem=diaSemana($diaSem);
+    
+    //MES
     $mes=mes($mes);
-    echo("<p>$diaSem, $mes</p>");
+    
+    return "<p>$diaSem, $dia de $mes de $anio</p>";
 }
 
 function diaSemana($diaSem){

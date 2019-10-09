@@ -48,12 +48,14 @@ for ($i=0; $i < count($arrayManual); $i++){
             $aux=$arrayManual[$j+1];
             $arrayManual[$j+1]=$arrayManual[$j];
             $arrayManual[$j]=$aux;
+            
+            imprimirArray($arrayManual);
         }  
 
     }
-    imprimirArray($arrayManual);
+    
 }
-imprimirArray($arrayManual);
+
 //Funcion para imprimir array
 function imprimirArray($array){
     foreach ($array as $value) {

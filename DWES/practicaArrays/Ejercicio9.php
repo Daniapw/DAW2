@@ -18,9 +18,9 @@ echo("<br>");
 //Mostrar como una lista ordenada
 echo("<ol>");
 foreach ($estadios as $equipo => $estadio) {
-    echo("<li>$equipo - $estadio");
+    echo("<li>$equipo - $estadio</li>");
 }
-echo("</ul>");
+echo("</ol>");
 
 
 //Funcion para imprimir array
