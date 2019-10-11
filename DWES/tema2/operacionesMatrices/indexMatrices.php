@@ -19,11 +19,12 @@
     <div id="links">
         <a href="sumarFilas.php">Calcular suma de las filas</a><br>
         <a href="sumarColumnas.php">Calcular suma de las columnas</a><br>
-        <a href="#">Calcular suma de las filas y las columnas</a><br>
-        <a href="#">Suma de la diagonal principal</a><br>
-        <a href="#">Calcular matriz traspuesta</a><br>
+        <a href="sumaFilasyColumnas.php">Calcular suma de las filas y las columnas</a><br>
+        <a href="sumaDiagonalPrincipal.php">Suma de la diagonal principal</a><br>
+        <a href="matrizTraspuesta.php">Calcular matriz traspuesta</a><br>
     </div>
 </body>
 
 
 </html>
+

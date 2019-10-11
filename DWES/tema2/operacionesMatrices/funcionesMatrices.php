@@ -1,4 +1,5 @@
 <?php
+//Funcion para coger html del formulario
 function getBody($destino){
     
     $body=
@@ -6,7 +7,7 @@ function getBody($destino){
     "<form action=$destino method='post'>
         
         Numero filas: <input type='number' min='2' name='filas' required><br>
-        Numero columnas: <input type='number' min='1' name='columnas' required><br>
+        Numero columnas: <input type='number' min='2' name='columnas' required><br>
         
         <input type='submit' value='Crear Matriz' name='crear' />
         
@@ -20,8 +21,6 @@ function getBody($destino){
 //Funcion para crear matriz y rellenar con numeros enteros
 function crearMatriz($filas, $columnas){
     
-    $matriz=array(array());
-    
     for ($i=0; $i<$filas; $i++){
         for($j=0; $j<$columnas; $j++){
             $matriz[$i][$j]= rand(1, 9);
@@ -33,25 +32,22 @@ function crearMatriz($filas, $columnas){
 
 
 //Funcion para imprimir matriz
-
 function imprimirMatriz($matriz){
     
-    echo("Matriz:<br><br>");
-    
+    echo("<table>");
     foreach ($matriz as $fila) {
+        echo("<tr>");
         foreach ($fila as $columna) {
-            echo("$columna ");
+            echo("<td>$columna</td>");
         }
-        echo("<br>");
+        echo("</tr>");
     }
+    echo("</table>");
     
 }
 
 //Sumar filas matriz
 function sumaFilasMatriz($matriz){
-    
-    $sumaFila=0;
-    $resultados= [];
     
     foreach ($matriz as $fila) {
         
@@ -69,9 +65,6 @@ function sumaFilasMatriz($matriz){
 
 //Sumar columnas matriz
 function sumaColumnasMatriz($matriz){
-    
-    $sumaColumna=0;
-    $resultados=[];
 
     for ($i=0; $i < count($matriz[0]); $i++){
         
@@ -84,4 +77,40 @@ function sumaColumnasMatriz($matriz){
     }
     
     return $resultados;
+}
+
+//Sumar resultados filas/columnas
+function sumarResultados($resultados){
+    
+    $suma=0;
+    foreach ($resultados as $valor) {
+        $suma+=$valor;
+    }
+    
+    return $suma;
+}
+
+//Funcion para calcular la suma de la diagonal principal
+function sumaDiagonalPrincipal($matriz){
+    
+    $sumaDiagonal=0;
+    
+    for ($i=0; $i < count($matriz[0]); $i++){
+        $sumaDiagonal+=$matriz[$i][$i];
+    } 
+    
+    return $sumaDiagonal;
+}
+
+
+//Funcion para calcular la matriz traspuesta
+function matrizTraspuesta($matriz){
+    
+    for($i=0; $i<count($matriz[0]); $i++){
+        for ($j=0; $j<count($matriz); $j++){
+            $traspuesta[$i][$j]=$matriz[$j][$i];
+        }
+    }
+    
+    return $traspuesta;
 }
