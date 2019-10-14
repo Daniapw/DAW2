@@ -47,6 +47,10 @@ function agenda($agenda){
         unset($agenda[$_POST["nombre"]]);
         $tipoOperacion="eliminar";
     }
+    //Si el usuario introduce solo un nombre y ese nombre no existe en la agenda
+    elseif(!empty($_POST["nombre"]) && !in_array($_POST["nombre"], $agenda)){
+        $tipoOperacion="errorEliminar";
+    }
     
     echo mensaje($agenda, $tipoOperacion);
     return $agenda;
@@ -59,7 +63,7 @@ function mensaje($agenda, $tipoOperacion){
     //Segun el tipo de operacion el mensaje cambia de contenido y color
     switch ($tipoOperacion){
         case "eliminar":{
-            $mensaje=$mensaje."blue;'>Contacto eliminado con exito";
+            $mensaje=$mensaje."blue;'>Contacto ".$_POST["nombre"]." eliminado con exito";
             break;
         }
         case "modificar":{
@@ -67,6 +71,10 @@ function mensaje($agenda, $tipoOperacion){
             break;
         }case "anadir":{
             $mensaje=$mensaje."darkgreen;'>Contacto ".$_POST["nombre"]." añadido con exito";
+            break;
+        }
+        case "errorEliminar":{
+            $mensaje=$mensaje."red;'>Error al intentar eliminar ".$_POST["nombre"].": el contacto no existe";
             break;
         }
         case "":{

@@ -21,5 +21,4 @@ function getNumeroLinksTercerParrafo(){
     enlacesParrafo=parrafos[2].getElementsByTagName("a");
 
     return enlacesParrafo.length;
-
 }

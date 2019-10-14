@@ -37,19 +37,22 @@ require 'funcionesAgenda.php';
 
 if (isSet($_POST["enviar"])){
     
-    //Si ya se han anadido contactos a la agenda
+    //Si no es la primera vez que se carga la pagina se decodifica la agenda
     if(isSet($_POST["agenda"])){    
         $agendaCodificada=$_POST["agenda"];
         $agenda=json_decode($agendaCodificada, true);    
     }
+    //Si es la primera vez que se carga la pagina se crea la agenda
     else{
         $agenda=[];
     }
     
+    //Se llama a la funcion agenda para que gestione la informacion enviada por el usuario y modifique la agenda en consecuencia
     $agenda= agenda($agenda); 
     
+    /*Se muestra la agenda con la funcion mostrarAgenda y el formulario para anadir contactos, que ademas arrastrara con un type=hidden
+    la agenda codificada*/
     ?>
-    
     <div id="agenda">
         <?php  echo(mostrarAgenda($agenda)); ?>
     </div>
