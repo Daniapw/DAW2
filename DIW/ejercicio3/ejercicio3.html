@@ -14,43 +14,91 @@
 
     .titulo{
         font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        background-color: firebrick;
+        background-color: brown;
         text-align: center;
         margin-bottom:30px;
     }
 
-    #foto{
-        float:left;
-        height:100%;
-        padding:20px;
+    .tituloPrincipal{
+        margin-bottom:0px;
     }
+
 
     #contenido{
         float:left;
-        width:70%;
-        border-left: 3px solid darkred;
-        padding:0px 20px 20px 20px;
+        width:75%;
+        border-left: 3px solid red;
+        padding:0px 10px 10px 10px;
+    }
+
+    #menu{
+        float:left;
+        text-align:center;
+        border-top:1px solid red;
+        background-color:darkred;
+        padding:20px 0 20px 0;
+        height:100%;
+    }
+
+    #imagen img{
+        width:250px;
+    }
+
+    #enlaces{
+        float:center;
+        margin-right:20px;
+        width:100%;
+    }
+
+    #menu ul{
+        list-style: none;
+        padding-left:0;
+    }
+
+    #menu a{
+        text-decoration: none;
+        color:white;
+        font-size: 25px;
+    }
+
+    #menu li{
+        padding:15px 0 15px 0;
+        border-top:1px solid;
+        
+    }
+
+    #menu li:last-child{
+        border-bottom:1px solid;
+    }
+
+    #menu li:hover{
+        background-color:red;
     }
     
 </style>
 </head>
 <body>
 
-    <div id="contenedorPrincipal">
-        <h1 class="titulo">Curriculum Vitae</h1>
+    <div id="contenedorPrincipal">    
+        <h1 class="titulo tituloPrincipal">Curriculum Vitae</h1>
 
         <!--Foto-->
-        <div id="foto">
-            <img src="../assets/img/fotoCV.png"/>
-        </div>
-
-        <!--Menu-->
         <div id="menu">
-            <ul>
-                <li>Datos personales</li>
-                <li>Centros en los que he estudiado</li>
-                
-            </ul>
+            
+            <div id="imagen">
+                <img src="../assets/img/fotoCV.png"/>
+            </div>
+
+            <!--Menu-->
+            <div id="enlaces">
+                <ul>
+                    <li><a href="#">Datos personales</a></li>
+                    <li><a href="#">Centros en los que he estudiado</a></li>
+                    <li><a href="#">Experiencia laboral</a></li>
+                    <li><a href="#">Formacion complementaria</a></li>
+                    <li><a href="#">Otras habilidades</a></li>
+                </ul>
+            </div>
         </div>
 
         <!--Datos personales-->
