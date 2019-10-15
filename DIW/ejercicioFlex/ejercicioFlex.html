@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    *{
+        box-sizing:border-box;
+    }
+
+    div{
+        border:1px solid;
+        margin: 2px;
+    }
+
+    .contenedorFlex{
+        display:flex;
+        flex-direction:column;
+        flex-wrap:wrap;
+        
+    }
+
+    .row{
+        display:flex;
+        text-align: center;
+        justify-content: center;
+        flex-wrap:wrap;
+        
+    }
+
+    .columna{
+        flex:1;
+        flex-wrap:wrap;
+    }
+</style>
+
+<body>
+    <div class="contenedorFlex">
+        <div class="row">Cabecera</div>
+        <div class="row">Menu</div>
+        <div class="row">
+            <div class="columna">Foto
+
+            </div>
+            <div class="columna">Articulo
+                    <div class="row">
+                            <div class="columna"></div>
+                            <div class="columna"></div>
+                            <div class="columna"></div>
+                    </div>
+
+                    <div class="row">
+                            <div class="columna"></div>
+                            <div class="columna"></div>
+                            <div class="columna"></div>
+                    </div>
+
+                    <div class="row">
+                            <div class="columna"></div>
+                            <div class="columna"></div>
+                            <div class="columna"></div>
+                    </div>
+            </div>
+        </div>
+        <div class="row"><footer>Pie de pagina</footer></div>
+    </div>
+</body>
+</html>
