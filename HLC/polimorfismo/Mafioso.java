@@ -15,6 +15,7 @@ public abstract class Mafioso {
     private String banda;
     private int edad;
     private String nombreEjecutor;
+    private boolean muerto = false;
 
     
     /**
@@ -41,12 +42,20 @@ public abstract class Mafioso {
      */
     public abstract String aLaTrena();
     
+    
+    /**
+     * Metodo toString
+     * @return 
+     */
+    public abstract String toString();
+    
     /**
      * Metodo para guardar sicario que ha ejecutado al mafioso
      * @param sicario 
      */
     public void ejecutadoPor(Sicario sicario){
         this.nombreEjecutor=sicario.getNombre() + " '" + sicario.getApodo() + "'";
+        this.muerto=true;
     }
 
     //Getters y setters
@@ -89,6 +98,15 @@ public abstract class Mafioso {
     public void setNombreEjecutor(String nombreEjecutor) {
         this.nombreEjecutor = nombreEjecutor;
     }
+
+    public boolean isMuerto() {
+        return muerto;
+    }
+
+    public void setMuerto(boolean muerto) {
+        this.muerto = muerto;
+    }
+    
     
     
 }

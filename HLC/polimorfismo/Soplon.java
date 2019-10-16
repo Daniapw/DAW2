@@ -31,6 +31,26 @@ public class Soplon extends Mafioso{
         return "Al soplon " + this.getNombre() + " '" + this.getApodo() + "' le caeran " + numSoplos + " meses de carcel";
     }
 
+    @Override
+    public String toString() {
+
+        String str= "Nombre: "+ getNombre()
+                +"\nApodo: " + getApodo()
+                +"\nBanda: " + getBanda()
+                +"\nEdad: " + getEdad()
+                +"\nCondena: " + aLaTrena()
+                +"\nNumero de soplos a la mafia: " + numSoplos;
+        
+        if (isMuerto()){
+            str=str+"\nEstado: muerto | Asesinado por: " + getNombreEjecutor();
+        }
+        else{
+            str=str+"\nEstado: vivo";
+        }
+        
+        return str;
+    }
+    
     //Getters y setters
     public int getNumSoplos() {
         return numSoplos;

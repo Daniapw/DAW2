@@ -31,6 +31,26 @@ public class Sicario extends Mafioso {
         return "Al sicario " + this.getNombre() + " '" + this.getApodo() + "' le caeran " + numAsesinatos*15 + " anios de carcel";
     }
 
+    @Override
+    public String toString() {
+
+        String str= "Nombre: "+ getNombre()
+                +"\nApodo: " + getApodo()
+                +"\nBanda: " + getBanda()
+                +"\nEdad: " + getEdad()
+                +"\nCondena: " + aLaTrena()
+                +"\nNumero de asesinatos: " + numAsesinatos;
+        
+        if (isMuerto()){
+            str=str+"\nEstado: muerto | Asesinado por: " + getNombreEjecutor();
+        }
+        else{
+            str=str+"\nEstado: vivo";
+        }
+        
+        return str;
+    }
+    
     //Getters y setters
     public int getNumAsesinatos() {
         return numAsesinatos;

@@ -30,11 +30,29 @@ public abstract class Traficante extends Mafioso {
     public int getNumOperaciones() {
         return numOperaciones;
     }
-
+    
     public void setNumOperaciones(int numOperaciones) {
         this.numOperaciones = numOperaciones;
     }
     
-    
+    @Override
+    public String toString() {
+
+        String str= "Nombre: "+ getNombre()
+                +"\nApodo: " + getApodo()
+                +"\nBanda: " + getBanda()
+                +"\nEdad: " + getEdad()
+                +"\nCondena: " + aLaTrena()
+                +"\nNumero de operaciones: " + this.numOperaciones;
+        
+        if (isMuerto()){
+            str=str+"\nEstado: muerto | Asesinado por: " + getNombreEjecutor();
+        }
+        else{
+            str=str+"\nEstado: vivo";
+        }
+        
+        return str;
+    }
     
 }
