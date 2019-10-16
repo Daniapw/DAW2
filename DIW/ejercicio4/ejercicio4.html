@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+    body{
+        font-size:23px;
+    }
+
+    #tooltip{
+        margin:auto;
+        width:30%;
+        text-align:center;
+        
+    }
+
+    #textoTooltip{
+        position:relative;
+        border-radius:6px;
+        padding:8px;
+        visibility: hidden;
+        border:1px solid white;
+    }
+
+    #tooltip:hover #textoTooltip{
+        background-color:black;
+        visibility: visible;
+        color:white;
+    }
+
+</style>
+<body>
+    <div id="tooltip">
+        <p >Esto es un parrafo con tooltip<br>
+        <span id="textoTooltip">Esto es una tooltip</span></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+body{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:25px;
+}
+
+.titulo{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: brown;
+    text-align: center;
+    padding:10px;
+    margin-bottom:30px;
+    
+}
+
+.titulo:first-of-type{
+    margin-bottom:0px;
+}
+
+#contenido{
+    float:left;
+    padding:0px 10px 10px 10px;
+}
+
+
+#menu{
+    float:left;
+    text-align:center;
+    background-color:darkred;
+    padding:20px 0 20px 0;
+    height:100%;
+}
+
+#imagen img{
+    width:250px;
+}
+
+#enlaces{
+    float:center;
+    margin-right:20px;
+    width:100%;
+}
+
+#menu ul{
+    list-style: none;
+    padding-left:0;
+}
+
+#menu a{
+    text-decoration: none;
+    color:white;
+    font-size: 25px;
+}
+
+#menu li{
+    padding:15px 0 15px 0;
+    border-top:1px solid;
+    
+}
+
+#menu li:last-child{
+    border-bottom:1px solid;
+}
+
+#menu li:hover{
+    background-color:red;
+}
