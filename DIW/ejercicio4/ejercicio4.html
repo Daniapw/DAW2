@@ -9,27 +9,26 @@
 <style>
 
     body{
-        font-size:23px;
+        font-size:20px;
     }
 
     #tooltip{
         margin:auto;
-        width:30%;
         text-align:center;
-        
+        width:25%;
     }
 
     #textoTooltip{
-        position:relative;
         border-radius:6px;
         padding:8px;
         visibility: hidden;
-        border:1px solid white;
     }
 
     #tooltip:hover #textoTooltip{
+        opacity:0.8;
         background-color:black;
         visibility: visible;
+        transition:background-color 0.3s;
         color:white;
     }
 

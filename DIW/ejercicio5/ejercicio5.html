@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>CSS Template Flex Layout</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* Esto sirve para controlar mejor las dimensiones de los contenedores. A partir de ahora las 
+propiedades width y height controlarán el ancho y alto total del contenedor, incluyendo contenido, bordes, márgenes y padding .*/
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width:800px;
+    margin:auto;
+}
+div {
+    border: 1px solid;
+    margin: 5px;
+}
+.contenedorflex{
+    
+    display:flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    align-content:center;
+}
+
+.cabecera{
+    background-color:blue;
+}
+
+.menu{
+    background-color:red;
+}
+
+.foto{
+    background-color:green;
+}
+
+/* Contenedor de flexboxes */
+.row {
+    display: -webkit-flex; /*Compatibilidad con versiones anteriores de Chrome*/
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    flex-direction:row;
+}
+
+/*Filas con numeros*/
+.filasPequenas{
+    background-color:orange;
+}
+
+.filasPequenas:first-child{
+    background-color:yellow;
+}
+
+.filasPequenas:last-child{
+    background-color:aqua;
+}
+
+.footer{
+    background-color:orangered;
+}
+
+/* Creamos tres columnas con el mismo ancho. */
+.column {
+    flex:1;
+    padding: 10px;
+    flex-wrap:wrap;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 800px) {
+    .row {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .foto{
+        display:none;
+    }
+}
+</style>
+</head>
+<body>
+
+
+<main>
+<div class="contendorflex">
+  <div class="row cabecera">Cabecera</div>
+  <div class="row menu">Menu</div>
+  <div class="row">
+        <div class="column foto">Foto</div>
+        <div class="column">
+                <div class="row filasPequenas">
+                        <div class="column">1</div>
+                        <div class="column">2</div>
+                </div>        
+                <div class="row filasPequenas">
+                        <div class="column">3</div>
+                        <div class="column">4</div>
+                </div>        
+                <div class="row filasPequenas">
+                        <div class="column">5</div>
+                        <div class="column">6</div>
+                </div>        
+
+        </div>
+                
+  </div>
+  <div class="row footer">Footer</div>
+</div>
+</main>
+
+</body>
+</html>
