@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+
+
+        #menu{
+            width:100%;
+            font-size:30px;
+            background-color:black;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        #menu ul{
+            list-style-type: none;
+            margin:0;
+            padding:15px 0 15px 0;
+        }
+
+        #menu li:first-of-type{
+            background-color:rgb(10, 179, 10);
+        }
+        
+        #menu li{
+            display:inline;
+            padding:15px 40px 15px 40px;
+        }
+    
+        #menu a{
+            text-decoration:none;
+            color:white;
+        }
+
+        @media(max-width:992px){
+            #menu li{
+                display:block;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div id="contenedorFlex">
+        <div id="menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
