@@ -23,7 +23,7 @@ function botones(evento){
 
     //Determinar parrafo objetivo
     parrafoObjetivo=establecerParrafoObjetivo(boton.getAttribute("name"));
-
+    
     //Conseguir tamanio letra actual
     sizeLetra=parseInt(parrafoObjetivo.style.fontSize);
 
@@ -67,13 +67,13 @@ function enlaces(evento){
     }
 
     //Cambiar visibilidad del parrafo
-    if (parrafoObjetivo.className=="visible"){
-        parrafoObjetivo.className="oculto";
-        enlace.innerHTML="Mostrar parrafo oculto";
+    if (parrafoObjetivo.style.visibility=="hidden"){
+        parrafoObjetivo.style.visibility="visible";
+        enlace.innerHTML="Ocultar contenidos del parrafo";
     }
     else{
-        parrafoObjetivo.className="visible";
-        enlace.innerHTML="Ocultar contenidos parrafo 3";
+        parrafoObjetivo.style.visibility="hidden";
+        enlace.innerHTML="Mostrar contenidos del parrafo";
     }
 }
 

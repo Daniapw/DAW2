@@ -1,9 +1,9 @@
 function inicializar(){
     parrafos=document.getElementsByTagName("p");
 
-    parrafos[0].addEventListener('mouseover', cambiarColor);
-    parrafos[1].addEventListener('mouseover', cambiarColor);
-    parrafos[2].addEventListener('mouseover', cambiarColor);
+    parrafos[0].addEventListener('mouseenter', cambiarColor);
+    parrafos[1].addEventListener('mouseenter', cambiarColor);
+    parrafos[2].addEventListener('mouseenter', cambiarColor);
     
 }
 
