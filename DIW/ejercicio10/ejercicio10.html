@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+<style>
+
+    #contenedorPrincipal{
+        display:flex;
+        width:100%;
+        height:100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #carta{
+        
+        background-image: url("../assets/img/asDePicas.jpg");
+        background-size:444px 612px;
+        width:444px;
+        height:612px;
+        transition:rotateY(180deg);
+        transition:transform 1s, background-image 0s 0.3s;
+        
+    }
+
+    #carta:hover{
+        transform:rotateY(180deg);
+        background-image:url("../assets/img/cartaPorDetras.png");
+    }
+
+
+</style>
+</head>
+<body>
+    <div id="contenedorPrincipal">
+        <div id="carta"></div>
+    </div>
+</body>
+</html>
