@@ -1,8 +1,10 @@
 body{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size:25px;
+    margin:0px;
 }
 
+/*Titulos*/
 .titulo{
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: brown;
@@ -16,12 +18,7 @@ body{
     margin-bottom:0px;
 }
 
-#contenido{
-    float:left;
-    padding:0px 10px 10px 10px;
-}
-
-
+/*Menu lateral*/
 #menu{
     float:left;
     text-align:center;
@@ -30,37 +27,44 @@ body{
     height:100%;
 }
 
+/*Foto*/
 #imagen img{
     width:250px;
 }
 
+
 #enlaces{
-    float:center;
     margin-right:20px;
     width:100%;
 }
 
-#menu ul{
+#enlaces ul{
     list-style: none;
     padding-left:0;
 }
 
-#menu a{
+#enlaces a{
     text-decoration: none;
     color:white;
     font-size: 25px;
 }
 
-#menu li{
+#enlaces li{
     padding:15px 0 15px 0;
     border-top:1px solid;
     
 }
 
-#menu li:last-child{
+#enlaces li:last-child{
     border-bottom:1px solid;
 }
 
-#menu li:hover{
+#enlaces li:hover{
     background-color:red;
+}
+
+/*Contenido*/
+#contenido{
+    float:left;
+    padding:0px 10px 10px 10px;
 }

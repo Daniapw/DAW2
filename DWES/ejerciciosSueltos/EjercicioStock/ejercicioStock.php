@@ -1,5 +1,5 @@
 <?php
-include 'funcionesBD.php';
+require 'funcionesBD.php';
 ?>
 
 <html>
@@ -19,7 +19,15 @@ h1 {margin-bottom:0;}
         <h1>Ejercicio: Consultas preparadas en MySQLi</h1>
         <?php
             //Conexion
-            $conex= getConex();
+            @$conex=new mysqli("localhost", 'dwes', 'abc123.', 'dwes');
+            
+            $errorConex;
+            
+            //Almacenar error MySQL en caso de que lo haya
+            if ($conex->connect_errno!=null){
+                $errorConex=$conex->connect_error;
+            }
+
         ?>
         
         <form action="ejercicioStock.php" method="post">
@@ -27,8 +35,8 @@ h1 {margin-bottom:0;}
             <select name="producto">
                 <?php
                     //CREAR OPCIONES DEL SELECT DE PRODUCTOS
-
-                    if(!is_array($conex)){
+                
+                    if($error==null){
                         $resultados=$conex->query("SELECT * FROM producto");
 
                         imprimirSelect($resultados);
@@ -45,21 +53,7 @@ h1 {margin-bottom:0;}
     <?php
     if (isset($_POST["mostrarStock"]) ||isset($_POST['actualizar'])){ ?>
         <div id="contenido">
-            
-           <?php
-            
-            /*Realizar cambios en la tabla
-            if(isset($_POST['actualizar'])){
-                
-                if (isset($_POST['CENTRAL'])){
-                    $conex->query("UPDATE stock, tienda SET unidades='".$_POST['CENTRAL']."'"
-                            . "WHERE stock.tienda=tienda.cod AND tienda.nombre=".key($_POST["CENTRAL"]).""
-                            . "AND producto='".$_POST['producto']."';");
-                    echo $conex->error;
-                }
-            }*/
-           ?>
-
+           
             <h1>Stock del producto en las tiendas</h1>
             <form action="ejercicioStock.php" method="post">
                 
@@ -67,14 +61,18 @@ h1 {margin-bottom:0;}
                     //Mostrar datos de stock
                     $resultados=$conex->query("SELECT * FROM stock, tienda where producto='".$_POST["producto"]."' and tienda.cod=stock.tienda;");
                     
-                    while($objeto=$resultados->fetch_object()){?>
-                        <?php echo "Tienda: ".$objeto->nombre." <input type='number' min='0' name='$objeto->nombre' value='$objeto->unidades'/><br>";
-
+                    //Almacenar error MySQL en caso de que lo haya
+                    if ($conex->errno!=null){
+                        $error=$conex->error;
+                    }
+                    
+                    //Imprimir objetos
+                    if (!isset($error)){
+                        while($objeto=$resultados->fetch_object()){?>
+                            <?php echo "Tienda $objeto->nombre: $objeto->unidades <br>";
+                        }
                     }
                 ?>
-                
-                <input type="hidden" value='<?php echo $_POST["producto"] ?>' name="producto"/>
-                <input type="submit" value="Actualizar" name="actualizar" />
             </form>
         </div>
     <?php
@@ -86,8 +84,13 @@ h1 {margin-bottom:0;}
         <?php
         
             //Mostrar error de conexion
-            if (is_array($conex)){
-                echo "Error de conexion: ".$conex['conex'];
+            if (isset($errorConex)){
+                echo "Error de conexion: ".$errorConex."<br>";
+            }
+            
+            //Mostrar error MySQL
+            if (isset($error)){
+                echo "Error MySQL: ".$error;
             }
             
         ?>

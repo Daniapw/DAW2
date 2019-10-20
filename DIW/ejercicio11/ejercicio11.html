@@ -15,25 +15,58 @@
     #cookies{
         width:100%;
         position:fixed;
-        font-size:30px;
+        text-align:justify;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        padding:20px;
+        background-color:rgb(245, 245, 245);
+        bottom:0px;
+        opacity:0;
+        transition: opacity 1s;
+    }
+
+    #divBoton{
+        padding:0px;
+        margin:auto;
+        width:20%;
         text-align:center;
-        color:white;
-        background-color:darkblue;
-        bottom:0;
     }
 
     #boton{
-        background-color:lightblue;
-        border-radius:5px;
+        background-color:rgb(54, 189, 235);
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color:white;
+        font-size:25px;
+        width:80%;
+        border-radius:4px;
+        padding:15px 0px 15px 0px;
     }
     
 </style>
 
+<script>
+    function aceptarCookies(){
+        document.getElementById("cookies").style.display="none";
+    }
+
+    function mostrarCookies(){
+        document.getElementById("cookies").style.opacity=1;
+    }
+
+</script>
+
 <body>
     <div id="cookies">
-        <p>MENSAJE DE COOKIES</p>
-        <input id="boton" type="button" onclick="" value="Aceptar">
+        <h1>Política de privacidad</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <div id="divBoton"><input id="boton" type="button" onclick="aceptarCookies()" value="Aceptar"></div>
     </div>
 </body>
+
+<script>
+    window.onload=mostrarCookies;
+</script>
 </html>
