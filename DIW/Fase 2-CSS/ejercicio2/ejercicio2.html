@@ -7,92 +7,140 @@
     <title>Document</title>
 
 <style>
-
     body{
+        font-size:22px;
+        margin:0px;
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 
-    .titulo{
-        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        background-color: firebrick;
-        text-align: center;
-        margin-bottom:30px;
+    /*Contenedor principal*/
+    .contenedorPrincipalFlex{
+        display:flex;
+        flex-direction: column;
+        
     }
 
-    .titulo:first-of-type{
-        margin-bottom:0px;
+    /*Filas*/
+    .row{
+        display:flex;
+        flex-direction:row;
+        flex-wrap:wrap;
     }
 
-    #foto{
-        float:left;
-        padding:20px;
+    /*Cabecera*/
+    .cabecera{
+        background-color:rgb(18, 243, 112);
+        border-bottom:5px solid rgb(14, 180, 83);
+        font-size:30px;
+        justify-content: center;
     }
 
-    #contenido{
-        float:left;
-        border-left: 3px solid darkred;
-        padding:0px 20px 20px 20px;
+    /*Titulos*/
+    h1{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    
+
+    /*Titulos del contenido*/
+    .CV h1{
+        background-color:rgb(18, 243, 112);
+        width:95%;
+        padding:10px;
+        box-shadow: 5px 5px;
+    }
+
+    /*Columnas*/
+    .column{
+        flex-direction:column;
+        flex-grow:1;
+        padding:10px;
+    }
+
+    /*Columna foto*/
+    .foto{
+        justify-content: center;
+        padding-top:30px;
+    }
+
+    /*Columna derecha del contenido (texto CV)*/
+    .derecha{
+        flex-grow:4;
+        border-left:5px solid rgb(14, 180, 83);
+    }
 </style>
 </head>
+
 <body>
+    <div class="contenedorPrincipalFlex">
 
-    <div id="contenedorPrincipal">
-        <h1 class="titulo">Curriculum Vitae</h1>
+        <!--Cabecera-->
+        <div class="row cabecera">
+            <h1>Curriculum Vitae</h1>
+        </div>
 
-        <div class="fila">
-            <!--Foto-->
-            <div id="foto">
-                <img src="../assets/img/fotoCV.png"/>
+        <!--Contenido CV-->
+        <div  class="row contenido">
+            <!--Columna foto-->
+            <div class="column izquierda">
+                <div class="row foto"><img src="../assets/img/fotoCV.png"/></div>
             </div>
 
-            <!--Datos personales-->
-            <div id="contenido">
-                <h2 class="titulo">Datos personales</h2>
-                <p>
-                    <ul>
-                        <li>Nombre: Daniel</li>
-                        <li>Apellidos: Ruiz Hidalgo</li>
-                        <li>Fecha de nacimiento: 29/8/1996</li>
-                        <li>Localidad: Lucena</li>
-                        <li>Provincia: Córdoba</li>
-                        <li>Domicilio: C/ La Estrella 9 1ºA</li>
-                        <li>Telefono 1: 622xxxxxx</li>
-                        <li>Telefono 2: 957xxxxxx</li>
-                    </ul>
-                </p>
+            <!--Columna contenido CV-->
+            <div class="column derecha">
+                <div class="row CV">
+                    <h1>Datos Personales</h1>
+                    <p>
+                        <ul>
+                            <li>Nombre: Daniel</li>
+                            <li>Apellidos: Ruiz Hidalgo</li>
+                            <li>Fecha de nacimiento: 29/8/1996</li>
+                            <li>Localidad: Lucena</li>
+                            <li>Provincia: Córdoba</li>
+                            <li>Domicilio: C/ La Estrella 9 1ºA</li>
+                            <li>Correo electrónico: daniruiz51@gmail.com</li>
+                            <li>Telefono 1: 622xxxxxx</li>
+                            <li>Telefono 2: 957xxxxxx</li>
+                        </ul>
+                    </p>
                 
-                <!--Centros-->
-                <h2 class="titulo">Centros en los que he estudiado</h2>
-                <ul>
-                    <li>Educación Secundaria Obligatoria en el <a href="http://redcentros.ced.junta-andalucia.es/centros-tic/14700420/helvia/sitio/index.cgi?wid_seccion=9&wid_item=3">IES Miguel de Cervantes</a></li>
-                    <li>FPGM Sistemas Microinformáticos y Redes (SMR) en el <a href="https://www.iesmarquesdecomares.org">IES Marqués de Comares</a></li>
-                    <li>FPGS Desarrollo de Aplicaciones Web (DAW) en el <a href="https://www.iesmarquesdecomares.org">IES Marqués de Comares</a></li>
-                </ul>
+                </div>
 
-                <!--Experiencia laboral-->
-                <h2 class="titulo">Experiencia laboral</h2>
-                <ul>
-                    <li>2017-2018: Técnico informático para App Informática</li>
-                </ul>
+                <div class="row CV">
+                    <h1>Formación</h1>
+                    <ul>
+                        <li>Educación Secundaria Obligatoria en el <a href="http://redcentros.ced.junta-andalucia.es/centros-tic/14700420/helvia/sitio/index.cgi?wid_seccion=9&wid_item=3">IES Miguel de Cervantes</a></li>
+                        <li>FPGM Sistemas Microinformáticos y Redes (SMR) en el <a href="https://www.iesmarquesdecomares.org">IES Marqués de Comares</a></li>
+                        <li>FPGS Desarrollo de Aplicaciones Web (DAW) en el <a href="https://www.iesmarquesdecomares.org">IES Marqués de Comares</a></li>
+                    </ul>
+                </div>
 
-                <!--Formacion complementaria-->
-                <h2 class="titulo">Formación complementaria</h2>
-                <ul>
-                    <li>Nivel B2 de inglés</li>
-                    <li>Curso de Ofimática Profesional</li>
-                </ul>
+                <div class="row CV">
+                    <h1>Experiencia de trabajo</h1>
+                    <ul>
+                        <li>2017-2018: Técnico informático para App Informática</li>
+                    </ul>
+                
+                </div>
 
-                <!--Otras habilidades-->
-                <h2 class="titulo">Otras habilidades</h2>
-                <ul>
-                    <li>Capacidad de aprendizaje y adaptación a los nuevos avances informáticos</li>
-                    <li>Buena actitud para el trabajo en equipo</li>
-                </ul>
+                <div class="row CV">
+                    <h1>Formación complementaria</h1>
+                    <ul>
+                        <li>Nivel B2 de inglés</li>
+                        <li>Curso de Ofimática Profesional</li>
+                    </ul>
+                
+                </div>
+
+                <div class="row CV">
+                    <h1>Otras habilidades</h1>
+                    <ul>
+                        <li>Capacidad de aprendizaje y adaptación a los nuevos avances informáticos</li>
+                        <li>Buena actitud para el trabajo en equipo</li>
+                    </ul>
+                
+                </div>
             </div>
         </div>
+
     </div>
-    
 </body>
 </html>

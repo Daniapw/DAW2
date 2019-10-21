@@ -1,70 +1,95 @@
 body{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size:25px;
+    font-size:22px;
     margin:0px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/*Contenedor principal*/
+.contenedorPrincipalFlex{
+    display:flex;
+    flex-direction: column;
+}
+
+/*Filas*/
+.row{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+
+/*Cabecera*/
+.cabecera{
+    background-color:rgb(18, 243, 112);
+    border-bottom:5px solid rgb(14, 180, 83);
+    font-size:30px;
+    justify-content: center;
 }
 
 /*Titulos*/
-.titulo{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: brown;
-    text-align: center;
+h1{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*Titulos del contenido*/
+.CV h1{
+    background-color:rgb(18, 243, 112);
+    width:95%;
     padding:10px;
-    margin-bottom:30px;
-    
+    box-shadow: 5px 5px;
 }
 
-.titulo:first-of-type{
+/*Columnas*/
+.column{
+    flex-direction:column;
+    flex-grow:1;
+
+}
+
+/*Columna izquierda del contenido (foto)*/
+
+.izquierda{
+    background-color:rgb(52, 236, 129);
+}
+
+.foto{
+    justify-content: center;
+    padding-top:30px;
+}
+
+/*Menu*/
+.menu ul{
     margin-bottom:0px;
-}
-
-/*Menu lateral*/
-#menu{
-    float:left;
-    text-align:center;
-    background-color:darkred;
-    padding:20px 0 20px 0;
-    height:100%;
-}
-
-/*Foto*/
-#imagen img{
-    width:250px;
-}
-
-
-#enlaces{
-    margin-right:20px;
-    width:100%;
-}
-
-#enlaces ul{
     list-style: none;
-    padding-left:0;
+    margin-top:60px;
+    width:100%;
+    padding:0px;
+    background-color: rgb(52, 236, 129);
+    text-align:center;
 }
 
-#enlaces a{
-    text-decoration: none;
-    color:white;
-    font-size: 25px;
-}
-
-#enlaces li{
-    padding:15px 0 15px 0;
-    border-top:1px solid;
-    
-}
-
-#enlaces li:last-child{
+.menu ul:last-child{
     border-bottom:1px solid;
 }
 
-#enlaces li:hover{
-    background-color:red;
+.menu li{
+    border-top:1px solid;
+    margin:0px;
+    padding:20px;
 }
 
-/*Contenido*/
-#contenido{
-    float:left;
-    padding:0px 10px 10px 10px;
+.menu li:hover{
+    background-color:rgb(0, 255, 106);
+}
+
+.menu a{
+    font-size:30px;
+    text-decoration:none;
+    color:black;
+}
+
+/*Columna derecha del contenido (texto CV)*/
+.derecha{
+    flex-grow:4;
+    border-left:5px solid rgb(14, 180, 83);
+    padding-left:10px;
 }

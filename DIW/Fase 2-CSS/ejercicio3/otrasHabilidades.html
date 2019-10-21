@@ -9,37 +9,41 @@
 </head>
 <body>
 
-    <div id="contenedorPrincipal">    
-        <h1 class="titulo tituloPrincipal">Curriculum Vitae</h1>
+    <div class="contenedorPrincipalFlex">
 
-        <!--Foto-->
-        <div id="menu">
-            
-            <div id="imagen">
-                <img src="../assets/img/fotoCV.png"/>
-            </div>
-
-            <!--Menu-->
-            <div id="enlaces">
-                <ul>
-                    <li><a href="datosPersonales.html">Datos personales</a></li>
-                    <li><a href="centros.html">Centros en los que he estudiado</a></li>
-                    <li><a href="experiencia.html">Experiencia laboral</a></li>
-                    <li><a href="formacion.html">Formacion complementaria</a></li>
-                    <li><a href="otrasHabilidades.html">Otras habilidades</a></li>
-                </ul>
-            </div>
+        <!--Cabecera-->
+        <div class="row cabecera">
+            <h1>Curriculum Vitae</h1>
         </div>
 
-        <!--Contenido-->
-        <div id="contenido">
-            <h2 class="titulo">Otras habilidades</h2>
-            <ul>
-                <li>Capacidad de aprendizaje y adaptación a los nuevos avances informáticos</li>
-                <li>Buena actitud para el trabajo en equipo</li>
-            </ul>
+        <!--Contenido CV-->
+        <div  class="row contenido">
+            <!--Columna foto-->
+            <div class="column izquierda">
+                <div class="row foto"><img src="../assets/img/fotoCV.png"/></div>
+                <div class="row menu">
+                    <ul>
+                        <li><a href="datosPersonales.html">Datos personales</a></li>
+                        <li><a href="formacion.html">Formación</a></li>
+                        <li><a href="experiencia.html">Experiencia de trabajo</a></li>
+                        <li><a href="formacionComplementaria.html">Formacion complementaria</a></li>
+                        <li><a href="otrasHabilidades.html">Otras habilidades</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--Columna contenido CV-->
+            <div class="column derecha">
+                <div class="row CV">
+                    <h1>Otras habilidades</h1>
+                    <ul>
+                        <li>Capacidad de aprendizaje y adaptación a los nuevos avances informáticos</li>
+                        <li>Buena actitud para el trabajo en equipo</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
+        </div>
     
 </body>
 </html>
