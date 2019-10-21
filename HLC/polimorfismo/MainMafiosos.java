@@ -41,7 +41,8 @@ public class MainMafiosos {
                         + "\n1. Mostrar lista de mafiosos e informacion"
                         + "\n2. Mostrar mafioso en especifico"
                         + "\n3. Anadir mafioso"
-                        + "\n4. Quitar mafioso"));
+                        + "\n4. Quitar mafioso"
+                        + "\n5. Mandar sicario"));
                 
                 //Llamada a funcion para gestionar respuesta
                 if (opcion!=0)
@@ -63,7 +64,7 @@ public class MainMafiosos {
     public static void gestionarRespuesta(int opcion){
         
         //Si el usuario ha introducido una opcion invalida se muestra un mensaje
-        if (opcion<0 || opcion>4){
+        if (opcion<0 || opcion>5){
              JOptionPane.showMessageDialog(null, "Elija una de las opciones");
         }
         //Si ha introducido una opcion valida se llama a una funcion
@@ -80,7 +81,12 @@ public class MainMafiosos {
                     break;
                 }
                 case 2:{
-                    mostrarMafiosoEspecifico();
+                    
+                    if (mafiosos.isEmpty())
+                        JOptionPane.showMessageDialog(null, "La lista de mafiosos esta vacia");
+                    else
+                        mostrarMafiosoEspecifico();
+                    
                     break;
                 }
                 case 3:{
@@ -88,7 +94,19 @@ public class MainMafiosos {
                     break;
                 }
                 case 4:{
-                    quitarMafioso();
+                    if (mafiosos.isEmpty())
+                        JOptionPane.showMessageDialog(null, "La lista de mafiosos esta vacia");
+                    else
+                        quitarMafioso();
+                    
+                    break;
+                }
+                case 5:{
+                    if (mafiosos.isEmpty())
+                        JOptionPane.showMessageDialog(null, "La lista de mafiosos esta vacia");
+                    else
+                        mandarSicario();
+                    
                     break;
                 }
             }
@@ -114,18 +132,27 @@ public class MainMafiosos {
     public static void mostrarMafiosoEspecifico(){
         
         String nombre=JOptionPane.showInputDialog("Introduzca el nombre o apodo del mafioso que quieres ver");
+        boolean mafiosoEncontrado=false;
+        
+        
+        //Si el usuario le da a cancelar
+        if (nombre==null){
+            JOptionPane.showMessageDialog(null, "Cancelado");
+            return;
+        }
         
         //Buscar mafioso en la lista
         for (Mafioso mafioso:mafiosos){
             if (nombre.equalsIgnoreCase(mafioso.getNombre()) || nombre.equalsIgnoreCase(mafioso.getApodo())){
 
                 System.out.println("\n//////////////////INFORMACION "+mafioso.getClass().getSimpleName().toUpperCase()+"//////////////////\n" + mafioso.toString());
-                return;
+                mafiosoEncontrado=true;
             }
         }
         
         //Si el mafioso no se ha encontrado
-        JOptionPane.showMessageDialog(null, "El mafioso '"+ nombre +"' no se ha encontrado en la lista");
+        if (!mafiosoEncontrado)
+            JOptionPane.showMessageDialog(null, "El mafioso '"+ nombre +"' no se ha encontrado en la lista");
         
     }
     
@@ -162,7 +189,9 @@ public class MainMafiosos {
         }while(opcion<0 || opcion>5);
          
         //Llamada a funcion creacionMafioso
-        creacionMafioso(opcion);
+        if (opcion!=0){
+            creacionMafioso(opcion);
+        }
     }
     
     /**
@@ -212,15 +241,12 @@ public class MainMafiosos {
         JOptionPane.showMessageDialog(null, mafioso.getClass().getSimpleName() + " '" + mafioso.getNombre() + "' anadido a la lista con exito");
     }
     
-    
     /**
      * Funcion para quitar mafioso
      */
     public static void quitarMafioso(){
         
-        String nombreOApodo="";
-        
-        nombreOApodo=JOptionPane.showInputDialog("Introduzca el nombre o apodo del mafioso que desea eliminar de la lista");
+        String nombreOApodo=JOptionPane.showInputDialog("Introduzca el nombre o apodo del mafioso que desea eliminar de la lista");
         
         //Si el usuario cancela, la funcion termina
         if (nombreOApodo==null){
@@ -240,6 +266,33 @@ public class MainMafiosos {
         //Si el mafioso no se ha encontrado
         JOptionPane.showMessageDialog(null, "El mafioso '" + nombreOApodo + "' no esta en la lista");
     }
+    
+    public static void mandarSicario(){
+        
+        List<Sicario> sicarios=new ArrayList<Sicario>();
+        
+        System.out.println("///////////////MAFIOSOS VIVOS/////////////////");
+        for (Mafioso mafioso:mafiosos){
+            
+            //Si el mafioso no esta muerto se imprime su nombre y apodo
+            if (!mafioso.isMuerto()){
+                
+                System.out.println("-" + mafioso.getNombre() + " '" + mafioso.getApodo() + "' \n");
+            
+                //Si es un sicario se guarda en la lista de sicarios
+                if (mafioso instanceof Sicario)
+                    sicarios.add((Sicario) mafioso);
+            }
+        }
+        
+        
+        System.out.println("//////////////////SICARIOS DISPONIBLES/////////////////////");
+        for (Sicario sicario:sicarios){
+            System.out.println("-" + sicario.getNombre() + " '" + sicario.getApodo() + "' \n");
+        }
+        
+    }
+    
     
     /**
      * Funcion para pedir numeros enteros con JOptionPane
