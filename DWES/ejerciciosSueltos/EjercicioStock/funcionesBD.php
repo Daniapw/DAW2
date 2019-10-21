@@ -1,7 +1,7 @@
 <?php
 
 //Function para imprimir select
-function imprimirSelect($resultados){
+function crearOpciones($resultados){
     while($objeto=$resultados->fetch_object()){
         $selected="";
 
