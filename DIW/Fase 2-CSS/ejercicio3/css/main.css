@@ -89,7 +89,7 @@ h1{
 
 /*Columna derecha del contenido (texto CV)*/
 .derecha{
-    flex-grow:4;
+    width:60%;
     border-left:5px solid rgb(14, 180, 83);
     padding-left:10px;
 }
