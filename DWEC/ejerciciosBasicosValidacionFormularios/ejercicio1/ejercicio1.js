@@ -1,30 +1,31 @@
 function validar(boton){
-    //Cambiar estado del boton
-    actualizarEstadoBoton(boton);
-    console.log(boton);
+
     //Validacion
-    if (validarNombre() && validarSexo()){
-        alert("Formulario enviado con exito");
-        boton.submit();
+    if (!validarNombre()){
+        alert("Error: debe introducir un nombre");
+        return;
     }
-    else{
-        
+    else if(!validarSexo()){
+        alert("Error: debe elegir un sexo");
+        return;
     }
 
-    //Volver a cambiar estado del boton
-    actualizarEstadoBoton(boton);
+    //Enviar formulario
+    document.getElementById("formulario").submit();
 }
 
-//Actualizar estado boton
+//Actualizar estado boton (no funciona)
 function actualizarEstadoBoton(boton){
     
     if (boton.disabled){
-        boton.disabled=true;
-        boton.value="Enviando";
+        alert("true");
+        boton.disabled="false";
+        boton.value="Enviar";
     }
     else{
-        boton.disabled=false;
-        boton.value="Enviar";
+        alert("false");
+        boton.disabled="true";
+        boton.value="Enviando";
     }
 }
 
@@ -44,7 +45,7 @@ function validarNombre(){
 function validarSexo(){
 
     sexoRadio=document.getElementsByName("sexo");
-    console.log(sexoRadio);
+
     for (i=0; i < sexoRadio.length; i++){
         if (sexoRadio[i].checked){
             return true;
