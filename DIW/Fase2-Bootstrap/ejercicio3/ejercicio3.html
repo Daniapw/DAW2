@@ -10,15 +10,35 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
 
 </head>
 <style>
-    div{
-        border:1px solid;
+
+    body{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    h1{
+        font-family:'Montserrat', sans-serif;
+        font-weight: bold;
+    }
+
+    #titulo{
+        font-size:5em;
     }
 
     .bg-primary{
         background-color:rgb(18, 243, 112) !important;
+    }
+
+    .border-primary{
+        border-color:rgb(14, 180, 83) !important;
+    }
+
+    .border-left, .border-bottom{
+        border-width: 5px !important;
     }
 
 </style>
@@ -27,8 +47,8 @@
 
         <!--Cabecera-->
         <div class="row">
-            <div class="col-12 text-center p-5 bg-primary">
-                <h1>Curriculum Vitae</h1>
+            <div class="col-12 text-center p-5 bg-primary border-bottom border-primary">
+                <h1 id="titulo">Curriculum Vitae</h1>
             </div>
         </div>
 
@@ -44,34 +64,38 @@
                 </div>
             </div>
             
-            <!--Columna izquierda-->
-            <div class="col-12 col-sm-9">
+            <!--Columna derecha-->
+            <div class="col-12 col-sm-9 border-left border-primary">
                 <div class="row CV">
 
                     <div class="col-12">
 
-                        <div class="row">
-                            <h1 class="bg-primary p-2 mt-2">Datos Personales</h1>
-                            <p>
-                                <ul>
-                                    <li>Nombre: Daniel</li>
-                                    <li>Apellidos: Ruiz Hidalgo</li>
-                                    <li>Fecha de nacimiento: 29/8/1996</li>
-                                    <li>Localidad: Lucena</li>
-                                    <li>Provincia: Córdoba</li>
-                                    <li>Domicilio: C/ La Estrella 9 1ºA</li>
-                                    <li>Correo electrónico: daniruiz51@gmail.com</li>
-                                    <li>Telefono 1: 622xxxxxx</li>
-                                    <li>Telefono 2: 957xxxxxx</li>
-                                </ul>
-                            </p>
+                        <div class="w-100 shadow bg-primary p-2 mb-3 mt-2 border-0">
+                            <h1>Datos Personales</h1>
                         </div>
+                            <p>
+                            <ul>
+                                <li>Nombre: Daniel</li>
+                                <li>Apellidos: Ruiz Hidalgo</li>
+                                <li>Fecha de nacimiento: 29/8/1996</li>
+                                <li>Localidad: Lucena</li>
+                                <li>Provincia: Córdoba</li>
+                                <li>Domicilio: C/ La Estrella 9 1ºA</li>
+                                <li>Correo electrónico: daniruiz51@gmail.com</li>
+                                <li>Telefono 1: 622xxxxxx</li>
+                                <li>Telefono 2: 957xxxxxx</li>
+                            </ul>
+                        </p>
+                        
                     </div>
                 </div>
     
                 <div class="row CV">
                     <div class="col-12">
-                        <h1>Formación</h1>
+                        <div class="w-100 shadow bg-primary p-2 mb-3 mt-2 border-0">
+                            <h1>Formación</h1>
+                        </div>
+
                         <ul>
                             <li>Educación Secundaria Obligatoria en el <a href="http://redcentros.ced.junta-andalucia.es/centros-tic/14700420/helvia/sitio/index.cgi?wid_seccion=9&wid_item=3">IES Miguel de Cervantes</a></li>
                             <li>FPGM Sistemas Microinformáticos y Redes (SMR) en el <a href="https://www.iesmarquesdecomares.org">IES Marqués de Comares</a></li>
@@ -82,7 +106,9 @@
     
                 <div class="row CV">
                     <div class="col-12">
-                        <h1>Experiencia de trabajo</h1>
+                        <div class="w-100 shadow bg-primary p-2 mb-3 mt-2 border-0">
+                            <h1>Experiencia de trabajo</h1>
+                        </div>
                         <ul>
                             <li>2017-2018: Técnico informático para App Informática</li>
                         </ul>
@@ -91,7 +117,9 @@
 
                 <div class="row CV">
                     <div class="col-12">
-                        <h1>Formación complementaria</h1>
+                        <div class="w-100 shadow bg-primary p-2 mb-3 mt-2 border-0">
+                            <h1>Formación complementaria</h1>
+                        </div>
                         <ul>
                             <li>Nivel B2 de inglés</li>
                             <li>Curso de Ofimática Profesional</li>
@@ -101,7 +129,9 @@
 
                 <div class="row CV">
                     <div class="col-12">
-                        <h1>Otras habilidades</h1>
+                        <div class="w-100 shadow bg-primary p-2 mb-3 mt-2 border-0">
+                            <h1>Otras habilidades</h1>
+                        </div>
                         <ul>
                             <li>Capacidad de aprendizaje y adaptación a los nuevos avances informáticos</li>
                             <li>Buena actitud para el trabajo en equipo</li>
