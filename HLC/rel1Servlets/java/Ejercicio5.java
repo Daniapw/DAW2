@@ -1,9 +1,10 @@
+package relacion1;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relacion1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author danir
+ * @author diurno
  */
-@WebServlet(name = "Ejercicio4", urlPatterns = {"/Ejercicio4"})
-public class Ejercicio4 extends HttpServlet {
+@WebServlet(urlPatterns = {"/Ejercicio5"})
+public class Ejercicio5 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,10 +34,10 @@ public class Ejercicio4 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        int varN=Integer.parseInt(request.getParameter("varN"));
-        double varA=Double.parseDouble(request.getParameter("varA"));
-        char varC=request.getParameter("varC").charAt(0);
-        
+        int varX=Integer.parseInt(request.getParameter("varX"));
+        int varY=Integer.parseInt(request.getParameter("varY"));
+        float varN=Float.parseFloat(request.getParameter("varN"));
+        float varM=Float.parseFloat(request.getParameter("varM"));
         
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -48,13 +49,23 @@ public class Ejercicio4 extends HttpServlet {
             out.println("<body>");
             out.println("<h1> Ejercicio 4 </h1>");
             out.println("<ol>"
+                            + "<li>Variable X: " + varX +"</li>"
+                            + "<li>Variable Y: " + varY +"</li>"
                             + "<li>Variable N: " + varN +"</li>"
-                            + "<li>Variable A: " + varA +"</li>"
-                            + "<li>Variable C: " + varC +"</li>"
-                            + "<li>N+A: " + (varN+varA) +"</li>"
-                            + "<li>A-N: " + varN +"</li>"
-                            + "<li>Valor numerico C: " + Character.getNumericValue(varC) +"</li>"
-                       + "</ol>");
+                            + "<li>Variable M: " + varM +"</li>"
+                            + "<li>X+Y: " + (varX+varY) +"</li>"
+                            + "<li>X-Y: " + (varX-varY) +"</li>"
+                            + "<li>X*Y: " + (varX*varY) +"</li>"
+                            + "<li>X/Y: " + (varX/varY) +"</li>"
+                            + "<li>X%Y: " + (varX%varY) +"</li>"
+                            + "<li>N+M: " + (varN+varM) +"</li>"
+                            + "<li>N-M: " + (varN-varM) +"</li>"
+                            + "<li>N/M: " + (varN/varM) +"</li>"
+                            + "<li>N%M: " + (varN%varM) +"</li>"
+                            + "<li>X+N: " + (varX+varN) +"</li>"
+                            + "<li>Y/M: " + (varY/varM) +"</li>"
+                            + "<li>Y%M: " + (varY%varM) +"</li>"
+                        + "</ol");
             out.println("</body>");
             out.println("</html>");
         }
