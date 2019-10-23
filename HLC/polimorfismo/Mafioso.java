@@ -56,6 +56,7 @@ public abstract class Mafioso {
     public void ejecutadoPor(Sicario sicario){
         this.nombreEjecutor=sicario.getNombre() + " '" + sicario.getApodo() + "'";
         this.muerto=true;
+        sicario.setNumAsesinatos(sicario.getNumAsesinatos()+1);
     }
 
     //Getters y setters

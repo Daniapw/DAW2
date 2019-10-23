@@ -267,11 +267,16 @@ public class MainMafiosos {
         JOptionPane.showMessageDialog(null, "El mafioso '" + nombreOApodo + "' no esta en la lista");
     }
     
+    /**
+     * 
+     */
     public static void mandarSicario(){
         
         List<Sicario> sicarios=new ArrayList<Sicario>();
         
-        System.out.println("///////////////MAFIOSOS VIVOS/////////////////");
+        //Lista mafiosos vivos
+        System.out.println("\n//////////////////LISTA MAFIOSOS//////////////////"
+                + "\n-------------MAFIOSOS VIVOS-------------");
         for (Mafioso mafioso:mafiosos){
             
             //Si el mafioso no esta muerto se imprime su nombre y apodo
@@ -285,14 +290,41 @@ public class MainMafiosos {
             }
         }
         
-        
-        System.out.println("//////////////////SICARIOS DISPONIBLES/////////////////////");
+        //Lista sicarios vivos
+        System.out.println("------------SICARIOS VIVOS----------------");
         for (Sicario sicario:sicarios){
             System.out.println("-" + sicario.getNombre() + " '" + sicario.getApodo() + "' \n");
         }
         
+        
+        //Elegir mafioso
+        Mafioso mafiosoObjetivo=pedirMafioso(mafiosos, false);
+        
+        if (mafiosoObjetivo==null){
+            JOptionPane.showMessageDialog(null, "Operacion cancelada");
+            return;
+        }
+        
+        //Elegir sicario
+        Mafioso sicario=null;
+        do{
+            sicario=pedirMafioso(mafiosos, true);
+            
+            if (mafiosoObjetivo.equals(sicario)){
+                JOptionPane.showMessageDialog(null, "El mafioso no puede asesinarse a si mismo, elige a  otro sicario");
+            }
+        }while(mafiosoObjetivo.equals(sicario));
+        
+        if (sicario==null){
+            JOptionPane.showMessageDialog(null, "Operacion cancelada");
+            return;
+        }
+        
+        //Realizar asesinato
+        mafiosoObjetivo.ejecutadoPor((Sicario) sicario);
+        JOptionPane.showMessageDialog(null, "El mafioso " + mafiosoObjetivo.getNombre() + " '"+mafiosoObjetivo.getApodo()+"' ha sido asesinado por " + mafiosoObjetivo.getNombreEjecutor());
+        
     }
-    
     
     /**
      * Funcion para pedir numeros enteros con JOptionPane
@@ -315,5 +347,51 @@ public class MainMafiosos {
         }
         
         return numero;
+    }
+    
+    /**
+     * Pedir mafioso
+     * @param mafiosos
+     * @param sicario
+     * @return 
+     */
+    public static Mafioso pedirMafioso(List<Mafioso> mafiosos, boolean sicario){
+        Mafioso mafiosoObjetivo=null;
+        String nombreOApodo="";
+        
+        do{
+            if (!sicario)
+                nombreOApodo=JOptionPane.showInputDialog("Introduzca el nombre o apodo del mafioso que desea asesinar");
+            else
+                nombreOApodo=JOptionPane.showInputDialog("Introduzca el nombre o apodo del sicario que desea mandar");
+            
+            if (nombreOApodo==null){
+                return null;
+            }
+            
+            //Buscar mafioso en la lista
+            for (Mafioso mafioso:mafiosos){
+                if ((mafioso.getNombre().equalsIgnoreCase(nombreOApodo) || mafioso.getApodo().equalsIgnoreCase(nombreOApodo))
+                     &&!mafioso.isMuerto()){
+
+                    //Si se esta buscando un sicario y este mafioso es un sicario
+                    if (sicario && (mafioso instanceof Sicario)){
+                        mafiosoObjetivo= mafioso;
+                    }
+                    //Si no se esta buscando un sicario
+                    else if(!sicario ){
+                        mafiosoObjetivo=mafioso;
+                    }
+                }
+            }
+            
+            //Si mafioso objetivo no se ha encontrado
+            if (mafiosoObjetivo==null){
+                JOptionPane.showMessageDialog(null, "Ese mafioso esta muerto o no esta en la lista");
+            }
+            
+        }while(mafiosoObjetivo==null);
+        
+        return mafiosoObjetivo;
     }
 }
