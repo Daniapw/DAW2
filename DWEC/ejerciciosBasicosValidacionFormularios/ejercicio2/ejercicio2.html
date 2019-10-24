@@ -10,7 +10,7 @@
 <body>
     <form>
         <p id="textoCaracteres">Maximo: 50 caracteres. Le quedan 50 caracteres</p><br>
-        <textarea id="campoTexto" cols="50" rows="10">
+        <textarea id="campoTexto" cols="50" rows="10" onkeydown="return limite(event, 50);">
 
         </textarea>
     </form>
