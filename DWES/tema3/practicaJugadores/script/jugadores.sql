@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2019 a las 09:29:57
+-- Tiempo de generación: 28-10-2019 a las 20:27:06
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -31,10 +31,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `jugadores` (
   `nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `dni` varchar(9) COLLATE utf8_spanish_ci NOT NULL,
-  `dorsal` int(11) NOT NULL,
+  `dorsal` set('1','2','3','4','5','6','7','8','9','10','11') COLLATE utf8_spanish_ci NOT NULL,
   `posicion` set('Portero','Defensa','Centrocampista','Delantero') COLLATE utf8_spanish_ci NOT NULL,
-  `numGoles` int(11) NOT NULL
+  `numGoles` int(11) NOT NULL,
+  `equipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `jugadores`
+--
+
+INSERT INTO `jugadores` (`nombre`, `dni`, `dorsal`, `posicion`, `numGoles`, `equipo`) VALUES
+('Daniel', '50234567P', '3', 'Portero,Defensa', 1, 'Bla');
 
 --
 -- Índices para tablas volcadas
