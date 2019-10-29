@@ -32,6 +32,7 @@ if (isset($_POST['enviar']) && validarForm($errores)){
     . "<a href='index.php'>Volver al indice</a><br>"
     . "<a href='introducirJugador.php'>Insertar otro jugador</a><br>";
     
+    $conex->close();
 }
 //Si no se ha enviado o si se ha rellenado de forma incorrecta
 else{?>

@@ -5,46 +5,52 @@
 <?php
 REQUIRE 'funcionesJugadores.php';
 
+
 //Booleans para los errores
 $errores=array(
     "errorNombre" => false,
-    "errorDNI" => false,
     "errorEquipo"=> false,
     "errorNumGoles" => false,
     "errorPosicion" => false);
 
-//Si se ha enviado el formulario y ha sido rellenado correctamente
-if (isset($_POST['enviar']) && validarForm($errores)){
-    $conex= getConexion();
-    
-    //Sumar values de posicion
-    $suma=0;
-    foreach($_POST['posicion'] as $value){
-        $suma+=$value;
+$dniNoExiste=false;
+
+function comprobarDNI(&$dniNoExiste){
+    if (isset($_POST['enviarDNI'])){
+        
+        $resultado=buscarPorDNI($_POST['dni']);
+        
+        if ($resultado->num_rows==0){
+            $dniNoExiste=true;
+            return false;
+        }
+        
+        return true;
     }
     
-    //Ejecutar query
-    $conex->query("UPDATE jugadores SET nombre='$_POST[nombre]', dorsal='$_POST[dorsal]', posicion=$suma, numGoles=$_POST[numGoles], equipo='$_POST[equipo]' "
-            . "WHERE dni='$_POST[dni]';");
+    return false;
+}
+
+//Si se ha enviado el formulario y ha sido rellenado correctamente
+if (isset($_POST['enviarDNI']) && comprobarDNI($dniNoExiste)){
     
-    if ($conex->errno!=null)
-        echo $conex->error;
+    $conex= getConexion();
     
     $resultados= buscarPorDNI($_POST['dni']);
     
+    echo "<h1>Datos del jugador</h1>";
+    
+    //Mostrar datos jugador
     listarJugadores($resultados);
     
-    echo "<h1>Jugador modificado con exito</h1><br>"
-    . "<a href='index.php'>Volver al indice</a><br>"
-    . "<a href='introducirJugador.php'>Insertar otro jugador</a><br>";
     
-}
-//Si no se ha enviado o si se ha rellenado de forma incorrecta
-else{?>
-
-    <h1>Introducir jugador</h1>
+    $jugador=$resultados->fetch_object();
+    var_dump($jugador);
+    ?>
+    <br>
+    <h1>Modificar datos</h1>
     <form action="modificarJugador.php" method="post">
-        Nombre: <input type="text" name="nombre" value="<?php if (!$errores["errorNombre"]) echo rellenarInputTexto("nombre", "enviar") ?>" />
+        Nombre: <input type="text" name="nombre" value="<?php echo $jugador->nombre; ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorNombre"]){
             echo "Introduzca un nombre valido";
@@ -52,13 +58,8 @@ else{?>
         
         ?>
         <br>
-        DNI: <input type="text" name="dni" value="<?php if (!$errores["errorDNI"]) echo rellenarInputTexto("dni", "enviar") ?>" />
-        <?php
-        if (isset($_POST['enviar'])){
-            if ($errores["errorDNI"])
-                echo "Introduzca el DNI de un jugador";
-        }
-        ?>
+        
+        DNI: <input type="text" name="dni" disabled value="<?php echo rellenarInputTexto("dni", "enviar") ?>" />
         <br>
         
         Dorsal: 
@@ -101,10 +102,34 @@ else{?>
         ?>
         <br>
         
+        <input type="hidden" name="dni" value="<?php echo $_POST['dni'] ?>"/>
+        <input type="hidden" name="enviarDNI" value="<?php echo $_POST['enviarDNI'] ?>"/>
         <input type="submit" value="Enviar" name="enviar" />
     </form><br>
     
     <a href='index.php'>Volver al indice</a>
+    
+<?php    
+}
+else{?>
+    
+    <h1>Modificar jugador</h1>
+    <form action="modificarJugador.php" method="post">
+    
+        Introduzca el DNI del jugador que quiere modificar: <input type="text" name="dni"/>
+        <?php
+        
+        if (isset($_POST['enviarDNI'])){
+            if ($dniNoExiste)
+                echo "<p style='color:red'>No hay ningun jugador registrado con ese DNI</p>";
+        }
+        
+        ?>
+        <br>
+        
+        <input type="submit" name="enviarDNI" value="Enviar"/>
+
+    </form> 
 <?php
 }
 ?>
