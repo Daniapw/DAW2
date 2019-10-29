@@ -2,7 +2,8 @@
 <html>
 <head></head>
 <body>
-
+    
+    <h1>Gestion de la base de datos de jugadores</h1>
     <ul>
         <li><a href="introducirJugador.php">Introducir un jugador</a></li>
         <li><a href="listarJugadores.php">Mostrar lista de jugadores</a></li>

@@ -9,7 +9,6 @@ REQUIRE 'funcionesJugadores.php';
 $errores=array(
     "errorNombre" => false,
     "errorDNI" => false,
-    "errorDNIExistente" => false,
     "errorEquipo"=> false,
     "errorNumGoles" => false,
     "errorPosicion" => false);
@@ -25,10 +24,17 @@ if (isset($_POST['enviar']) && validarForm($errores)){
     }
     
     //Ejecutar query
-    $conex->query("INSERT INTO jugadores VALUES ('$_POST[nombre]', '$_POST[dni]', '$_POST[dorsal]', $suma, '$_POST[numGoles]', '$_POST[equipo]')");
+    $conex->query("UPDATE jugadores SET nombre='$_POST[nombre]', dorsal='$_POST[dorsal]', posicion=$suma, numGoles=$_POST[numGoles], equipo='$_POST[equipo]' "
+            . "WHERE dni='$_POST[dni]';");
     
+    if ($conex->errno!=null)
+        echo $conex->error;
     
-    echo "<h1>Jugador dado de alta con exito</h1><br>"
+    $resultados= buscarPorDNI($_POST['dni']);
+    
+    listarJugadores($resultados);
+    
+    echo "<h1>Jugador modificado con exito</h1><br>"
     . "<a href='index.php'>Volver al indice</a><br>"
     . "<a href='introducirJugador.php'>Insertar otro jugador</a><br>";
     
@@ -37,7 +43,7 @@ if (isset($_POST['enviar']) && validarForm($errores)){
 else{?>
 
     <h1>Introducir jugador</h1>
-    <form action="introducirJugador.php" method="post">
+    <form action="modificarJugador.php" method="post">
         Nombre: <input type="text" name="nombre" value="<?php if (!$errores["errorNombre"]) echo rellenarInputTexto("nombre", "enviar") ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorNombre"]){
@@ -50,9 +56,7 @@ else{?>
         <?php
         if (isset($_POST['enviar'])){
             if ($errores["errorDNI"])
-                echo "Introduzca un DNI valido";
-            elseif($errores["errorDNIExistente"])
-                echo "Ese DNI ya existe en la base de datos";
+                echo "Introduzca el DNI de un jugador";
         }
         ?>
         <br>
