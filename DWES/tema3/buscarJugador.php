@@ -21,7 +21,7 @@ if (isset($_POST['enviar'])){
         $resultados=buscarPorPosicion($_POST['buscar']);
     
     //Si se han encontrado jugadores se muestran en una tabla
-    if ($resultados!=null){
+    if ($resultados->num_rows>0){
         echo "<h1>Jugadores encontrados:</h1>";
         listarJugadores($resultados);
         echo '<br>';
@@ -50,6 +50,8 @@ else{
         
         <input type="submit" name="enviar" value="Enviar">
     </form>
+    <br>
+    <a href='index.php'>Volver al indice</a>
 <?php
 }
 ?>

@@ -15,8 +15,9 @@ function validarForm(&$errores){
         }
 
         //Comprobar patron DNI
-        if (!preg_match("/^\d{8}[a-z]/i" ,$_POST['dni'])){
-            $errores["errorDNI"]=true;
+        if (isset($errores['errorDNI'])){
+            if (!preg_match("/^\d{8}[a-z]/i" ,$_POST['dni']))
+                $errores["errorDNI"]=true;
         }
 
         //Comprobar si DNI existe

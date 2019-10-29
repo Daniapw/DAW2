@@ -27,10 +27,14 @@ if (isset($_POST['enviar']) && validarForm($errores)){
     //Ejecutar query
     $conex->query("INSERT INTO jugadores VALUES ('$_POST[nombre]', '$_POST[dni]', '$_POST[dorsal]', $suma, '$_POST[numGoles]', '$_POST[equipo]')");
     
+    $resultado=$conex->query("SELECT * FROM jugadores WHERE dni='$_POST[dni]';");
+   
+    //Mostrar informacion del jugador
+    echo "<h1>Jugador dado de alta con exito</h1><br>";
+    listarJugadores($resultado);
     
-    echo "<h1>Jugador dado de alta con exito</h1><br>"
-    . "<a href='index.php'>Volver al indice</a><br>"
-    . "<a href='introducirJugador.php'>Insertar otro jugador</a><br>";
+    echo "<a href='introducirJugador.php'>Insertar otro jugador</a><br>"
+    . "<a href='index.php'>Volver al indice</a><br>";
     
     $conex->close();
 }
@@ -42,7 +46,7 @@ else{?>
         Nombre: <input type="text" name="nombre" value="<?php if (!$errores["errorNombre"]) echo rellenarInputTexto("nombre", "enviar") ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorNombre"]){
-            echo "Introduzca un nombre valido";
+            echo "<p style='color:red'>Introduzca un nombre valido</p>";
         }
         
         ?>
@@ -51,9 +55,9 @@ else{?>
         <?php
         if (isset($_POST['enviar'])){
             if ($errores["errorDNI"])
-                echo "Introduzca un DNI valido";
+                echo "<p style='color:red'>Introduzca un DNI valido</p>";
             elseif($errores["errorDNIExistente"])
-                echo "Ese DNI ya existe en la base de datos";
+                echo "<p style='color:red'>Ese DNI ya existe en la base de datos</p>";
         }
         ?>
         <br>
@@ -71,7 +75,7 @@ else{?>
         Equipo: <input type="text" name="equipo" value="<?php if (!$errores["errorEquipo"]) echo rellenarInputTexto("equipo", "enviar") ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorEquipo"]){
-            echo "Introduzca un equipo valido";
+            echo "<p style='color:red'>Introduzca un equipo valido</p>";
         }
         ?>
         <br>
@@ -79,7 +83,7 @@ else{?>
         Numero de goles: <input type="text" name="numGoles" value="<?php if (!$errores["errorNumGoles"]) echo rellenarInputTexto("numGoles", "enviar") ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorNumGoles"]){
-            echo "Introduzca un numero valido";
+            echo "<p style='color:red'>Introduzca un numero valido</p>";
         }
         ?>
         <br>
@@ -93,7 +97,7 @@ else{?>
         </select>
         <?php
         if (isset($_POST['enviar']) && $errores["errorPosicion"]){
-            echo "Seleccione una posicion";
+            echo "<p style='color:red'>Seleccione una posicion</p>";
         }
         ?>
         <br>

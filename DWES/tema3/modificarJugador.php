@@ -15,6 +15,7 @@ $errores=array(
 
 $dniNoExiste=false;
 
+//Funcion para comprobar si el DNI existe si se ha enviado el formulario
 function comprobarDNI(&$dniNoExiste){
     if (isset($_POST['enviarDNI'])){
         
@@ -32,10 +33,32 @@ function comprobarDNI(&$dniNoExiste){
 }
 
 //Si se ha enviado el formulario y ha sido rellenado correctamente
-if (isset($_POST['enviarDNI']) && comprobarDNI($dniNoExiste)){
+if (comprobarDNI($dniNoExiste)){
     
     $conex= getConexion();
+
+    //Si los datos han sido rellenados correctamente
+    if (validarForm($errores)){
+        
+        //Sumar valores posiicion
+        $suma=0;
+        foreach ($_POST['posicion'] as $valor) {
+            $suma+=$valor;
+        }
+        
+        //Ejecutar update
+        $conex->query("UPDATE jugadores SET nombre='$_POST[nombre]', dorsal=$_POST[dorsal], equipo='$_POST[equipo]', numGoles=$_POST[numGoles], posicion=$suma "
+                . "WHERE dni='$_POST[dni]';");
+        
+        if ($conex->errno==null){
+            echo "<h1 style='color:green'>Los datos de este jugador se han actualizado correctamente</h1>";
+        }
+        else{
+            echo $conex->error;
+        }
+    }
     
+    //Buscar jugador usando DNI
     $resultados= buscarPorDNI($_POST['dni']);
     
     echo "<h1>Datos del jugador</h1>";
@@ -43,9 +66,12 @@ if (isset($_POST['enviarDNI']) && comprobarDNI($dniNoExiste)){
     //Mostrar datos jugador
     listarJugadores($resultados);
     
+    //Resetear puntero intero de mysqli_result (la funcion listarJugadores mueve el puntero al recorrer la lista)
+    mysqli_data_seek($resultados, 0);
     
     $jugador=$resultados->fetch_object();
-    var_dump($jugador);
+
+    //Formulario
     ?>
     <br>
     <h1>Modificar datos</h1>
@@ -53,13 +79,12 @@ if (isset($_POST['enviarDNI']) && comprobarDNI($dniNoExiste)){
         Nombre: <input type="text" name="nombre" value="<?php echo $jugador->nombre; ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorNombre"]){
-            echo "Introduzca un nombre valido";
+            echo "<p style='color:red'>Introduzca un nombre valido</p>";
         }
-        
         ?>
         <br>
         
-        DNI: <input type="text" name="dni" disabled value="<?php echo rellenarInputTexto("dni", "enviar") ?>" />
+        DNI: <input type="text" name="dni" disabled value="<?php echo $jugador->dni; ?>" />
         <br>
         
         Dorsal: 
@@ -67,37 +92,46 @@ if (isset($_POST['enviarDNI']) && comprobarDNI($dniNoExiste)){
             <?php
             //Imprimir opciones
             for ($i=0; $i<11; $i++){
-                echo "<option value=".($i+1)." ". elegirSelect("dorsal", ($i+1), "enviar") ." >".($i+1)."</option>";
+                if ($jugador->dorsal == $i+1)
+                    echo "<option value=".($i+1)." selected='selected'>".($i+1)."</option>";
+                else
+                    echo "<option value=".($i+1).">".($i+1)."</option>";
             }
             ?>
         </select><br>
         
-        Equipo: <input type="text" name="equipo" value="<?php if (!$errores["errorEquipo"]) echo rellenarInputTexto("equipo", "enviar") ?>" />
+        Equipo: <input type="text" name="equipo" value="<?php echo $jugador->equipo; ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorEquipo"]){
-            echo "Introduzca un equipo valido";
+            echo "<p style='color:red'>Introduzca un equipo valido</p>";
         }
         ?>
         <br>
         
-        Numero de goles: <input type="text" name="numGoles" value="<?php if (!$errores["errorNumGoles"]) echo rellenarInputTexto("numGoles", "enviar") ?>" />
+        Numero de goles: <input type="text" name="numGoles" value="<?php echo $jugador->numGoles; ?>" />
         <?php
         if (isset($_POST['enviar']) && $errores["errorNumGoles"]){
-            echo "Introduzca un numero valido";
+            echo "<p style='color:red'>Introduzca un numero valido</p>";
         }
         ?>
         <br>
+        
+        
+        <?php
+        //Separar posiciones en array
+        $arrayPosiciones=explode(",", $jugador->posicion);
+        ?>
         
         Posicion: 
         <select name="posicion[]" multiple>
-            <option value="1" <?php echo elegirSelectMultiple("posicion", "1", "enviar")?>>Portero</option>
-            <option value="2" <?php echo elegirSelectMultiple("posicion", "2", "enviar")?>>Defensa</option>
-            <option value="4" <?php echo elegirSelectMultiple("posicion", "4", "enviar")?>>Centrocampista</option>
-            <option value="8" <?php echo elegirSelectMultiple("posicion", "8", "enviar")?>>Delantero</option>
+            <option value="1" <?php if (in_array("Portero", $arrayPosiciones)) echo "selected='selected'"?>>Portero</option>
+            <option value="2" <?php if (in_array("Defensa", $arrayPosiciones)) echo "selected='selected'"?>>Defensa</option>
+            <option value="4" <?php if (in_array("Centrocampista", $arrayPosiciones)) echo "selected='selected'"?>>Centrocampista</option>
+            <option value="8" <?php if (in_array("Delantero", $arrayPosiciones)) echo "selected='selected'"?>>Delantero</option>
         </select>
         <?php
         if (isset($_POST['enviar']) && $errores["errorPosicion"]){
-            echo "Seleccione una posicion";
+            echo "<p style='color:red'>Seleccione una posicion</p>";
         }
         ?>
         <br>
@@ -107,10 +141,11 @@ if (isset($_POST['enviarDNI']) && comprobarDNI($dniNoExiste)){
         <input type="submit" value="Enviar" name="enviar" />
     </form><br>
     
+    <a href="modificarJugador.php">Modificar otro jugador</a><br>
     <a href='index.php'>Volver al indice</a>
-    
 <?php    
 }
+//Si es la primera vez que se muestra o no existe el DNI enviado
 else{?>
     
     <h1>Modificar jugador</h1>
@@ -130,6 +165,8 @@ else{?>
         <input type="submit" name="enviarDNI" value="Enviar"/>
 
     </form> 
+    <br>
+    <a href="index.php">Volver al indice</a>
 <?php
 }
 ?>
