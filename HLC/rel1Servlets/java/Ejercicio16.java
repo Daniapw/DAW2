@@ -8,7 +8,6 @@ package relacion1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,14 +46,39 @@ public class Ejercicio16 extends HttpServlet {
             out.println("<title>Servlet Ejercicio16</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("Fecha introducida: " + fechaIntroducida);
+            out.println("Fecha introducida: " + fechaIntroducida + "<br>");
             
             if (fechaIntroducida.matches("^\\d\\d-\\d\\d-\\d\\d\\d\\d$")){
-                Date fecha=new Date(fechaIntroducida);
+                String partes[]=fechaIntroducida.split("-");
                 
+                boolean errorFecha=false;
+                
+                int dia=Integer.parseInt(partes[0]);
+                int mes=Integer.parseInt(partes[1]);
+                int anio=Integer.parseInt(partes[2]);
+                
+                if (dia<1 || dia>30){
+                    out.println("<p>El dia es incorrecto: tiene que ser un numero de1 1 al 30</p><br>");
+                    errorFecha=true;
+                }
+                
+                if (mes<1 || mes>12){
+                    out.println("<p>El mes es incorrecto: tiene que ser un numero de1 1 al 12</p><br>");
+                    errorFecha=true;
+                }
+                
+                if (anio<1 || anio>2010){
+                    out.println("<p>El anio es incorrecto: tiene que ser un anio de1 1 al 2010</p><br>");
+                    errorFecha=true;
+                }
+                
+                if (!errorFecha){
+                    out.println("<p>El formato de la fecha introducida es correcta</p><br>");
+
+                }
             }
             else{
-                out.println("Formato incorrecto");
+                out.println("<p>El formato es incorrecto</p>");
             }
             
             
