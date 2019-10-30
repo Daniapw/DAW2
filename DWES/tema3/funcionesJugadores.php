@@ -10,7 +10,7 @@ function validarForm(&$errores){
     
     if (isset($_POST['enviar'])){
         //Comprobar campo nombre
-        if(!preg_match("/^[a-z]+\s*[a-z]*$/i", $_POST['nombre'])){
+        if(!preg_match("/^[a-z]+$/i", $_POST['nombre'])){
             $errores["errorNombre"]=true;
         }
 
@@ -97,6 +97,22 @@ function buscarPorDNI($dni){
     return null;
 }
 
+//Funcion para comprobar si el DNI existe si se ha enviado el formulario
+function comprobarDNI($nombreBotonEnviar, $nombreCampoDNI){
+    if (isset($_POST[$nombreBotonEnviar])){
+        
+        $resultado=buscarPorDNI($_POST[$nombreCampoDNI]);
+        
+        if ($resultado->num_rows==0){
+            return false;
+        }
+        
+        return true;
+    }
+    
+    return false;
+}
+
 //Funcion para buscar jugador en base de datos usando el DNI
 function buscarPorEquipo($equipo){
     $conex= getConexion();
@@ -116,7 +132,7 @@ function buscarPorEquipo($equipo){
 function buscarPorPosicion($posicion){
     $conex= getConexion();
     
-    $resultados=$conex->query("SELECT * FROM jugadores WHERE posicion like '%$posicion%';");
+    $resultados=$conex->query("SELECT * FROM jugadores WHERE find_in_set('$posicion', posicion);");
     
     if ($resultados!=null){
         $conex->close();

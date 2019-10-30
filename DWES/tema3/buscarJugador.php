@@ -2,7 +2,27 @@
 <html>
     <head></head>
 <body>
+    
+    <!--Formulario-->
+    <h1>Buscar jugadores</h1>
+    
+    <form action="buscarJugador.php" method="post">
 
+        Buscar por:
+        <select name="buscarPor">
+            <option value="1">DNI</option>
+            <option value="2">Equipo</option>
+            <option value="3">Posicion</option>
+        </select><br>
+
+        Buscar:<input type="text" name="buscar"/><br>
+
+        <input type="submit" name="enviar" value="Enviar">
+    </form>
+    <br>
+    
+    <a href='index.php'>Volver al indice</a>
+    
 <?php
 REQUIRE 'funcionesJugadores.php';
 
@@ -22,37 +42,15 @@ if (isset($_POST['enviar'])){
     
     //Si se han encontrado jugadores se muestran en una tabla
     if ($resultados->num_rows>0){
-        echo "<h1>Jugadores encontrados:</h1>";
+        echo "<h2 style='color:green;'>Jugadores encontrados:</h2>";
         listarJugadores($resultados);
         echo '<br>';
     }
     
     //Si no se ha encontrado nada (resultados es null)
     else{
-        echo "<h1>No se ha encontrado ningun jugador con esos parametros</h1>";
+        echo "<h2 style='color:red;'>No se ha encontrado ningun jugador con esos parametros</h2>";
     }
-    
-    echo "<a href='index.php'>Volver al indice</a><br>"
-    . "<a href='buscarJugador.php'>Buscar otra vez</a>";
-}
-else{
-?>
-    <form action="buscarJugador.php" method="post">
-        
-        Buscar por:
-        <select name="buscarPor">
-            <option value="1">DNI</option>
-            <option value="2">Equipo</option>
-            <option value="3">Posicion</option>
-        </select><br>
-        
-        Buscar:<input type="text" name="buscar"/><br>
-        
-        <input type="submit" name="enviar" value="Enviar">
-    </form>
-    <br>
-    <a href='index.php'>Volver al indice</a>
-<?php
 }
 ?>
 </body>

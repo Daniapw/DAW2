@@ -14,34 +14,34 @@ $errores=array(
     "errorNumGoles" => false,
     "errorPosicion" => false);
 
+ ?>
+    <h1>Introducir jugador</h1>
+<?php
 //Si se ha enviado el formulario y ha sido rellenado correctamente
 if (isset($_POST['enviar']) && validarForm($errores)){
     $conex= getConexion();
-    
+
     //Sumar values de posicion
     $suma=0;
     foreach($_POST['posicion'] as $value){
         $suma+=$value;
     }
-    
+
     //Ejecutar query
     $conex->query("INSERT INTO jugadores VALUES ('$_POST[nombre]', '$_POST[dni]', '$_POST[dorsal]', $suma, '$_POST[numGoles]', '$_POST[equipo]')");
-    
+
     $resultado=$conex->query("SELECT * FROM jugadores WHERE dni='$_POST[dni]';");
-   
+
     //Mostrar informacion del jugador
-    echo "<h1>Jugador dado de alta con exito</h1><br>";
+    echo "<h2 style='color:green;'>Jugador dado de alta con exito</h2><br>";
+
     listarJugadores($resultado);
-    
-    echo "<a href='introducirJugador.php'>Insertar otro jugador</a><br>"
-    . "<a href='index.php'>Volver al indice</a><br>";
-    
+
     $conex->close();
 }
-//Si no se ha enviado o si se ha rellenado de forma incorrecta
-else{?>
-
-    <h1>Introducir jugador</h1>
+?>
+    <!--Formulario-->
+    <h2>Introducir datos del jugador</h2>
     <form action="introducirJugador.php" method="post">
         Nombre: <input type="text" name="nombre" value="<?php if (!$errores["errorNombre"]) echo rellenarInputTexto("nombre", "enviar") ?>" />
         <?php
@@ -104,10 +104,8 @@ else{?>
         
         <input type="submit" value="Enviar" name="enviar" />
     </form><br>
-    
+   
+    <br>
     <a href='index.php'>Volver al indice</a>
-<?php
-}
-?>
 </body>
 </html>
