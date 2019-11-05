@@ -13,26 +13,25 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%
-            int numero=-1;
+        <h1>Introduzca un numero</h1>
             
-            do{
-                
-                try{
-                    numero=Integer.parseInt(JOptionPane.showInputDialog("Introduce un numero entero diferente a 0"));
-                    
-                    if (numero>0)
-                        out.println("El numero es positivo<br>");
-                    else if(numero<0)
-                        out.println("El numero es negativo<br>");
-                    
-                }catch(NumberFormatException e){
-                    JOptionPane.showMessageDialog(null, "Solo se permiten numeros enteros");
-                }
-
-                
-            }while(numero!=0);
+        <%
         
+           if (request.getParameter("enviar")!=null){
+               int numero=Integer.parseInt(request.getParameter("numero"));
+               
+               out.println("Numero: " + numero +"<br>");
+               
+               if (numero<0)
+                   out.println("El numero es negativo");
+               else if(numero>0)
+                   out.println("El numero es positivo");  
+           }
         %>
+       
+        <form action="Ejercicio17.jsp" method="post">
+            Numero: <input type="number" name="numero"/><br>
+            <input type="submit" name="enviar" value="Enviar"/>
+        </form>
     </body>
 </html>
