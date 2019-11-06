@@ -23,53 +23,65 @@
     <h1>Autobuses</h1>
     
     <?php
-    //Formulario inicial, se mostrara cuando se entra por primera vez o si no hay ninguna linea con esos parametros
-    if (!isset($_POST['consultar']) || !lineaExiste()){
-        var_dump($_POST);
-        if (!lineaExiste() && isset($_POST['consultar']))
-            echo "<h2 style='color:red;'> No hay ninguna linea como esa en esa fecha</h2>";
+    //Formulario inicial, se mostrara siempre
+    if (!lineaExiste() && isset($_POST['consultar']))
+        echo "<h3 style='color:red;'> Ningun viaje programado en esa linea para esa fecha </h3>";
+    ?>
+
+    <form action="indexAutobuses.php" method="post">
+        Fecha: <input type="date" name="fecha" required/><br>
+        Origen: 
+        <select name="origen" required>
+        <?php
+            $resultadosOrigenes= getOrigenes();
+
+            while($objeto=$resultadosOrigenes->fetch_object()){
+                echo "<option value=$objeto->Origen > $objeto->Origen</option>";
+            }
+
         ?>
-    
-        <form action="indexAutobuses.php" method="post">
-            Fecha: <input type="date" name="fecha" required/><br>
-            Origen: 
-            <select name="origen" required>
-            <?php
-                $resultados= getOrigenes();
-                
-                while($objeto=$resultados->fetch_object()){
-                    echo "<option value=$objeto->Origen > $objeto->Origen</option>";
-                }
-                
-            ?>
-            </select><br>
-            Destino:
-            <select name="destino" required>
-            <?php
-                $resultados= getDestinos();
-                
-                while($objeto=$resultados->fetch_object()){
-                    echo "<option value=$objeto->Destino > $objeto->Destino</option>";
-                }
-                
-            ?>
-            </select><br>
-            <input type="submit" name="consultar" value="Consultar"/>
-        </form>
+        </select><br>
+        Destino:
+        <select name="destino" required>
+        <?php
+            $resultadosDestinos= getDestinos();
+
+            while($objeto=$resultadosDestinos->fetch_object()){
+                echo "<option value=$objeto->Destino > $objeto->Destino</option>";
+            }
+
+        ?>
+        </select><br>
+        <input type="submit" name="consultar" value="Consultar"/>
+    </form>
     <?php
-    }
-    else{
-        
-        $resultados=getLinea($_POST['fecha'], $_POST['origen'], $_POST['destino']);
-        $linea=$resultados->fetch_object();
     
+    //Datos de la linea y formulario para reservar plazas, se mostrara si se ha introducido una liena valida
+    if (lineaExiste()){
+        
+        if (isset($_POST['reservar'])){
+            $conex=getConex();
+            
+            $conex->query("UPDATE viajes SET Plazas_libres=(Plazas_libres - $_POST[plazasUsuario]) WHERE Fecha='$_POST[fecha]' AND Matricula='$_POST[matricula]' AND Origen='$_POST[origen]' AND Destino='$_POST[destino]';");
+            
+            if ($conex->errno!=null)
+                echo $conex->error;
+            
+            $conex->close();
+            
+            echo "<h1 style='color:green;'>Plaza/s reservadas con exito</h1>";
+        }
+        
+        $resultadosLinea=getLinea($_POST['fecha'], $_POST['origen'], $_POST['destino']);
+        $linea=$resultadosLinea->fetch_object();
+        
         echo
         "<h2>Informacion de la linea</h2>"
         . "<ul>"
             . "<li>Fecha: $linea->Fecha</li>"
             . "<li>Origen: $linea->Origen</li>"
             . "<li>Destino: $linea->Destino</li>"
-            . "<li>Plazas disponibles: ". getNumPlazas($linea->Plazas_libres)."</li>"
+            . "<li>Plazas disponibles: ". $linea->Plazas_libres." libres</li>"
         . "</ul>"
         
         ?>
@@ -79,6 +91,7 @@
             <input type="hidden" value="<?php echo $linea->Origen;  ?>" name="origen" />
             <input type="hidden" value="<?php echo $linea->Destino;  ?>" name="destino"/>
             <input type="hidden" value="<?php echo $linea->Plazas_libres; ?>" name="plazasDisponibles"/>
+            <input type="hidden" value="<?php echo $linea->Matricula; ?>" name="matricula"/>
             <input type="hidden" name="consultar"/>
             <?php
             $plazas=true;
@@ -89,8 +102,6 @@
             Reservar plazas: <input type="number" min="1" max="<?php echo $linea->Plazas_libres;?>" name="plazasUsuario" <?php if (!$plazas) echo 'disabled'; ?> required/><br>
             <input type="submit" name="reservar" value="Reservar" <?php if (!$plazas) echo 'disabled'; ?>/>
         </form>
-    
-        <a href="indexAutobuses.php">Volver a inicio</a>
     
     <?php
     }?>

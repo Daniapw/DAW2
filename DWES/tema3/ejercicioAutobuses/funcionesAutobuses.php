@@ -36,11 +36,3 @@ function getLinea($fecha, $origen, $destino){
     $conex->close();
     return $resultados;
 }
-
-//Funcion para obtener lineas segun parametros
-function getNumPlazas($plazas){
-    if ($plazas==0)
-        return '0 plazas';
-    
-    return $plazas;
-}
