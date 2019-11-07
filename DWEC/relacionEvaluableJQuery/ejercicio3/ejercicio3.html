@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous">
     </script>
-    <script src="ejercicio1.js"></script>
+    <script src="ejercicio3.js";></script>
 </head>
-<body>
-    <p>Introduzca su usuario y clave</p>
-    <form method="post" id="formulario">
-        <label for="usuario">Usuario:</label>
-        <input type="text" name="usuario"/><br>
-        <label for="usuario">Contraseña:</label>
-        <input type="text" name="cont"/><br><br>
-        <input type="submit" name="enviar" value="Enviar"/>
-        <input type="reset" name="reset" value="Limpiar"/>
 
+<body>
+    
+    <form action="ejercicio3.html" id="formulario">
+
+        Nombre: <input type="text" name="nombre" required/><br>
+        Edad: <input type="number" name="edad" required/><br>
+        Salario:<input type="number" step="0.01" name="salario" required /><br>
+
+        <input type="submit" name="enviar" value="Enviar"/>
     </form>
+
 </body>
 </html>
