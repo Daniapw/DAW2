@@ -6,13 +6,10 @@ $(function(){
 });
 
 function factorial(num){
-    resultado;
+    resultado=1;
 
-
-    while (num>2){
-        console.log(resultado);
-        console.log(""+num +" * " + (num-1));
-        resultado+=num*resultado;
+    while (num>1){
+        resultado=resultado*num;
         num--;
     }
 
