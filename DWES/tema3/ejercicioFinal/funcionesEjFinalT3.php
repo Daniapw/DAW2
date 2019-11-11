@@ -10,6 +10,7 @@ function getConex(){
 }
 
 ////////////////////GET REGISTROS DE BASE DE DATOS///////////////////////
+//Funcion para obtener familias de productos
 function getFamilias(){
     $conex=getConex();
     
@@ -20,6 +21,7 @@ function getFamilias(){
     return $resultados;
 }
 
+//Funcion para obtener productos de una determinada familia
 function getProductosDeFamilia($familia){
     $conex= getConex();
     
@@ -30,10 +32,15 @@ function getProductosDeFamilia($familia){
     return $resultados;
 }
 
+//Funcion para obtener producto especifico
 function getProducto($codProducto){
     $conex=getConex();
     
-    $resultados=$conex->query("SELECT * FROM producto WHERE cod='$codProducto';");
+    try{
+        $resultados=$conex->query("SELECT * FROM producto WHERE cod='$codProducto';");
+    }catch(PDOException $e){
+        throw $e;
+    }
     
     unset($conex);
     

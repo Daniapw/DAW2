@@ -15,24 +15,43 @@
 <div id="contenido">
 	<h2>Producto:</h2>
         <?php
-        $resultados= getProducto($_POST['codProducto']);
         
-        $producto=$resultados->fetch(PDO::FETCH_OBJ);?>
+        //Variable para almacenar posible mensaje de error
+        $mensajeError="";
         
-        <form action="actualizar.php" method='post'>
-            Nombre corto: <?php echo $producto->nombre_corto;?><br><br>
-            
-            Nombre:<br><textarea name='nombre' cols='15' rows='4'><?php echo $producto->nombre_corto;?></textarea><br><br>
-            
-            Descripción:<br> <textarea name='descripcion' cols='30' rows='7'><?php echo $producto->descripcion?></textarea><br><br>
-            
-            PVP: <input type='number' min='0' step='0.01' value='<?php echo $producto->PVP?>'/><br>
-            
-            <input type='submit' name='actualizar' value='Actualizar'/>
-        </form>
+        
+        //Obtener registro usando codigo obtenido del formulario de la pagina listado.php
+        try{
+            $resultados= getProducto($_POST['codProducto']);
+
+        
+        
+            //Obtener registro en forma de objeto
+            $producto=$resultados->fetch(PDO::FETCH_OBJ);?>
+
+            <!--Mostrar formulario con informacion del producto usando propiedades del objeto-->
+            <form action="actualizar.php" method='post'>
+                Nombre corto: <input type='text' name='nombreCorto' value='<?php echo $producto->nombre_corto;?>' /><br><br>
+
+                Nombre:<br><textarea name='nombre' cols='15' rows='4'><?php echo $producto->nombre;?></textarea><br><br>
+
+                Descripción:<br> <textarea name='descripcion' cols='30' rows='7'><?php echo $producto->descripcion?></textarea><br><br>
+
+                PVP: <input type='number' min='0' step='0.01' name='precio' value='<?php echo $producto->PVP?>'/><br>
+
+                <input type="hidden" name="codProducto" value="<?php echo $producto->cod;?>"/>
+                <input type='submit' name='actualizar' value='Actualizar'/>
+                <input type="submit" name="cancelar" value="Cancelar"/>
+            </form>
+        
+        <?php
+        }catch(Excepcion $e){
+            $mensajeError=$e->getMessage();
+        }?>
 </div>
 
 <div id="pie">
+    <?php echo "<h3 style='color:red;'>$mensajeError</h3>"; ?>
 </div>
 </body>
 </html>

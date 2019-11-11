@@ -31,14 +31,18 @@
         if(isset($_POST['mostrar'])){
             $resultados= getProductosDeFamilia($_POST['familia']);
             
-            while ($objeto=$resultados->fetch(PDO::FETCH_OBJ)){
-                echo "<form action='editar.php' method='post'>";
-                echo "Producto $objeto->nombre_corto ( $objeto->PVP €)";
-                echo "<input type='hidden' name='codProducto' value='$objeto->cod'/>";
-                echo "<input type='submit' name='editar' value='Editar'/>";
-                echo "</form>";
+            if ($resultados->rowCount()>0){
+                while ($objeto=$resultados->fetch(PDO::FETCH_OBJ)){
+                    echo "<form action='editar.php' method='post'>";
+                    echo "Producto $objeto->nombre_corto ( $objeto->PVP €)";
+                    echo "<input type='hidden' name='codProducto' value='$objeto->cod'/>";
+                    echo "<input type='submit' name='editar' value='Editar'/>";
+                    echo "</form>";
+                }
             }
-            
+            else{
+                echo "<h1 style='color:red;'>No hay ningun producto de esa familia en la base de datos</h1>";
+            }
             
         }
     
