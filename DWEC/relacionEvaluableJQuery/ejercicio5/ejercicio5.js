@@ -9,9 +9,8 @@ $(function(){
     for ( i=1; i < 49; i++){
         texto="<tr>";
 
-        console.log("VALOR DE i: " + i);
         for ( j=i; j<(i+7);j++){
-            console.log(j);
+
             if (numerosPremiados.includes(j))
                 texto=texto.concat("<td style='background:red;'><p>X</p></td>");
             else
@@ -30,6 +29,7 @@ $(function(){
 
 })
 
+//Funcion para calcular numeros premiados
 function getNumerosPremiados(){
     var numerosPremiados=[];
     var numAleatorio;
@@ -38,7 +38,6 @@ function getNumerosPremiados(){
 
         do{
             numAleatorio=Math.floor(Math.random()*49) +1;
-            console.log(numAleatorio);
         }while(numerosPremiados.includes(numAleatorio));
         
         numerosPremiados[i]=numAleatorio;

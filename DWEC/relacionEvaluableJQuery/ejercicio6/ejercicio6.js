@@ -1,5 +1,6 @@
 var barcos=[];
 
+//Funcion para dibujar tablero
 function dibujarTablero(dimensiones){
 
     document.write("<table id='tablero' border='1' width='400' style='border-collapse:collapse;'>");
@@ -24,11 +25,16 @@ function dibujarTablero(dimensiones){
     document.write("</table>");
 
     $("#tablero").css("width","100%");
-    $("#tablero td").css("height", "30px");
+    $("#tablero td").css({
+        "height": "30px",
+        "width": "30px",
+        "color":"white",
+        "text-align":"center"
+    });
 
 }
 
-//Constructor rectangulo
+//Constructor rectangulo (area del barco)
 function Rectangulo(x,y,ancho, alto){
     this.x=x;
     this.y=y;
@@ -37,54 +43,97 @@ function Rectangulo(x,y,ancho, alto){
 }
 
 //Constructor barco
-function Barco(x,y,tamanio,orientacion){
+function Barco(x,y,tamanio, tipoBarco){
     this.x=x;
     this.y=y;
     this.tamanio=tamanio;
-    this.orientacion=orientacion;
+    this.orientacion;
+    this.tipoBarco=tipoBarco
     this.area;
 
     this.calcularArea=function(){
-        if (orientacion=='v')
-            this.area=new Rectangulo((this.x-1), (this.y-1), 3, tamanio+1);
+        if (this.orientacion=='v')
+            this.area=new Rectangulo((this.x-1), (this.y-1), 2, tamanio+1);
         else
-            this.area=new Rectangulo((this.x-1), (this.y-1), tamanio+1, 3);
+            this.area=new Rectangulo((this.x-1), (this.y-1), tamanio+1, 2);
     }
 }
 
-//
-function colocarPortaaviones(numeroPortaaviones){
+//Funcion para colocar barcos
+function colocarBarco(barco){
 
-    for (let i=0; i <numeroPortaaviones; i++){
+    numAleatorioOri=Math.random();
 
-        barco=new Barco(0,0,4,'h'); 
+    //Determinar orientacion
+    if(numAleatorioOri>=0.5)
+        barco.orientacion='v';
+    else
+        barco.orientacion='h';
 
-        do{
-            coords=obtenerCoordenadas();
+    do{
+        coords=obtenerCoordenadas();
 
-            barco.x=coords[0];
-            barco.y=coords[1];
+        barco.x=coords[0];
+        barco.y=coords[1];
 
-            barco.calcularArea();
-        }while(!comprobarCoordenadas(barco));
-        
-        barcos.push(barco);
+        barco.calcularArea();
+    }while(!comprobarCoordenadas(barco));
+    
+    barcos.push(barco);
 
-        for (let j=0; j < barco.tamanio; j++){
+    for (let j=0; j < barco.tamanio; j++){
 
-            $('#'+y+'-'+x).css({
-                "background-color": "black"});
+        $('#'+y+'-'+x).css({
+            "background-color": "black"});
 
-            if (barco.orientacion=='h')
-                x++;
-            else
-                y++;
+        $("#"+y+"-"+x).html(barco.tipoBarco);
 
-        }
+        if (barco.orientacion=='h')
+            x++;
+        else
+            y++;
+
     }
 
 }
 
+//Funcion para colocar portaaviones
+function colocarPortaaviones(numero){
+
+    for (let i=0; i < numero; i++){
+        colocarBarco(new Barco(0,0,4, 'P'));
+    }
+    
+}
+
+//Funcion para colocar acorazados
+function colocarAcorazados(numero){
+
+    for (let i=0; i < numero; i++){
+        colocarBarco(new Barco(0,0,3, 'A'));
+    }
+
+}
+
+//Funcion para colocar portaaviones
+function colocarDestructores(numero){
+
+    for (let i=0; i < numero; i++){
+        colocarBarco(new Barco(0,0,2, 'D'));
+    }
+    
+
+}
+
+//Funcion para colocar portaaviones
+function colocarFragatas(numero){
+
+    for (let i=0; i < numero; i++){
+        colocarBarco(new Barco(0,0,1, 'F'));
+    }
+    
+
+}
 
 //Funcion para obtener coordenadas de texto
 function obtenerCoordenadas(){
@@ -106,42 +155,44 @@ function comprobarCoordenadas(barco){
 
     finBarcoX=barco.area.x+barco.area.ancho;
     finBarcoY=barco.area.y+barco.area.alto;
-    console.log(barco);
-    console.log("Barco X:" + barco.area.x +
-    "\nBarco Y:" + barco.area.y +
-    "\nFINAL BARCO X: " + finBarcoX +
-    "\nFINAL BARCO Y: " + finBarcoY);
 
+    //Comprobar si el barco cabe en el tablero
     if (barco.orientacion=='h' && (barco.x+barco.tamanio)>anchoTablero)
         return false;
 
     if (barco.orientacion=='v' && (barco.y+barco.tamanio)>altoTablero+1)
         return false;
 
+    //Si es el primer barco que se coloca no es necesario comprobar nada
     if (barcos.length==0)
         return true;
 
+    //Se recorre el array de barcos ya colocados y se comparan sus areas con la posicion del barco a colocar
     for (let i=0; i<barcos.length; i++){
 
         finElementoX=(barcos[i].area.x+barcos[i].area.ancho);
         finElementoY=(barcos[i].area.y+barcos[i].area.alto);
 
-        console.log("Elemento array X: " + barcos[i].area.x
-        +"\nElemento array Y: " + barcos[i].area.y
-        +"\nFinal elemento X:" + finElementoX 
-        +"\nFinal elemento Y:" + finElementoY);
-
-        //Si estan en la misma fila se comprobara si esta oscupando las mismas columnas
+        //Comprobar si la posicion esta ocupada
         if ((barco.y>=barcos[i].area.y && barco.y<=finElementoY) || (finBarcoY>=barcos[i].y && finBarcoY<=finElementoY)){
 
-            console.log("ESTAN EN LA MISMA FILA");
             if (barco.x>barcos[i].area.x && barco.x<finElementoX){
-                console.log("LA X DEL BARCO EMPIEZA DENTRO DEL ELEMENTO")
                 return false;
             }
 
             if (finBarcoX>barcos[i].x && finBarcoX<finElementoX){
-                console.log("LA X DEL BARCO ACABA DENTRO DEL ELEMENTO")
+                return false;
+            }
+
+        }
+
+        if ((barco.x>=barcos[i].area.x && barco.x<=finElementoX) || (finBarcoX>=barcos[i].x && finBarcoX<=finElementoX)){
+
+            if (barco.y>=barcos[i].area.y && barco.y<=finElementoY){
+                return false;
+            }
+
+            if (finBarcoY>=barcos[i].y && finBarcoY<=finElementoY){
                 return false;
             }
         }
