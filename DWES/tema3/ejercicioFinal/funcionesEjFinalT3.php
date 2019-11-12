@@ -2,7 +2,8 @@
 
 //Conexion
 function getConex(){
-    $conex=new PDO('mysql:host=localhost;dbname=dwes', 'dwes', 'abc123.');
+    
+    $conex=new PDO('mysql:host=localhost;dbname=dwes; charset=UTF8', 'dwes', 'abc123.');
 
     $conex->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -35,16 +36,13 @@ function getProductosDeFamilia($familia){
 //Funcion para obtener producto especifico
 function getProducto($codProducto){
     $conex=getConex();
-    
-    try{
-        $resultados=$conex->query("SELECT * FROM producto WHERE cod='$codProducto';");
-    }catch(PDOException $e){
-        throw $e;
-    }
+
+    $resultados=$conex->query("SELECT * FROM producto WHERE cod='$codProducto';");
     
     unset($conex);
     
     return $resultados;
+
 }
 
 ////////////////////////MOSTRAR RESULTADOS//////////////////////////////////

@@ -23,9 +23,7 @@
         //Obtener registro usando codigo obtenido del formulario de la pagina listado.php
         try{
             $resultados= getProducto($_POST['codProducto']);
-
-        
-        
+            
             //Obtener registro en forma de objeto
             $producto=$resultados->fetch(PDO::FETCH_OBJ);?>
 
@@ -41,13 +39,17 @@
 
                 <input type="hidden" name="codProducto" value="<?php echo $producto->cod;?>"/>
                 <input type='submit' name='actualizar' value='Actualizar'/>
+            </form>
+            
+            <form action="listado.php">
                 <input type="submit" name="cancelar" value="Cancelar"/>
             </form>
         
         <?php
-        }catch(Excepcion $e){
+        }catch(PDOException $e){
             $mensajeError=$e->getMessage();
-        }?>
+        }
+        ?>
 </div>
 
 <div id="pie">
