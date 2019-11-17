@@ -38,21 +38,33 @@ and open the template in the editor.
 
             <form action="practicaRecordarUsuYCont.php" method="post">
 
-                Usuario: <input type="text" name="usuario" required value=""/><br>
-                Contrasena: <input type="password" name="cont" required/><br>
-                Recordarme <input type="checkbox" value="1" name="recordarme"/><br>
+                Usuario: <input type="text" name="usuario" required value="<?php if(isset($_COOKIE['recordar'])) echo $_COOKIE['usuario'] ?>"/><br>
+                Contrasena: <input type="password" name="cont" required value='<?php if(isset($_COOKIE['recordar'])) echo $_COOKIE['contr'] ?>'/><br>
+                Recordarme <input type="checkbox" value="1" name="recordarme" <?php if(isset($_COOKIE['recordar'])) echo "checked" ?>/><br>
                 <input type="submit" name="enviar" value="Enviar"/>
 
             </form>
 
         <?php
         }else{
-            setcookie("usuarioActual", $_POST['usuario'],  time()+3600);
-            setcookie("$_POST[usuario][cont]", $_POST['cont'],  time()+3600);
+            setcookie("usuario", $_POST['usuario'],  time()+3600);
+            setcookie("contr", $_POST['cont'],  time()+3600);
         
+            //Si la casilla recordar esta marcada se crea/modifica la cookie, si no lo esta se borra
             if (isset($_POST['recordarme']))
-                setcookie("$_POST[usuario][recordar]", "recordar",  time()+3600);
+                setcookie("recordar", "true",  time()+3600);
+            else{
+                if (isset($_COOKIE['recordar']))
+                    setcookie("recordar", "false",  time());
+            }
+            
+            //Crear/modificar cookie fecha ultima visita
+            if (!isset($_COOKIE[$_POST['usuario']]["fechaUltimaVisita"]))
+                setcookie($_POST['usuario']."[fechaUltimaVisita]", date('d/m/Y h:i:s', time()),  time()+3600);
+            else
+                setcookie($_POST['usuario']."[fechaUltimaVisita]", $_COOKIE[$_POST['usuario']]["fechaUltimaVisita"],  time()+3600);
 
+            
             header("Location: bienvenido.php");
         }
         ?>
