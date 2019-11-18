@@ -10,7 +10,8 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous">        
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.9.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.9.0/additional-methods.min.js"></script>
     <script src="ejercicio12.js"></script>
     
     <style>
@@ -23,6 +24,15 @@
             width:45%;
             padding:5px;
         }
+
+        .error{
+            border-color:red;
+        }
+
+        .mensajeError{
+            color:red;
+        }
+        
     </style>
 </head>
 <body>
@@ -39,22 +49,22 @@
             <input type="radio" name="sexo" value="mujer">Mujer<br>
             Edad:<input type="number" min="1"><br>
             Curso:
-            <select name="curso">
+            <select name="curso" id="selectCurso1">
                 <option value="1">1º</option>
                 <option value="2">2º</option>
             </select><br>
 
             Módulos en los que se matricula:<br>
-            <input type="checkbox" name="primero" value="EDD">Entornos de Desarrollo<br>
-            <input type="checkbox" name="primero" value="BDD">Bases de Datos<br>
-            <input type="checkbox" name="primero" value="PROG">Programación<br>
-            <input type="checkbox" name="primero" value="SINF">Sistemas Informáticos<br>
-            <input type="checkbox" name="primero" value="FOL">Formación y Orientación Laboral<br>
-            <input type="checkbox" name="segundo" value="DWEC">Desarrollo Web en Entorno Cliente<br>
-            <input type="checkbox" name="segundo" value="DWES">Desarrollo Web en Entorno Servidor<br>
-            <input type="checkbox" name="segundo" value="DESPL">Despliegue de Aplicaciones Web<br>
-            <input type="checkbox" name="segundo" value="DIW">Desarrollo de Interfaces Web<br>
-            <input type="checkbox" name="segundo" value="EIE">Empresa e Iniciativa Emprendedora<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="EDD">Entornos de Desarrollo<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="BDD">Bases de Datos<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="PROG">Programación<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="SINF">Sistemas Informáticos<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="FOL">Formación y Orientación Laboral<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="DWEC">Desarrollo Web en Entorno Cliente<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="DWES">Desarrollo Web en Entorno Servidor<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="DESPL">Despliegue de Aplicaciones Web<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="DIW">Desarrollo de Interfaces Web<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="EIE">Empresa e Iniciativa Emprendedora<br>
 
             Observaciones:<br>
             <textarea name="observaciones" cols="50" rows="10">Indique si tiene alguna observación</textarea><br>
@@ -67,7 +77,7 @@
 
     <!--Segundo form-->
     <div class="formularios segundo">
-        <form id="form1" method="get">
+        <form id="form2" method="get">
             <h3>Matriculación en el ciclo de grado superior DAW</h3>
             Apellidos: <input type="text" name="apellidos"> Nombre: <input type="text" name="nombre"><br>
             Domicilio: <input type="text" name="domicilio"><br>
@@ -82,19 +92,22 @@
             </select><br>
 
             Módulos en los que se matricula:<br>
-            <input type="checkbox" name="primero" value="EDD">Entornos de Desarrollo<br>
-            <input type="checkbox" name="primero" value="BDD">Bases de Datos<br>
-            <input type="checkbox" name="primero" value="PROG">Programación<br>
-            <input type="checkbox" name="primero" value="SINF">Sistemas Informáticos<br>
-            <input type="checkbox" name="primero" value="FOL">Formación y Orientación Laboral<br>
-            <input type="checkbox" name="segundo" value="DWEC">Desarrollo Web en Entorno Cliente<br>
-            <input type="checkbox" name="segundo" value="DWES">Desarrollo Web en Entorno Servidor<br>
-            <input type="checkbox" name="segundo" value="DESPL">Despliegue de Aplicaciones Web<br>
-            <input type="checkbox" name="segundo" value="DIW">Desarrollo de Interfaces Web<br>
-            <input type="checkbox" name="segundo" value="EIE">Empresa e Iniciativa Emprendedora<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="APO">Aplicaciones Ofimáticas<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="RL">Redes Locales<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="SOM">Sistemas Operativos Monopuesto<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="MME">Montaje y Mantenimiento de Equipos<br>
+            <input type="checkbox" name="asignaturas" class="primero" value="FOL">Formación y Orientación Laboral<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="APW">Aplicaciones Web<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="SEGINF">Seguridad Informática<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="SER">Servicios en Red<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="SOR">Sistemas Operativos en Red<br>
+            <input type="checkbox" name="asignaturas" class="segundo" value="EIE">Empresa e Iniciativa Emprendedora<br>
 
             Observaciones:<br>
-            <textarea name="observaciones" cols="50" rows="10">Indique si tiene alguna observación</textarea>
+            <textarea name="observaciones" cols="50" rows="10">Indique si tiene alguna observación</textarea><br>
+
+            <input type="submit" name="enviar" value="Enviar">
+            <input type="reset" name="enviar" value="Restablecer">
 
         </form>
     </div>
