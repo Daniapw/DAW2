@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">        
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+    <script src="ejercicio12.js"></script>
+    
+    <style>
+        form input,select, textarea{
+            margin:7px 5px 10px 5px;
+        }
+        
+        .formularios{
+            float:left;
+            width:45%;
+            padding:5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Centro Educativo I.E.S. Marqués de Comares</h1>
+
+    <!--Primer form-->
+    <div class="formularios">
+        <form id="form1" action="#" method="get">
+            <h3>Matriculación en el ciclo de grado superior DAW</h3>
+            Apellidos: <input type="text" name="apellidos"> Nombre: <input type="text" name="nombre"><br>
+            Domicilio: <input type="text" name="domicilio"><br>
+            Sexo:
+            <input type="radio" name="sexo" value="hombre">Hombre
+            <input type="radio" name="sexo" value="mujer">Mujer<br>
+            Edad:<input type="number" min="1"><br>
+            Curso:
+            <select name="curso">
+                <option value="1">1º</option>
+                <option value="2">2º</option>
+            </select><br>
+
+            Módulos en los que se matricula:<br>
+            <input type="checkbox" name="primero" value="EDD">Entornos de Desarrollo<br>
+            <input type="checkbox" name="primero" value="BDD">Bases de Datos<br>
+            <input type="checkbox" name="primero" value="PROG">Programación<br>
+            <input type="checkbox" name="primero" value="SINF">Sistemas Informáticos<br>
+            <input type="checkbox" name="primero" value="FOL">Formación y Orientación Laboral<br>
+            <input type="checkbox" name="segundo" value="DWEC">Desarrollo Web en Entorno Cliente<br>
+            <input type="checkbox" name="segundo" value="DWES">Desarrollo Web en Entorno Servidor<br>
+            <input type="checkbox" name="segundo" value="DESPL">Despliegue de Aplicaciones Web<br>
+            <input type="checkbox" name="segundo" value="DIW">Desarrollo de Interfaces Web<br>
+            <input type="checkbox" name="segundo" value="EIE">Empresa e Iniciativa Emprendedora<br>
+
+            Observaciones:<br>
+            <textarea name="observaciones" cols="50" rows="10">Indique si tiene alguna observación</textarea><br>
+
+            <input type="submit" name="enviar" value="Enviar">
+            <input type="reset" name="enviar" value="Restablecer">
+
+        </form>
+    </div>
+
+    <!--Segundo form-->
+    <div class="formularios segundo">
+        <form id="form1" method="get">
+            <h3>Matriculación en el ciclo de grado superior DAW</h3>
+            Apellidos: <input type="text" name="apellidos"> Nombre: <input type="text" name="nombre"><br>
+            Domicilio: <input type="text" name="domicilio"><br>
+            Sexo:
+            <input type="radio" name="sexo" value="hombre">Hombre
+            <input type="radio" name="sexo" value="mujer">Mujer<br>
+            Edad:<input type="number" min="1"><br>
+            Curso:
+            <select name="curso">
+                <option value="1">1º</option>
+                <option value="2">2º</option>
+            </select><br>
+
+            Módulos en los que se matricula:<br>
+            <input type="checkbox" name="primero" value="EDD">Entornos de Desarrollo<br>
+            <input type="checkbox" name="primero" value="BDD">Bases de Datos<br>
+            <input type="checkbox" name="primero" value="PROG">Programación<br>
+            <input type="checkbox" name="primero" value="SINF">Sistemas Informáticos<br>
+            <input type="checkbox" name="primero" value="FOL">Formación y Orientación Laboral<br>
+            <input type="checkbox" name="segundo" value="DWEC">Desarrollo Web en Entorno Cliente<br>
+            <input type="checkbox" name="segundo" value="DWES">Desarrollo Web en Entorno Servidor<br>
+            <input type="checkbox" name="segundo" value="DESPL">Despliegue de Aplicaciones Web<br>
+            <input type="checkbox" name="segundo" value="DIW">Desarrollo de Interfaces Web<br>
+            <input type="checkbox" name="segundo" value="EIE">Empresa e Iniciativa Emprendedora<br>
+
+            Observaciones:<br>
+            <textarea name="observaciones" cols="50" rows="10">Indique si tiene alguna observación</textarea>
+
+        </form>
+    </div>
+</body>
+</html>
