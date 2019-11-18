@@ -14,11 +14,15 @@ and open the template in the editor.
         
         <?php
         $usuarioActual=$_COOKIE['usuario'];
-                
-        echo "Hola <b>".$usuarioActual."</b>, su ultima visita fue el <b>". $_COOKIE[$usuarioActual]["fechaUltimaVisita"]."</b>";
+        
+        echo "<h1>Bienvenido $usuarioActual </h1>";
+        echo "Hola <b>".$usuarioActual."</b>, su ultima visita fue el <b>". $_COOKIE[$usuarioActual]["fechaUltimaVisita"]."</b><br>";
         
         //Cambiar cookie fecha ultima visita
         setcookie("$usuarioActual"."[fechaUltimaVisita]", date('d/m/Y h:i:s', time()),  time()+3600);
         ?>
+        <form action="index.php">
+            <input type="submit" name="volver" value="Cerrar sesion"/>
+        </form>
     </body>
 </html>

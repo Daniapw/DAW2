@@ -12,6 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        //Funcion para comprobar si el usuario ha introducido credenciales correctas
         function usuarioExiste(){
             
             if (isset($_POST['enviar'])){
@@ -30,13 +31,13 @@ and open the template in the editor.
             return false;
         }
         
-        
+        //Si el usuario entra por primera vez o las credenciales son incorrectas
         if (!usuarioExiste()){
         
             if (isset($_POST['enviar']) && !usuarioExiste())
                 echo "<p style='color:red;'>Usuario o contraseña incorrectos</p>";?>
 
-            <form action="practicaRecordarUsuYCont.php" method="post">
+            <form action="index.php" method="post">
 
                 Usuario: <input type="text" name="usuario" required value="<?php if(isset($_COOKIE['recordar'])) echo $_COOKIE['usuario'] ?>"/><br>
                 Contrasena: <input type="password" name="cont" required value='<?php if(isset($_COOKIE['recordar'])) echo $_COOKIE['contr'] ?>'/><br>
@@ -46,6 +47,7 @@ and open the template in the editor.
             </form>
 
         <?php
+        //Si no existe
         }else{
             setcookie("usuario", $_POST['usuario'],  time()+3600);
             setcookie("contr", $_POST['cont'],  time()+3600);
@@ -65,7 +67,7 @@ and open the template in the editor.
                 setcookie($_POST['usuario']."[fechaUltimaVisita]", $_COOKIE[$_POST['usuario']]["fechaUltimaVisita"],  time()+3600);
 
             
-            header("Location: bienvenido.php");
+            header("Location: portal.php");
         }
         ?>
     </body>
