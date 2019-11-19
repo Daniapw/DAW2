@@ -64,6 +64,7 @@ function Barco(x,y,tamanio, tipoBarco){
         ancho=0;
         alto=0;
 
+        //Establecer ancho y alto segun orientacion
         if (this.orientacion=='h'){
             ancho=this.tamanio+2;
             alto=3;
@@ -77,28 +78,32 @@ function Barco(x,y,tamanio, tipoBarco){
         if (comienzoAreaX<0){
             comienzoAreaX=0;
             ancho--
-            console.log("ANCHO MENOS UNO");
         }
 
         if (comienzoAreaY<0){
             comienzoAreaY=0;
             alto--;
-            console.log("ALTO MENOS UNO");
         }
 
         if ((comienzoAreaY+alto)>(tablero.length)){
             alto--;
-            console.log("ALTO MENOS UNO");
         }
 
         if ((comienzoAreaX+ancho)>(tablero[0].length)){
             ancho--;
-            console.log("ANCHO MENOS UNO");
         }
 
 
         //Crear area
         this.area=new Area(comienzoAreaX, comienzoAreaY, ancho, alto);
+    }
+
+    //Metodo para cambiar la orientacion del barco, usado en caso de que no sea posible colocar el barco en su orientacion original
+    this.cambiarOrientacion=function(){
+        if (this.orientacion=='h')
+            this.orientacion='v';
+        else
+            this.orientacion='h'
     }
 }
 
@@ -113,27 +118,42 @@ function colocarBarco(barco){
     else
         barco.orientacion='h';
 
+    //Contador iteraciones para evitar bucles infinitos
+    let contador=0;
+
     do{
-        console.log("OTRO BARCO");
+        //Control error bucle infinito
+        if (contador==300){
+            barco.cambiarOrientacion();
+            console.log("CAMBIO DE ORIENTACION");
+        }else if(contador==600){
+            throw new Error("IMPOSIBLE COLOCAR BARCOS");
+        }
+
+        //Obtener nuevas coordenadas
         coords=obtenerCoordenadas();
 
         barco.x=coords[0];
         barco.y=coords[1];
 
+        //Calcular area que ocupa el barco
         barco.calcularArea();
         
+        contador++;
     }while(!comprobarCoordenadas(barco));
 
+    console.log("INTENTOS: " + contador);
     console.log(barco)
 
-    for (let i=barco.area.y; i<(barco.area.alto+barco.area.y); i++){
+    //Rellenar area
+    for (let i=barco.area.y; i<(barco.area.y+barco.area.alto); i++){
         
         for (let j=barco.area.x; j<(barco.area.x+barco.area.ancho); j++){
-            console.log("tablero["+i+"]["+j+"]");
             tablero[i][j]=1;
         }
     }
 
+    //Rellenar barco
     for (let i=0; i<(barco.tamanio); i++){
         if (barco.orientacion=='v')
             tablero[barco.y+i][barco.x]=barco.tipoBarco;

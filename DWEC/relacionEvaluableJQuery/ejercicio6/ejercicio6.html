@@ -14,11 +14,15 @@
 </head>
 <body>
     <script>
-        colocarPortaaviones(1);
-        colocarAcorazados(2);
-        colocarDestructores(3);
-        colocarFragatas(3);
-        dibujarTablero();
+        try{
+            colocarPortaaviones(1);
+            colocarAcorazados(2);
+            colocarDestructores(3);
+            colocarFragatas(3);
+            dibujarTablero();
+        }catch(error){
+            alert("ERROR: IMPOSIBLE COLOCAR BARCOS EN EL ESPACIO DISPONIBLE");
+        }
     </script>
 </body>
 </html>
