@@ -1,43 +1,47 @@
-
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
     </head>
     <body>
-    <?php
-    session_start();
-    if (!isset($_SESSION['usuario']))
-        header("Location: login.php");
-
-    if (!isset($_SESSION['visitas']))
-        echo "Bienvenido  $_SESSION[usuario], esta es tu primera visita";
-    else{
-        echo "Hola de nuevo $_SESSION[usuario] <br>";
+        <?php
+        //Reanudar sesion
+        session_start();
         
-        echo 'Visitas anteriores:<br>';
+        if (!isset($_SESSION['usuario']))
+            header("Location: index.php");
         
-        foreach ($_SESSION['visitas'] as $value){
-            $fecha=date("d/m/Y h:i:s", $value);
-            echo "$fecha<br>";
+        //Si se ha pulsado el boton borrar historial se borra la variable visitas
+        if (isset($_POST['borrar']))
+            unset($_SESSION['visitas']);
+        
+        //Si se ha pulsado el boton cerrar sesion se redirige a la pagina de logout
+        if (isset($_POST['cerrar']))
+            header("Location: logout.php");
+        
+        //Si es su primera visita en esta sesion se muestra un mensaje
+        if (!isset($_SESSION['visitas']))
+            echo "Bienvenido $_SESSION[usuario]";
+        //Si no es su primera visita se muestra un mensaje y el historial de visitas
+        else{
+            echo "Hola de nuevo $_SESSION[usuario]"
+                    . "<br>Historial de visitas:<br>";
+            
+            //Mostrar historial de visitas
+            foreach($_SESSION['visitas'] as $valor){
+                echo date('d/m/Y',$valor)." a las ". date('h:i:s', $valor)."<br>";
+            }
         }
         
-    }
-    
-    $_SESSION['visitas'][]=mktime();
-    ?>
-        <form action="gestionarSesion.php" method="post">
-            <input type="submit" value="Borrar historial" name="borrarHist">
-            <input type="submit" value="Cerrar sesión" name="cerrarSesion">
-        </form>
+        //Anadir esta visita al historial
+        $_SESSION['visitas'][]=mktime();
         
+        //Formulario con botones para borrar historial y cerrar sesion
+        ?>
+        <form action="portal.php" method="post">
+            <input type="submit" name="borrar" value="Borrar historial">
+            <input type="submit" name="cerrar" value="Cerrar sesion">
+        </form>
     </body>
 </html>
-
