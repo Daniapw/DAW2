@@ -15,14 +15,10 @@
     <body>
         <%
         cs=request.getCookies();
-
-        //Si no hay mas de una cookie (contando la cookie JSessionID)
-        if (cs.length<2){
+        
+        if (cs==null){
             out.println("<h1>Bienvenido</h1>");
-
-            //Crear cookie con valor y anadirla
-            Cookie c =new Cookie("contador", "0");
-            c.setMaxAge(300);
+            Cookie c =new Cookie("contador", "1");
             response.addCookie(c);
         }
         //Si hay mas de una cookie
@@ -39,7 +35,6 @@
                     
                     //Se asigna el valor y la 'edad maxima' de la cookie en segundos
                     c.setValue(valorC.toString());
-                    c.setMaxAge(300);
                     
                     //Se vuelve a anadir la cookie y se muestra el contador
                     response.addCookie(c);

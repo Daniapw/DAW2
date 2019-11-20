@@ -58,7 +58,7 @@ public class Ejercicio2 extends HttpServlet {
                 //Boton crear
                 case "Crear":{
                     Cookie c=new Cookie(nombreCookie, valorCookie);
-                    c.setMaxAge(300);
+                    c.setPath("/EjerciciosCookies");
                     response.addCookie(c);
                     texto="<p style='color:green; font-size:30px'><b>Cookie " + nombreCookie +" creada con exito</b></p>";
 
@@ -97,7 +97,7 @@ public class Ejercicio2 extends HttpServlet {
                     for (Cookie c:cs){
                         if (c.getName().equals(nombreCookie)){
                             c.setValue(valorCookie);
-                            c.setMaxAge(300);
+                            c.setPath("/EjerciciosCookies");
                             response.addCookie(c);
                             texto=texto.concat("<p style='color:green; font-size:30px'/><b>Cookie " + nombreCookie +" modificada con exito</b></p>");
 

@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio2_1;
+package servlets.ejercicio2_1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Rel2Ej1", urlPatterns = {"/Rel2Ej1"})
 public class Rel2Ej1 extends HttpServlet {
     
-    private List<Noticia> noticias=new ArrayList<Noticia>();
+    private ListaNoticias noticias=new ListaNoticias();
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,9 +35,6 @@ public class Rel2Ej1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        for (int i=0; i < 6; i++){
-            noticias.add(new Noticia("Noticia "+i, "Contenido noticia " + i));
-        }
         
         int noticia=Integer.parseInt(request.getParameter("noticia"));
         
@@ -61,6 +56,7 @@ public class Rel2Ej1 extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println(texto);
+            out.println("<a href='rel2Ej1.html'>Volver</a>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,17 +67,11 @@ public class Rel2Ej1 extends HttpServlet {
         Cookie[] cs=request.getCookies();
         Integer contador=0;
         Cookie c;
+        boolean cookieExiste=false;
         
-        //Si no hay cookies se busca el valor de la cookie contadorNoticias
-        if (cs==null){
-            //Crear cookie con valor contador actualizado
-            contador++;
-            c=new Cookie("contadorNoticias", contador.toString());
-            c.setMaxAge(3600);
-            response.addCookie(c);
-        }
-        else{
-            //Si hay cookies se busca el valor de la cookie contadorNoticias
+        //Si hay cookies activas
+        if (cs!=null){
+        
             for (Cookie c1:cs){
                 if (c1.getName().equals("contadorNoticias")){
                     contador=Integer.parseInt(c1.getValue());
@@ -90,11 +80,22 @@ public class Rel2Ej1 extends HttpServlet {
                     c=new Cookie("contadorNoticias", contador.toString());
                     c.setMaxAge(3600);
                     response.addCookie(c);
+
+                    //La cookie existe
+                    cookieExiste=true;
                     break;
                 }
             }
         }
         
+        //Si la cookie no existe se crea
+        if (!cookieExiste){
+            //Crear cookie con valor contador actualizado
+            contador++;
+            c=new Cookie("contadorNoticias", contador.toString());
+            c.setMaxAge(3600);
+            response.addCookie(c);
+        }
         
         //Devolver true o false
         return contador>5;
