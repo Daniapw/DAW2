@@ -10,9 +10,20 @@
 <body>
     <script>
         
-        fraccion=new Fraccion(4,16);
+        fraccion=new Fraccion(1,1);
+        fraccion2=new Fraccion(5,8);
 
-        fraccion=fraccion.dividir(new Fraccion(4,8));
+        fraccion.setNumerador(4);
+        fraccion.setDenominador(16);
+
+        document.write("Fraccion: 4/16 <br>");
+        document.write("Imprimir fraccion= " + fraccion.imprimirFraccion() + "<br>"
+                        + "Simplificar fraccion= " + fraccion.simplificar().imprimirFraccion() + "<br>"
+                        + "Multiplicar 4/16*4/8= " + fraccion.multiplicar(fraccion2).imprimirFraccion() + "<br>"
+                        + "Dividir 4/16 entre 4/8= " + fraccion.dividir(fraccion2).imprimirFraccion());
+
+
+        fraccion=fraccion.dividir();
 
         fraccion.imprimirFraccion();
         

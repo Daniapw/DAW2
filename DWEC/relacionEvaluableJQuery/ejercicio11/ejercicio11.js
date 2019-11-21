@@ -31,13 +31,13 @@ function Fraccion(numerador,denominador){
         return this.denominador;
     }
 
-    this.getDenominador=function(denominador){
+    this.setDenominador=function(denominador){
         this.denominador=denominador;
     }
 
     //Imprimir fraccion
     this.imprimirFraccion=function(){
-        document.write(this.numerador+"/"+this.denominador);
+        return ""+this.numerador+"/"+this.denominador;
     }
 
     //Simplificar fraccion
@@ -49,14 +49,14 @@ function Fraccion(numerador,denominador){
 
     //Multiplicar fraccion por otra fraccion
     this.multiplicar=function(fraccion){
-        resultado=new Fraccion((this.numerador*fraccion.numerador),(this.denominador*fraccion.denominador));
+        resultado=new Fraccion((this.numerador*fraccion.getNumerador()),(this.denominador*fraccion.getDenominador()));
 
         return resultado.simplificar();
     }
 
     //Dividir fraccion entre otra fraccion
     this.dividir=function(fraccion){
-        resultado=new Fraccion((this.numerador*fraccion.denominador), (this.denominador*fraccion.numerador));
+        resultado=new Fraccion((this.numerador*fraccion.getDenominador()), (this.denominador*fraccion.getNumerador()));
 
         return resultado.simplificar();
     }

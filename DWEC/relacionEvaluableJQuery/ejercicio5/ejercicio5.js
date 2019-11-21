@@ -34,7 +34,7 @@ function getNumerosPremiados(){
     var numerosPremiados=[];
     var numAleatorio;
 
-    for (let i=0; i < 6; i++){
+    for (let i=0; i < 5; i++){
 
         do{
             numAleatorio=Math.floor(Math.random()*49) +1;

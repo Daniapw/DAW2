@@ -1,17 +1,17 @@
 $(function(){
-    $("#formulario input[name=kilos]").click(function(){
+    $("#formulario input[name=kilos]").focus(function(){
         $("#formulario input[name=gramos]").val("");
     });
 
-    $("#formulario input[name=gramos]").click(function(){
+    $("#formulario input[name=gramos]").focus(function(){
         $("#formulario input[name=kilos]").val("");
     });
 
-    $("#formulario input[name=kilometros]").click(function(){
+    $("#formulario input[name=kilometros]").focus(function(){
         $("#formulario input[name=metros]").val("");
     });
 
-    $("#formulario input[name=metros]").click(function(){
+    $("#formulario input[name=metros]").focus(function(){
         $("#formulario input[name=kilometros]").val("");
     });
 
