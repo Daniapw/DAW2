@@ -1,0 +1,99 @@
+/*ARCHIVO CSS*/
+
+body{
+    font-family: 'Roboto', sans-serif;
+    margin:0px;
+    padding:0;
+    width:100%;
+    overflow-x:hidden;
+}
+
+.bg-primary{
+    background-color:#006c75 !important;
+}
+
+.text-primary{
+    color:#006c75 !important;
+}
+
+.text-secondary{
+    color:#fff09d !important;
+}
+
+h1,h2,h3,h4,h5{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.dropdown-item{
+    color:black !important;
+}
+
+
+
+/*/////////////////////CSS GRAFICOS CIRCULARES PARA PUNTUACIONES PERSONAJES/////////////////////////////*/
+.chart {
+    position: relative;
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.percent {
+    display: inline-block;
+    line-height: 130px;
+    font-size:2em;
+    font-weight:bold;
+    z-index: 2;
+}
+
+.tituloPuntuacionPer{
+    font-size:1.2em;
+    font-weight:bold;
+}
+
+.tablaDatos{
+    border-top:0px red;
+}
+
+@media (max-width:991px){
+    .tablaDatos{
+        border-top:1px solid lightgray !important;
+    }
+
+}
+
+.overlayBannerPers{
+    position: absolute; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */  
+}
+
+.bannerPers{
+    /* The image used */
+    background-image: url("../assets/img/spidermanPS4.jpg");
+
+    /* Set a specific height */
+    height:600px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:cover;
+}
+
+.tituloPers{
+    font-size:5em;
+}
+/*////////////////////////////////////////////////////////////////////////////////////*/
+
+
