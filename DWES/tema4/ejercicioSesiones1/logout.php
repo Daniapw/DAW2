@@ -6,8 +6,9 @@ if (!isset($_SESSION['usuario'])){
     die();
 }
 
-setcookie(session_name(), session_id(), time() - 7200, "/");
+
 session_unset();
 session_destroy();
+setcookie(session_name(), session_id(), time() - 7200, "/");
 
 header("Location: index.php");
