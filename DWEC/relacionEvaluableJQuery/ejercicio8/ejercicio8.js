@@ -19,6 +19,7 @@ $(function(){
     $("#btnDistancia").click(convertirDistancia);
 })
 
+//Funcion para botones de peso
 function convertirPeso(){
     //Campos
     kgs=$("#formulario input[name=kilos]");
@@ -35,8 +36,10 @@ function convertirPeso(){
         gsVacio=true;
 
     //Si estan vacios se acaba la funcion
-    if (gsVacio && kgVacio)
+    if (gsVacio && kgVacio){
+        alert("No ha introducido ningun dato");
         return;
+    }
     else if (!kgVacio && gsVacio)
         gs.val(kgs.val()*1000);
     else if(kgVacio && !gsVacio)
@@ -45,6 +48,7 @@ function convertirPeso(){
 
 }
 
+//Funcion para botones de distancia
 function convertirDistancia(){
     //Campos
     kms=$("#formulario input[name=kilometros]");
@@ -61,8 +65,10 @@ function convertirDistancia(){
         msVacio=true;
 
     //Si estan vacios se acaba la funcion
-    if (kmsVacio && msVacio)
+    if (kmsVacio && msVacio){
+        alert("No ha introducido ningun dato");
         return;
+    }
     else if (!kmsVacio && msVacio)
         ms.val(kms.val()*1000);
     else if(kmsVacio && !msVacio)

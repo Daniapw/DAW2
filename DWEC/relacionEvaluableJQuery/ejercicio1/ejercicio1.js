@@ -12,24 +12,22 @@ $(function(){
             return;
         }
 
-        alert("Credenciales correctas");
+        alert("Bienvenido al sistema");
     });
 });
 
 //Funcion para comprobar usuario
 function comprobarUsuario(){
-    if ($("input[name=usuario]").val()=="admin"){
-        console.log($("input[name=usuario]").val());
+    if ($("input[name=usuario]").val()=="admin")
         return true;
-    }
+    
     return false;
 }
 
 //Funcion para comprobar contrasena
 function comprobarContra(){
-    if ($("input[name=cont]").val()=="1234"){
-        console.log($("input[name=cont]").val());
+    if ($("input[name=cont]").val()=="1234")
         return true;
-    }
+    
     return false;
 }

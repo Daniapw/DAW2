@@ -26,13 +26,13 @@ $(function(){
 
     //Metodo letras y espacios
     $.validator.addMethod('letrasyespacios', function(value, element){
-        patr=new RegExp("^[a-zA-Z\s]*$");
-
+        patr=new RegExp("^[a-zA-Z][a-zA-Z\\s]*$");
+        console.log(value);
         if (patr.test(value))
             return true;
 
         return false;
-    }, 'Solo se admiten letras y espacios');
+    }, 'Solo se admiten letras y espacios entre medias');
 
     configurarValidate("#form1");
     configurarValidate("#form2");
@@ -74,7 +74,6 @@ function configurarValidate(form){
         errorElement:"div",
 
         errorPlacement: function(error, element){
-            console.log($(element).is(":checkbox"));
             if ($(element).is(":checkbox, :radio"))
                 $(error).insertBefore(element);
             else
@@ -107,24 +106,30 @@ function configurarValidate(form){
 function initSelectCurso(){
     $("form input[class=segundo]").prop('disabled', true);
 
+    //Form 1
     $("#form1 select[name=curso]").change(function () { 
         if ($(this).val()=="1"){
             $("#form1 input[class=segundo]").prop('disabled', true);
+            $("#form1 input[class=segundo]").prop('checked', false);
             $("#form1 input[class=primero], #form1 input[class='primero error']").prop('disabled', false);
         }
         else{
             $("#form1 input[class=primero], #form1 input[class='primero error']").prop('disabled', true);
+            $("#form1 input[class=primero]").prop('checked', false);
             $("#form1 input[class=segundo]").prop('disabled', false);
         }
     });
 
+    //Form 2
     $("#form2 select[name=curso]").change(function () { 
         if ($(this).val()=="1"){
             $("#form2 input[class=segundo]").prop('disabled', true);
+            $("#form2 input[class=segundo]").prop('checked', false);
             $("#form2 input[class=primero], #form2 input[class='primero error']").prop('disabled', false);
         }
         else{
             $("#form2 input[class=primero], #form2 input[class='primero error']").prop('disabled', true);
+            $("#form2 input[class=primero]").prop('checked', false);
             $("#form2 input[class=segundo]").prop('disabled', false);
         }
     });

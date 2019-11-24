@@ -1,10 +1,18 @@
 $(function(){
     $("#btnAnalizar").click(function(){
+
+        //Si no se ha introducido texto se muestra un mensaje de error y se termina la funcion
+        if ($("#texto").val().trim()==""){
+            alert("Debe escribir algo en el cuadro de texto");
+            return;
+        }
+
         //Crear objeto ventana donde se mostrara la informacion
         var w=window.open("","","width=500, height=500");
 
-        //Texto separado en espacios
-        contTexto=$("#texto").val().split(" ");
+        //Texto en minuscula convertido a array
+        contTexto=$("#texto").val().toLowerCase();
+        contTexto=contTexto.split(" ");
 
         //Mostrar info
         w.document.write("<h1>Informacion sobre el texto introducido</h1><br>"
@@ -30,6 +38,7 @@ function alReves(arrayTexto){
     return texto;
 }
 
+//Funcion para ordenar texto alfabeticamente
 function ordenar(arrayTexto, ascendente){
 
     texto="";
@@ -59,11 +68,9 @@ function ordenar(arrayTexto, ascendente){
 
     }
 
-    console.log(arrayTexto);
-
     for (let i=0; i<arrayTexto.length; i++){
         texto=texto.concat(arrayTexto[i] + "..");
     }
-    console.log(texto);
+
     return texto;
 }
