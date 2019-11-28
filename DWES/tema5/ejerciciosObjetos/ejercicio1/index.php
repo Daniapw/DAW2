@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <?php
-require_once 'Animal.php'
+require_once 'Animal.php';
+require_once 'Mamifero.php';
+require_once 'Ave.php';
+require_once 'Gato.php';
 ?>
 <html>
     <head>
@@ -9,7 +12,9 @@ require_once 'Animal.php'
     </head>
     <body>
         <?php
-        $animal=new Animal("Agapornis", 2, "Omnivoro", 0.2);
+        $animal=new Gato("Misifu", 4, "Carnívoro", true, 5);
+        
+        $animal->maullar();
         
         echo "<p>$animal</p>";
         ?>

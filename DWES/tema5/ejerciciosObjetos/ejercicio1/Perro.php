@@ -12,13 +12,18 @@
  * @author DWES
  */
 class Perro extends Mamifero{
-    public $color;
     
-    public function __construct($nombre, $numPatas, $tipoAlimentacion, $color, $pelaje = true, $peso = 1) {
+    public function __construct($nombre, $numPatas, $tipoAlimentacion, $pelaje = true, $peso = 1) {
         parent::__construct($nombre, $numPatas, $tipoAlimentacion, $pelaje, $peso);
-        $this->raza=$raza;
     }
     
+    public function ladrar(){
+        echo "Guau guau!";
+    }
+    
+    public function perseguirCola(){
+        echo "$this->nombre se persigue la cola!";
+    }
     
     public function interactuar(Animal $animal) {
         if ($animal instanceof Gato)

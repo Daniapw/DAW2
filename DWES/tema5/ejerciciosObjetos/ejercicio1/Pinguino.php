@@ -12,5 +12,15 @@
  * @author DWES
  */
 class Pinguino extends Ave{
-    //put your code here
+    public function __construct($nombre, $numPatas, $tipoAlimentacion, $colorPlumaje, $tipoPico, $peso = 1) {
+        parent::__construct($nombre, $numPatas, $tipoAlimentacion, $colorPlumaje, $tipoPico, $peso);
+    }
+    
+    public function nadar(){
+        echo "$this->nombre se lanza al agua y nada a gran velocidad!";
+    }
+    
+    public function graznar(){
+        echo "$this->nombre se pone a graznar";
+    }
 }
