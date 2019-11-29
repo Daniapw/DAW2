@@ -19,7 +19,7 @@ class Producto {
     private $PVP;
     private $familia;
     
-    public function __construct($cod, $nombreCorto, $pvp, $familia, $descripcion="", $nombre="") {
+    public function __construct($cod, $nombreCorto, $pvp, $familia='', $descripcion="", $nombre="") {
         $this->cod=$cod;
         $this->nombreCorto=$nombreCorto;
         $this->PVP=$pvp;
@@ -34,5 +34,9 @@ class Producto {
     
     public function __set($name, $value) {
         $this->$name=$value;
+    }
+    
+    public function __toString() {
+        return $this->nombreCorto.'->'."$this->PVP"."€<br>";
     }
 }

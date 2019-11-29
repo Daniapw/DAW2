@@ -15,10 +15,11 @@ class Conexion extends mysqli{
     private $host='localhost';
     private $usu="dwes";
     private $pass="abc123.";
-    private $bdd="dwes";
+    private $bdd;
     
-    public function __construct(){
-        parent::__construct($this->host, $this->usu, $this->pass, $this->bdd);
+    public function __construct($bdd){
+        parent::__construct($this->host, $this->usu, $this->pass, $bdd);
+        $this->bdd=$bdd;
     }
 
         

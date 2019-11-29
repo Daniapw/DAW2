@@ -9,11 +9,11 @@ require_once 'Producto.php';
     </head>
     <body>
         <?php
-        $producto=new Producto(1, "Pantalon", 50.5);
+        $producto=new ProductoE(1, "Pantalon", 50.5);
         $producto->insert();
         $producto->nuevoProducto(2, "B", 10);
         
-        $productos=Producto::getAllProductos();
+        $productos=ProductoE::getAllProductos();
         
         foreach($productos as $valor){
             echo "$valor <br><br>";

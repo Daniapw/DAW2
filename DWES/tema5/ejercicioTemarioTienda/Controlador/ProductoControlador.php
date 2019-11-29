@@ -1,34 +1,38 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once '../Modelo/Producto.php';
+require_once 'Conexion.php';
 
-/**
- * Description of ProductoControlador
- *
- * @author DWES
- */
 class ProductoControlador {
     
-    //Listar productos disponibles en la tienda
+    //Obtener todos los productos disponibles en la BDD
     public static function getAllProductos(){
-        $conex= getConexTienda();
-
-        $resultados=$conex->query("SELECT * FROM producto");
-
-        while($objeto=$resultados->fetch_object()){
+        $conex=new Conexion("dwes");
+        
+        $resultado=$conex->query("SELECT * FROM productos");
+        
+        if ($conex->affected_rows){
+            while($producto=$resultado->fetch_object()){
+                $array[]=new Producto($producto->cod, $producto->nombre_corto, $producto->PVP, $producto->familia, $producto->descripcion);
+            }
+            
+            return $array;
+        }
+        
+        return false;
+    }
+    
+    public static function listarProductosConForms(){
+        $productos=self::getAllProductos();
+        
+        foreach ($productos as $producto) {
             echo 
             "<form action='productos.php' method='post'>"
-            . "<input type='hidden' name='nombreCorto' value='$objeto->nombre_corto'>"
-            . "<input type='hidden' name='codProducto' value='$objeto->cod'>"
-            . "<input type='hidden' name='PVP' value='$objeto->PVP'>"
-            . "<input type='submit' name='anadir' value='Añadir'> $objeto->nombre_corto $objeto->PVP"."€"
+            . "<input type='hidden' name='nombreCorto' value='$producto->nombreCorto'>"
+            . "<input type='hidden' name='codProducto' value='$producto->cod'>"
+            . "<input type='hidden' name='PVP' value='$producto->PVP'>"
+            . "<input type='submit' name='anadir' value='Añadir'> $producto->nombreCorto $producto->PVP"."€"
           . "</form><br>";
         }
-
-        $conex->close();
     }
 }

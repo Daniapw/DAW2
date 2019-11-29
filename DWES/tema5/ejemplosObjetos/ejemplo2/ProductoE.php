@@ -2,7 +2,7 @@
 
 require_once 'Conexion.php';
 
-class Producto {
+class ProductoE {
     private $codigo;
     private $nombre;
     private $precio;
