@@ -24,6 +24,7 @@ class Ave extends Animal{
     //toString
     public function __toString() {
         return parent::__toString()."<br>"
-                . "Color del plumaje: $this->colorPlumaje";
+                . "Color del plumaje: $this->colorPlumaje <br>"
+                . "Tipo de pico: $this->tipoPico";
     }
 }

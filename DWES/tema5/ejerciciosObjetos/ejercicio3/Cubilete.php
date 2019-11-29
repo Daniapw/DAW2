@@ -23,7 +23,7 @@ class Cubilete {
     //Funcion para tirar dados
     public function tirarDados(){
         
-        foreach($this->dados as $key=>$dado){
+        foreach($this->dados as $dado){
             $dado->tira();
         }
         

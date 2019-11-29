@@ -26,6 +26,13 @@ class Zona {
         $this->plazasRestantes-=$numEntradas;
     }
     
+    public function comprobarPlazas($numEntradas){
+        if (($this->plazasRestantes-$numEntradas)<0)
+            return false;
+        
+        return true;
+    }
+    
     public function __get($name) {
         return $this->$name;
     }
