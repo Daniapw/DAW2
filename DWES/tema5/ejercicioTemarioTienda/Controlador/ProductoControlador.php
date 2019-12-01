@@ -9,8 +9,8 @@ class ProductoControlador {
     public static function getAllProductos(){
         $conex=new Conexion("dwes");
         
-        $resultado=$conex->query("SELECT * FROM productos");
-        
+        $resultado=$conex->query("SELECT * FROM producto");
+                
         if ($conex->affected_rows){
             while($producto=$resultado->fetch_object()){
                 $array[]=new Producto($producto->cod, $producto->nombre_corto, $producto->PVP, $producto->familia, $producto->descripcion);
@@ -22,6 +22,7 @@ class ProductoControlador {
         return false;
     }
     
+    //Listar productos con formularios para productos.php
     public static function listarProductosConForms(){
         $productos=self::getAllProductos();
         

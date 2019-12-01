@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ejercicio1.modelo;
+package ejercicioBasico.modelo;
 
 /**
  *

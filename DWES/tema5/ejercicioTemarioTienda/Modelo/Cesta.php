@@ -17,14 +17,50 @@ class Cesta {
     public function __construct() {
     }
     
-    public static function addProducto($producto){
+    //Anadir producto a la cesta
+    public function addProducto($producto){
         $this->productos[]=$producto;
     }
     
     //Listar productos de cesta
-    function listarProductos(){
+    public function listarProductos(){
         foreach ($this->productos as $value){
             echo $value;
         }
     }
+    
+    //Listar productos con formato factura
+    public function listarFormatoPago(){
+        echo "<table>";
+    
+        foreach ($this->productos as $producto){
+            echo
+            "<tr>".
+                "<td>$producto->cod</td>".
+                "<td>$producto->nombreCorto</td>".
+                "<td>".$producto->PVP."€</td>".
+            "</tr>";
+        }
+    
+        echo "</table>";
+    }
+    
+    
+    //Vaciar cesta
+    public function vaciarCesta(){
+        $this->productos=[];
+    }
+    
+    //Get precio final
+    public function getPrecioFinal(){
+        $precio=0;
+        
+        foreach ($this->productos as $producto){
+            $precio+=$producto->PVP;
+        }
+        
+        return $precio;
+    }
+    
+
 }

@@ -1,13 +1,16 @@
 <?php
-session_start();
 require_once '../Controlador/ProductoControlador.php';
 require_once '../Modelo/Producto.php';
 require_once '../Modelo/Cesta.php';
+
+//Reanudar sesion
+session_start();
 
 //Si existe la variable usuario es que hay una sesion activa
 if (!isset($_SESSION['usuario']))
     header("Location: login.php");
 
+//Si no existe la variable de sesion 'cesta', se crea
 if (!isset($_SESSION['cesta']))
     $_SESSION['cesta']=new Cesta();
 
@@ -19,7 +22,7 @@ if (isset($_POST['anadir'])){
 
 //Si el usuario quiere vaciar la cesta
 if (isset($_POST['vaciar']))
-    unset($_SESSION['cesta']);
+    $_SESSION['cesta']->vaciarCesta();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "
@@ -46,16 +49,16 @@ http://www.w3.org/TR/html4/loose.dtd">
                 ?>
                 <hr />
                 <form action="productos.php" method="POST">
-                    <input type="submit" name="vaciar" value="Vaciar Cesta" <?php if (!isset($_SESSION['cesta'])) echo 'disabled'; ?>>
+                    <input type="submit" name="vaciar" value="Vaciar Cesta" <?php if (empty($_SESSION['cesta']->productos)) echo 'disabled'; ?>>
                 </form>
                 <form action="cesta.php" method="POST">
-                    <input type="submit" name="comprar" value="Comprar" <?php if (!isset($_SESSION['cesta'])) echo 'disabled'; ?>>
+                    <input type="submit" name="comprar" value="Comprar" <?php if (empty($_SESSION['cesta']->productos)) echo 'disabled'; ?>>
                 </form>
                 
             </div>
             <div id="productos">
                 <?php
-                
+                    //Listar productos disponibles 
                     ProductoControlador::listarProductosConForms();
                 
                 ?>

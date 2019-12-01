@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ejercicioBasico.controlador;
 
-package ejercicio1.controlador;
-
+import ejercicioBasico.modelo.ListaUsuarios;
+import ejercicioBasico.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +14,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author diurno
+ * @author danir
  */
-@WebServlet(name = "ServControlador", urlPatterns = {"/ServControlador"})
-public class ServControlador extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+public class LoginServlet extends HttpServlet {
+    private ListaUsuarios listaUsuarios=ListaUsuarios.getInstancia();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +35,23 @@ public class ServControlador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession sesion=request.getSession();
         
+        Usuario usuario=null;
+        
+        if (request.getParameter("enviar")!=null)
+            usuario=listaUsuarios.login(request.getParameter("usuario"), request.getParameter("contra"));
+        
+        if (usuario==null)
+            sesion.setAttribute("intentoFallido", true);
+        else{
+            sesion.setAttribute("usuario", usuario.getNombre());
+            sesion.setMaxInactiveInterval(3600);
+        }
+        
+        //Redirigir
+        response.sendRedirect("index.jsp");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

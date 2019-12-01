@@ -9,6 +9,7 @@ require_once 'Conexion.php';
  */
 class ControladorBD {
     
+    //Funcion login para verificar usuario y contrasena
     public static function login($usuario, $pass){
         //Se comprueba si el usuario y la contrasena son correctos
         $conex=new Conexion("ejemplo");

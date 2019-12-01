@@ -8,7 +8,7 @@ if (isset($_SESSION['usuario']))
 
 //Si se ha enviado el formulario
 if (isset($_POST['enviar'])){
-    //Si se ha encontrado se inicia la sesion y se redirige a la pagina portal
+    //Si las credenciales son correctas se redirige al usuario a la pagina de productos
     if (ControladorBD::login($_POST['usuario'], $_POST['contra'])){
         $_SESSION['usuario']=$_POST['usuario'];
         header('Location: productos.php');
