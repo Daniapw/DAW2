@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ejercicio1.controlador;
 
+import ejercicio1.modelo.Foro;
+import ejercicio1.modelo.Mensaje;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +18,12 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author danir
+ * @author diurno
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
-public class LogoutServlet extends HttpServlet {
-
+@WebServlet(name = "ForoServlet", urlPatterns = {"/ForoServlet"})
+public class ForoServlet extends HttpServlet {
+    public Foro foro=Foro.getInstancia();
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,11 +38,11 @@ public class LogoutServlet extends HttpServlet {
         
         HttpSession sesion=request.getSession();
         
-        if (sesion.getAttribute("usuario")!=null){
-            sesion.invalidate();
+        if (request.getParameter("mensaje")!=null){
+            foro.add(new Mensaje((String) sesion.getAttribute("usuario"),request.getParameter("mensaje")));
         }
         
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("foro.jsp");
         
     }
 

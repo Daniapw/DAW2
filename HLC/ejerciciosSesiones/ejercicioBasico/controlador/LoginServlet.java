@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicioBasico.controlador;
+package ejercicio1.controlador;
 
-import ejercicioBasico.modelo.ListaUsuarios;
-import ejercicioBasico.modelo.Usuario;
+import ejercicio1.modelo.ListaUsuarios;
+import ejercicio1.modelo.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,20 +36,33 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sesion=request.getSession();
         
+        //Ruta redireccion
+        String ruta="";
+        
+        //Usuario
         Usuario usuario=null;
         
+        //Si se ha enviado el formulario correctamente
         if (request.getParameter("enviar")!=null)
             usuario=listaUsuarios.login(request.getParameter("usuario"), request.getParameter("contra"));
         
-        if (usuario==null)
-            sesion.setAttribute("intentoFallido", true);
+        //Si el usuario es nulo (no se ha enviado el formulario o las credenciales son incorrectas
+        if (usuario==null){
+            
+            //Si se ha enviado el formulario entonces ha sido un intento de login fallido
+            if (request.getParameter("enviar")!=null)
+                sesion.setAttribute("intentoFallido", true);
+            
+            ruta="index.jsp";
+        }
+        //Si el usuario existe
         else{
             sesion.setAttribute("usuario", usuario.getNombre());
-            sesion.setMaxInactiveInterval(3600);
+            ruta="foro.jsp";
         }
         
-        //Redirigir
-        response.sendRedirect("index.jsp");
+        //Redirigir a la ruta
+        request.getRequestDispatcher(ruta).forward(request, response);
 
     }
 
