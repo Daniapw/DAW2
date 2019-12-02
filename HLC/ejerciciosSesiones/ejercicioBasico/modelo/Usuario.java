@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ejercicio1.modelo;
+package ejercicioBasico.modelo;
 
 /**
  *
@@ -14,10 +14,12 @@ public class Usuario {
     private String nombre;
     private String contra;
     private int edad;
+    private boolean admin;
 
-    public Usuario(String nombre, String contra, int edad) {
+    public Usuario(String nombre, String contra, int edad, boolean esAdmin) {
         this.nombre = nombre;
         this.contra = contra;
+        this.admin=esAdmin;
     }
 
     
@@ -45,6 +47,15 @@ public class Usuario {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+    
     
     
 }

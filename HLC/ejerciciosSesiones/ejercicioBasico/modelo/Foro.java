@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ejercicio1.modelo;
+package ejercicioBasico.modelo;
 
 import java.util.ArrayList;
 
@@ -25,24 +25,56 @@ public class Foro extends ArrayList<Mensaje>{
     public static Foro getInstancia(){
         if (instancia==null){
             instancia=new Foro();
-            instancia.add(new Mensaje("Dani", "abaababab"));
-            instancia.add(new Mensaje("Rafa", "abaababab"));
         }
         
         return instancia;
     }
     
+    //Coger siguiente id del mensaje
+    public int getSiguientetId(){
+        int id=0;
+        
+        if (!this.isEmpty()){
+            id=this.get(this.size()-1).getId();
+            id++;
+        }
+        
+        return id;
+    }
+    
+    //Borrar mensaje
+    public void borrarMensaje(int id){
+        int indice=-1;
+        
+        for (Mensaje mensaje:this){
+            if (mensaje.getId()==id){
+                indice=this.indexOf(mensaje);
+                break;
+            }
+        }
+        
+        this.remove(indice);
+    }
+    
+    
     //Listar mensajes
-    @Override
-    public String toString(){
+    public String listarMensajes(boolean esAdmin){
         
         StringBuffer str=new StringBuffer();
        
         str.append("<div><h1>Bienvenido al Foro</h1>");
         
         if (!this.isEmpty()){
-            for (Mensaje mensaje:this){
-                str.append(mensaje.toString());
+            
+            if (esAdmin){
+                for (Mensaje mensaje:this){
+                    str.append(mensaje.toStringAdmin());
+                }
+            }
+            else{
+                for (Mensaje mensaje:this){
+                    str.append(mensaje.toString());
+                }
             }
         }
         else{

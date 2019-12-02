@@ -4,12 +4,17 @@
     Author     : diurno
 --%>
 
-<%@page import="ejercicio1.modelo.Foro"%>
+<%@page import="ejercicioBasico.modelo.Foro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <% 
 HttpSession sesion=request.getSession();
 
+//Si el usuario ya se ha logeado
+if (sesion.getAttribute("usuario")!=null)
+    response.sendRedirect("foro.jsp");
+
+//Crear variable de sesion para saber si el usuario ha intentado logearse
 if (sesion.getAttribute("intentoFallido")==null)
     sesion.setAttribute("intentoFallido", false);
 
@@ -22,6 +27,7 @@ if (sesion.getAttribute("intentoFallido")==null)
         <title>JSP Page</title>
     </head>
     <body>
+        <h1>Login</h1>
         <%
         //Mostrar mensaje de error si es necesario
         if ((Boolean) session.getAttribute("intentoFallido"))
@@ -32,6 +38,7 @@ if (sesion.getAttribute("intentoFallido")==null)
             Contraseña: <input type="password" name="contra" required><br>
             <input type="submit" name="enviar" value="Enviar">
         </form>
+        <a href="registro.jsp">Registrarse</a>
         
     </body>
 </html>

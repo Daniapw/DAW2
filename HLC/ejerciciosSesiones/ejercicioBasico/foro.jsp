@@ -4,12 +4,13 @@
     Author     : diurno
 --%>
 
-<%@page import="ejercicio1.modelo.Foro"%>
+<%@page import="ejercicioBasico.modelo.Foro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     HttpSession sesion=request.getSession();
     
+    //Si el usuario no se ha logeado se redirige al index
     if (sesion.getAttribute("usuario")==null)
         response.sendRedirect("index.jsp");
     
@@ -41,7 +42,12 @@
     </head>
     <body>
     <%
-        out.println(foro.toString());
+        //Mostrar mensajes del foro
+        if (!(Boolean) sesion.getAttribute("admin"))
+            out.println(foro.listarMensajes(false));
+        else
+            out.println(foro.listarMensajes(true));
+
     %>
     <form action="ForoServlet" method="post">
         <textarea name="mensaje" maxlength="400" cols="30" rows="5" placeholder="Escribe tu mensaje aqui..."></textarea><br>

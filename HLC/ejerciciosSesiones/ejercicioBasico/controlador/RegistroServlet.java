@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejercicioBasico.controlador;
 
-import ejercicioBasico.modelo.Foro;
-import ejercicioBasico.modelo.Mensaje;
+import ejercicioBasico.modelo.ListaUsuarios;
+import ejercicioBasico.modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +17,12 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author diurno
+ * @author danir
  */
-@WebServlet(name = "ForoServlet", urlPatterns = {"/ForoServlet"})
-public class ForoServlet extends HttpServlet {
-    public Foro foro=Foro.getInstancia();
-    
+@WebServlet(name = "RegistroServlet", urlPatterns = {"/RegistroServlet"})
+public class RegistroServlet extends HttpServlet {
+    private ListaUsuarios listaUsuarios=ListaUsuarios.getInstancia();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,24 +34,31 @@ public class ForoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         HttpSession sesion=request.getSession();
         
-        //Si se quiere escribir un mensaje
-        if (request.getParameter("mensaje")!=null){
-            if (!request.getParameter("mensaje").trim().equals(""))
-                foro.add(new Mensaje((String) sesion.getAttribute("usuario"),request.getParameter("mensaje"), foro.getSiguientetId()));
+        //Si se ha enviado el formulario
+        if (request.getParameter("registrarse")!=null){
+            
+            //Almacenar los parametros
+            String usuario=request.getParameter("usuarioRegistro");
+            String pass=request.getParameter("passRegistro");
+            int edad=Integer.parseInt(request.getParameter("edad"));
+            
+            //Si el usuario no existe se crea y se cambia la variable de sesion registroCompletado a true
+            if (listaUsuarios.login(usuario)==null){
+                listaUsuarios.add(new Usuario(usuario, pass, edad, false));
+                sesion.setAttribute("registroCompletado", true);
+
+            }
+            //Si el usuario ya existe se cambia la variable de sesion usuarioYaExiste a true
+            else{
+                sesion.setAttribute("usuarioYaExiste", true);
+            }
+            
         }
         
-        //Si el usuario es admin y quiere borrar un mensaje
-        if (request.getParameter("eliminar")!=null && (Boolean) sesion.getAttribute("admin")){
-            int id=Integer.parseInt(request.getParameter("idMensaje"));
-            foro.borrarMensaje(id);
-        }
-        
-        //Redirigir a foro
-        response.sendRedirect("foro.jsp");
-        
+        //Redirigir a pagina de registro
+        response.sendRedirect("registro.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

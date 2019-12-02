@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ejercicio1.modelo;
+package ejercicioBasico.modelo;
 
 import java.util.ArrayList;
 
@@ -22,11 +22,7 @@ public class ListaUsuarios extends ArrayList<Usuario>{
     
     //Inicializar lista
     private static void init() {
-        Usuario dani=new Usuario("Dani", "dani", 23);
-        Usuario rafa=new Usuario("Rafa", "rafa", 26);
-        
-        instancia.add(dani);
-        instancia.add(rafa);
+        instancia.add(new Usuario("Admin", "admin", 23, true));
     }
     
     //Funcion para conseguir instancia del singleton
@@ -39,11 +35,22 @@ public class ListaUsuarios extends ArrayList<Usuario>{
         return instancia;
     }
     
-    //Comprobar si usuario existe
+    //Comprobar si las credenciales son correctas
     public Usuario login(String nombre, String pass){
         
         for (Usuario usuario:this){
             if (usuario.getNombre().equals(nombre) && usuario.getContra().equals(pass))
+                return usuario;
+        }
+        
+        return null;
+    }
+    
+    //Comprobar si usuario existe 
+    public Usuario login(String nombre){
+        
+        for (Usuario usuario:this){
+            if (usuario.getNombre().equals(nombre))
                 return usuario;
         }
         

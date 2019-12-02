@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio1.controlador;
+package ejercicioBasico.controlador;
 
-import ejercicio1.modelo.ListaUsuarios;
-import ejercicio1.modelo.Usuario;
+import ejercicioBasico.modelo.ListaUsuarios;
+import ejercicioBasico.modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,14 +50,24 @@ public class LoginServlet extends HttpServlet {
         if (usuario==null){
             
             //Si se ha enviado el formulario entonces ha sido un intento de login fallido
-            if (request.getParameter("enviar")!=null)
+            if (request.getParameter("enviar")!=null){
                 sesion.setAttribute("intentoFallido", true);
+                
+            }
             
             ruta="index.jsp";
         }
         //Si el usuario existe
         else{
             sesion.setAttribute("usuario", usuario.getNombre());
+            
+            //Variable de sesion para saber si el usuario es admin o no
+            if (usuario.isAdmin())
+                sesion.setAttribute("admin", true);
+            else
+                sesion.setAttribute("admin", false);
+
+            
             ruta="foro.jsp";
         }
         

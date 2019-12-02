@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio1.controlador;
+package ejercicioBasico.controlador;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -34,6 +34,7 @@ public class LogoutServlet extends HttpServlet {
         
         HttpSession sesion=request.getSession();
         
+        //Si hay un usuario logeado se cierra la sesion
         if (sesion.getAttribute("usuario")!=null){
             sesion.invalidate();
         }
