@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script src="ejercicio1.js"></script>
+</head>
+<body>
+    <script>
+        var punto=new Punto(2,7);
+
+        var punto2=new Punto(5,2);
+
+        texto="Punto 1: "+ punto.toString() + "<br>"
+        + "Punto 2: "+ punto2.toString() + "<br>"
+        + punto.iguales(punto2) + "<br>"
+        + "Sumar: " + punto.sumar(punto2).toString() + "<br>"
+        + "Distancia entre los dos puntos: " + punto.distancia(punto2); 
+
+        document.write(texto);
+
+    
+    </script>
+</body>
+</html>
