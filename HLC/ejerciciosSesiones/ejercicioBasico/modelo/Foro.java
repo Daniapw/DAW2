@@ -61,9 +61,7 @@ public class Foro extends ArrayList<Mensaje>{
     public String listarMensajes(boolean esAdmin){
         
         StringBuffer str=new StringBuffer();
-       
-        str.append("<div><h1>Bienvenido al Foro</h1>");
-        
+               
         if (!this.isEmpty()){
             
             if (esAdmin){

@@ -8,9 +8,9 @@
 <%
 HttpSession sesion=request.getSession();
 
-//Si ya esta logeado se le redirige a inicio
+//Si el usuario ya se ha logeado
 if (sesion.getAttribute("usuario")!=null)
-    response.sendRedirect("index.jsp");
+    request.getRequestDispatcher("foro.jsp").forward(request, response);
 
 //Si el registro ha sido completado con exito
 if (sesion.getAttribute("registroCompletado")==null)

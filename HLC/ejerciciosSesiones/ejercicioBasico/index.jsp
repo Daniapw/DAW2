@@ -12,7 +12,7 @@ HttpSession sesion=request.getSession();
 
 //Si el usuario ya se ha logeado
 if (sesion.getAttribute("usuario")!=null)
-    response.sendRedirect("foro.jsp");
+    request.getRequestDispatcher("foro.jsp").forward(request, response);
 
 //Crear variable de sesion para saber si el usuario ha intentado logearse
 if (sesion.getAttribute("intentoFallido")==null)
@@ -30,7 +30,7 @@ if (sesion.getAttribute("intentoFallido")==null)
         <h1>Login</h1>
         <%
         //Mostrar mensaje de error si es necesario
-        if ((Boolean) session.getAttribute("intentoFallido"))
+        if ((Boolean) sesion.getAttribute("intentoFallido"))
             out.println("<p style='color:red;'>Usuario o contraseña incorrectos, pruebe otra vez</p>");
         %>
         <form action="LoginServlet" method="post">

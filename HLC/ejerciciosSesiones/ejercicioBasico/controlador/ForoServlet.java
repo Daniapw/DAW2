@@ -51,7 +51,7 @@ public class ForoServlet extends HttpServlet {
         }
         
         //Redirigir a foro
-        response.sendRedirect("foro.jsp");
+        request.getRequestDispatcher("foro.jsp").forward(request, response);
         
     }
 

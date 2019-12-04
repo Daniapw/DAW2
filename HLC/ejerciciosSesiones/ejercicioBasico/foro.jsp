@@ -12,7 +12,7 @@
     
     //Si el usuario no se ha logeado se redirige al index
     if (sesion.getAttribute("usuario")==null)
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     
     Foro foro=Foro.getInstancia();
 
@@ -42,6 +42,8 @@
     </head>
     <body>
     <%
+        out.println("<h1>Bienvenido " + sesion.getAttribute("usuario") + "</h1>");
+    
         //Mostrar mensajes del foro
         if (!(Boolean) sesion.getAttribute("admin"))
             out.println(foro.listarMensajes(false));
