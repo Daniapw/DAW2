@@ -1,6 +1,9 @@
 <?php
 require_once '../controlador/JuegoControlador.php';
 require_once '../modelo/Juego.php';
+
+//Iniciar sesion
+session_start();
 ?>
 
 <!DOCTYPE html>

@@ -4,17 +4,18 @@ body{
     font-family:sans-serif;
 }
 
-/*Menu cabecera*/
+/*//////////////////////////////Menu cabecera/////////////////////////////////////*/
 .menu{
     background-color:gray;
     padding:5px;
 }
 
+/*Titulo menu*/
 #tituloPag{
     text-align:center;
 }
 
-
+/*Login menu*/
 .formLogin{
     text-align:center;
 }
@@ -23,6 +24,22 @@ body{
     padding:8px 20px 8px 20px;
     background-color:lightblue;
     border-radius:1px 5px;
+}
+
+/*Opciones usuario*/
+.opcionesMenu{
+    text-align:center;
+}
+
+.opcionesMenu ul li{
+    display:inline;
+    
+}
+
+.opcionesMenu a{
+    text-decoration:none;
+    color:blue;
+    padding:10px;
 }
 
 /*Tamanio imagen caratulas*/
@@ -44,3 +61,29 @@ body{
     width:33%;
 }
 
+.imagenAlquiler{
+    float:left;
+    width:35%;
+}
+
+.imagenAlquiler img{
+    width:400px;
+}
+
+.informacionJuego{
+    float:left;
+    width:65%;
+}
+
+.formAlquiler{
+    margin-top:10px;
+    float:left;
+    width:100%;
+    text-align:center;
+}
+
+.login{
+    margin-top:10px;
+    border:1px solid gray;
+    padding:10px;
+}
