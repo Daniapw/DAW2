@@ -4,9 +4,27 @@ body{
     font-family:sans-serif;
 }
 
-/*//////////////////////////////Menu cabecera/////////////////////////////////////*/
+/*Botones*/
+.boton{
+    padding:5px 20px 5px 20px;
+    background-color:brown;
+    border-radius:1px 5px;
+    color:white;
+}
+
+/*Body Alquiler*/
+.cuerpo{
+    padding:10px;
+    width:100%;
+}
+
+.mensajeExito{
+    color:green;
+}
+
+/*//////////////////////////////MENU CABECERA/////////////////////////////////////*/
 .menu{
-    background-color:gray;
+    background-color:firebrick;
     padding:5px;
 }
 
@@ -18,12 +36,6 @@ body{
 /*Login menu*/
 .formLogin{
     text-align:center;
-}
-
-.formLogin [type=submit]{
-    padding:8px 20px 8px 20px;
-    background-color:lightblue;
-    border-radius:1px 5px;
 }
 
 /*Opciones usuario*/
@@ -38,19 +50,18 @@ body{
 
 .opcionesMenu a{
     text-decoration:none;
-    color:blue;
+    color:black;
+    font-weight: bold;
     padding:10px;
 }
 
+/*////////////////////////////////////////////////////////////////////////////////////*/
+
+
+/*///////////////////////////////////INDEX///////////////////////////////////////////*/
 /*Tamanio imagen caratulas*/
 .imagenCaratula{
     width:200px;
-}
-
-/*Body Alquiler*/
-.cuerpoAlquiler{
-    padding:10px;
-    width:100%;
 }
 
 /*Juegos en el index*/
@@ -61,6 +72,13 @@ body{
     width:33%;
 }
 
+.tituloJuego{
+    font-weight: bold;
+}
+/*/////////////////////////////////////////////////////////////////////////////////////*/
+
+
+/*///////////////////////////////////////PAGINA DE JUEGO//////////////////////////////////////////*/
 .imagenAlquiler{
     float:left;
     width:35%;

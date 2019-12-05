@@ -28,8 +28,8 @@ class Juego {
     public function mostrarFormatoIndex(){
         return 
         "<div class='juegoIndex'>"
-        . "<a href='alquilar.php?juego=$this->codigo'><img src='../assets/img/$this->imagen' class='imagenCaratula'></a>"
-        . "<div><p>$this->nombreJuego</p></div>"
+        . "<a href='informacionJuego.php?juego=$this->codigo'><img src='../assets/img/$this->imagen' class='imagenCaratula'></a>"
+        . "<div><p class='tituloJuego'>$this->nombreJuego</p></div>"
       . "</div>";
     }
     

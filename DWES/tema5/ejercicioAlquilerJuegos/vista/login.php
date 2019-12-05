@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <?php
 require_once "../controlador/ControladorBD.php";
+require_once "../controlador/UsuarioControlador.php";
+require_once "../modelo/Usuario.php";
+
 session_start();
-
-
 
 //Si el usuario ha enviado el form de login
 if (isset($_POST['login'])){
     
     if (ControladorBD::login($_POST['usuario'], $_POST['pass'])){
-        $_SESSION['usuario']=$_POST['usuario'];
+        
+        $usuario= UsuarioControlador::getUsuario($_POST['usuario']);
+        
+        $_SESSION['usuario']=$usuario->dni;
+        $_SESSION['nombreUsuario']=$usuario->nombre;
+        $_SESSION['tipoUsuario']=$usuario->tipo;
     }
 }
 
@@ -40,7 +46,7 @@ if (isset($_SESSION['usuario']))
                     echo "<p style='color:red;'>Usuario o contraseña incorrectos</p>";
             ?>
             <form action="#" method="post">
-                Usuario: <input type="text" name="usuario" required><br>
+                DNI: <input type="text" name="usuario" required><br>
                 Contraseña: <input type="password" name="pass" required><br>
                 <input type="submit" name="login" value="Login">
 

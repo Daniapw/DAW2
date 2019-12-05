@@ -4,6 +4,9 @@ require_once '../modelo/Juego.php';
 
 //Iniciar sesion
 session_start();
+
+if (!isset($_SESSION['usuario']))
+    header("Location: index.php");
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +25,7 @@ session_start();
         <!--Seccion juegos -->
         <section class="cuerpo">
             <?php
-                $juegos=JuegoControlador::getAllJuegos();
+                $juegos=JuegoControlador::getJuegosDisponibles();
         
                 while ($registro=$juegos->fetch_object()){
                     $juego=new Juego($registro->Codigo, $registro->Nombre_juego, $registro->Nombre_consola, $registro->Anno, $registro->Precio, $registro->Alguilado);

@@ -9,7 +9,7 @@ class ControladorBD {
         //Se comprueba si el usuario y la contrasena son correctos
         $conex=new Conexion();
 
-        $resultado=$conex->query("SELECT * FROM cliente WHERE Clave='$pass' AND Nombre='$usuario';");
+        $resultado=$conex->query("SELECT * FROM cliente WHERE Clave='$pass' AND DNI='$usuario';");
         
         echo "$conex->error";
         

@@ -1,8 +1,28 @@
 <?php
 require_once '../controlador/JuegoControlador.php';
+require_once '../controlador/AlquilerControlador.php';
 require_once '../modelo/Juego.php';
 
-$juego=JuegoControlador::getJuego($_GET['juego']);
+session_start();
+
+//Si el usuario le ha dado a alquilar
+if (isset($_POST['alquilar'])){
+    AlquilerControlador::insertAlquiler($_POST['codJuego'], $_SESSION['usuario']);
+    JuegoControlador::updateEstadoAlquiler($_POST['codJuego'], "SI");
+}
+
+//Juego en cuestion
+if (!isset($_POST['alquilar']))
+    $juego=JuegoControlador::getJuego($_GET['juego']);
+else
+    $juego=JuegoControlador::getJuego($_POST['codJuego']);
+
+//Determinar ruta submit formulario alquiler
+if (isset($_SESSION['usuario']))
+    $ruta="informacionJuego.php";
+else
+    $ruta="login.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,8 +39,14 @@ $juego=JuegoControlador::getJuego($_GET['juego']);
         ?>
         
         <!--Body-->
-        <section class="cuerpoAlquiler">
+        <section class="cuerpo">
             <!--Imagen del juego-->
+            <?php
+            if (isset($_POST['alquilar'])){?>
+                <center><p class="mensajeExito">Has alquilado el juego!</p></center>
+            <?php
+            }?>
+            
             <div class='imagenAlquiler'>
                 <img src='<?php echo "../assets/img/$juego->imagen" ?>'>
             </div>
@@ -37,9 +63,13 @@ $juego=JuegoControlador::getJuego($_GET['juego']);
             </div>
             
             <!--Formulario alquiler-->
+            <?php
+
+            ?>
             <div class="formAlquiler">
-                <form action="#" method="post">
-                    <input type="submit" name="alquilar" value="Alquilar" <?php if ($juego->alquilado=="SI") echo 'disabled';?>>
+                <form action="<?php echo $ruta ?>" method="post">
+                    <input class="boton" type="submit" name="alquilar" value="Alquilar" <?php if ($juego->alquilado=='SI') echo "disabled" ?>>
+                    <input type="hidden" value="<?php echo $juego->codigo ?>" name="codJuego">
                 </form>
             </div>
         </section>

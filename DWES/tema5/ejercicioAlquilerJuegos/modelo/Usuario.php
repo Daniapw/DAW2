@@ -13,7 +13,7 @@ class Usuario {
     private $clave;
     private $tipo;
     
-    public function __construct($dni, $nombre, $apell, $direcc, $localidad, $clave, $tipo) {
+    public function __construct($dni, $nombre, $tipo, $apell = "", $direcc = "", $localidad = "", $clave = "") {
         $this->dni=$dni;
         $this->nombre=$nombre;
         $this->apellidos=$apell;
