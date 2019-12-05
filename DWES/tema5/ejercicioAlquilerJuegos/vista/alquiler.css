@@ -1,0 +1,46 @@
+body{
+    padding:0;
+    margin:0;
+    font-family:sans-serif;
+}
+
+/*Menu cabecera*/
+.menu{
+    background-color:gray;
+    padding:5px;
+}
+
+#tituloPag{
+    text-align:center;
+}
+
+
+.formLogin{
+    text-align:center;
+}
+
+.formLogin [type=submit]{
+    padding:8px 20px 8px 20px;
+    background-color:lightblue;
+    border-radius:1px 5px;
+}
+
+/*Tamanio imagen caratulas*/
+.imagenCaratula{
+    width:200px;
+}
+
+/*Body Alquiler*/
+.cuerpoAlquiler{
+    padding:10px;
+    width:100%;
+}
+
+/*Juegos en el index*/
+.juegoIndex{
+    margin-top:10px;
+    float:left;
+    text-align:center;
+    width:33%;
+}
+

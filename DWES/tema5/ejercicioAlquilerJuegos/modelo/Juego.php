@@ -14,7 +14,7 @@ class Juego {
     private $alquilado;
     private $imagen;
     
-    public function __construct($codigo, $nombreJuego, $nombreConsola, $anno, $precio, $alquilado, $imagen="") {
+    public function __construct($codigo, $nombreJuego, $nombreConsola, $anno, $precio, $alquilado, $imagen="caratula.jpg") {
         $this->codigo=$codigo;
         $this->nombreJuego=$nombreJuego;
         $this->nombreConsola=$nombreConsola;
@@ -22,6 +22,15 @@ class Juego {
         $this->precio=$precio;
         $this->alquilado=$alquilado;
         $this->imagen=$imagen;
+    }
+    
+    //Mostrar juego en index.php
+    public function mostrarFormatoIndex(){
+        return 
+        "<div class='juegoIndex'>"
+        . "<a href='alquilar.php?juego=$this->codigo'><img src='../assets/img/$this->imagen' class='imagenCaratula'></a>"
+        . "<div><p>$this->nombreJuego</p></div>"
+      . "</div>";
     }
     
     public function __get($name) {
