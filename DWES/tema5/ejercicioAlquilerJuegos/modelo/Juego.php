@@ -24,14 +24,6 @@ class Juego {
         $this->imagen=$imagen;
     }
     
-    //Mostrar juego en index.php
-    public function mostrarFormatoIndex(){
-        return 
-        "<div class='juegoIndex'>"
-        . "<a href='informacionJuego.php?juego=$this->codigo'><img src='../assets/img/$this->imagen' class='imagenCaratula'></a>"
-        . "<div><p class='tituloJuego'>$this->nombreJuego</p></div>"
-      . "</div>";
-    }
     
     public function __get($name) {
         return $this->$name;

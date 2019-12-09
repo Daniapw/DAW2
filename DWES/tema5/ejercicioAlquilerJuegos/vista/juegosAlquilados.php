@@ -1,6 +1,11 @@
 <?php
+require_once '../controlador/AlquilerControlador.php';
 require_once '../controlador/JuegoControlador.php';
+require_once '../controlador/UsuarioControlador.php';
 require_once '../modelo/Juego.php';
+require_once '../modelo/Alquiler.php';
+require_once '../modelo/Usuario.php';
+
 
 //Iniciar sesion
 session_start();
@@ -25,12 +30,28 @@ if (!isset($_SESSION['usuario']))
         <!--Seccion juegos -->
         <section class="cuerpo">
             <?php
-                $juegos=JuegoControlador::getJuegosAlquilados();
+                $alquileres= AlquilerControlador::getAlquileres();
         
-                while ($registro=$juegos->fetch_object()){
-                    $juego=new Juego($registro->Codigo, $registro->Nombre_juego, $registro->Nombre_consola, $registro->Anno, $registro->Precio, $registro->Alguilado);
-
-                    echo $juego->mostrarFormatoIndex();
+                //Si hay juegos alquilados se muestran
+                if (!empty($alquileres)){
+                    foreach ($alquileres as $alquiler){
+                        $juego= JuegoControlador::getJuego($alquiler->codJuego);
+                        $usuarioAlq= UsuarioControlador::getUsuario($alquiler->dniCliente);
+                        
+                    ?>
+                        <div class='juegoIndex'>
+                            <a href='informacionJuego.php?juego=<?php echo $juego->codigo ?>'><img src='<?php echo "../assets/img/$juego->imagen"?>' class='imagenCaratula'></a>
+                            <div>
+                                <p class='tituloJuego'><?php echo $juego->nombreJuego?></p>
+                                <p>Alquilado por <?php echo $usuarioAlq->nombre?></p>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                }
+                //Si no se muestra un mensaje
+                else{
+                    echo "<center><h1>No hay ningun juego alquilado</h1></center>";
                 }
             ?>
         </section>

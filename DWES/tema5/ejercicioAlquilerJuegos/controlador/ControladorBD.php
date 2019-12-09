@@ -4,7 +4,7 @@ require_once 'Conexion.php';
 
 class ControladorBD {
     
-    
+    //Funcion logeo
     public static function login($usuario, $pass){
         //Se comprueba si el usuario y la contrasena son correctos
         $conex=new Conexion();
@@ -22,4 +22,5 @@ class ControladorBD {
         
         return false;
     }
+    
 }

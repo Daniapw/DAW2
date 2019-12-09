@@ -22,6 +22,10 @@ body{
     color:green;
 }
 
+.mensajeError{
+    color:red;
+}
+
 /*//////////////////////////////MENU CABECERA/////////////////////////////////////*/
 .menu{
     background-color:firebrick;
@@ -104,4 +108,16 @@ body{
     margin-top:10px;
     border:1px solid gray;
     padding:10px;
+}
+
+.miniaturaAlq{
+    width:100px;
+}
+
+
+.tablaAlquileres{
+    border-collapse:collapse;
+    text-align:center;
+    width:70%;
+    margin:auto;
 }

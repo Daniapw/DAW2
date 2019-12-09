@@ -25,12 +25,19 @@ if (!isset($_SESSION['usuario']))
         <!--Seccion juegos -->
         <section class="cuerpo">
             <?php
+                //Obtener lista de juegos disponibles
                 $juegos=JuegoControlador::getJuegosDisponibles();
         
-                while ($registro=$juegos->fetch_object()){
-                    $juego=new Juego($registro->Codigo, $registro->Nombre_juego, $registro->Nombre_consola, $registro->Anno, $registro->Precio, $registro->Alguilado);
-
-                    echo $juego->mostrarFormatoIndex();
+                //Mostrar lista
+                foreach($juegos as $juego){
+                ?>
+                    <div class='juegoIndex'>
+                        <a href='informacionJuego.php?juego=<?php echo $juego->codigo ?>'><img src='<?php echo "../assets/img/$juego->imagen"?>' class='imagenCaratula'></a>
+                        <div>
+                            <p class='tituloJuego'><?php echo $juego->nombreJuego?></p>
+                        </div>
+                    </div>
+                <?php
                 }
             ?>
         </section>

@@ -42,11 +42,13 @@ else
         <section class="cuerpo">
             <!--Imagen del juego-->
             <?php
+            //Mensaje de alquiler con exito
             if (isset($_POST['alquilar'])){?>
-                <center><p class="mensajeExito">Has alquilado el juego!</p></center>
+                <center><p class="mensajeExito">Has alquilado <?php echo $juego->nombreJuego ?>!</p></center>
             <?php
             }?>
             
+            <!--Imagen juego-->
             <div class='imagenAlquiler'>
                 <img src='<?php echo "../assets/img/$juego->imagen" ?>'>
             </div>
@@ -63,12 +65,9 @@ else
             </div>
             
             <!--Formulario alquiler-->
-            <?php
-
-            ?>
             <div class="formAlquiler">
                 <form action="<?php echo $ruta ?>" method="post">
-                    <input class="boton" type="submit" name="alquilar" value="Alquilar" <?php if ($juego->alquilado=='SI') echo "disabled" ?>>
+                    <input type="submit" name="alquilar" value="<?php if ($juego->alquilado=='SI') echo "No disponible"; else echo "Alquilar"; ?>" <?php if ($juego->alquilado=='SI') echo "disabled" ?>>
                     <input type="hidden" value="<?php echo $juego->codigo ?>" name="codJuego">
                 </form>
             </div>

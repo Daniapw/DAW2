@@ -4,6 +4,13 @@ require_once '../modelo/Juego.php';
 
 //Iniciar sesion
 session_start();
+
+//Control Eliminar juego
+if (isset($_SESSION['usuario'])){
+    
+    if (isset($_POST['eliminarJuego']) && $_SESSION['tipoUsuario']=='admin')
+        $juegoEliminado=JuegoControlador::eliminarJuego($_POST['codigoJuegoEliminar']);  
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +29,62 @@ session_start();
         <!--Seccion juegos -->
         <section class="cuerpo">
             <?php
+                //Mostrar boton para anadir juegos en caso de que el usuario sea admin
+                if (isset($_SESSION['usuario'])){
+
+                    if ($_SESSION['tipoUsuario']=='admin'){
+                    ?>
+                        <center>
+                            <form action="anadirJuegos.php" method="post">
+                                <input type="submit" class="boton" value="Anadir juego">
+                            </form>
+                        </center>
+                    <?php
+                    }
+                }
+            
+                //Mensaje eliminar juego
+                if (isset($_POST['eliminarJuego'])){
+                    if ($juegoEliminado)
+                        echo "<center><p class='mensajeExito'>Juego eliminado con exito</p></center>";
+                    else
+                        echo "<center><p class='mensajeError'>Error al eliminar juego</p></center>";
+                }
+                
+                
+                //Obtener lista de juegos
                 $juegos=JuegoControlador::getAllJuegos();
         
-                while ($registro=$juegos->fetch_object()){
-                    $juego=new Juego($registro->Codigo, $registro->Nombre_juego, $registro->Nombre_consola, $registro->Anno, $registro->Precio, $registro->Alguilado);
+                //Mostrar lista
+                foreach($juegos as $juego){
+                ?>
+                    <div class='juegoIndex'>
+                        <a href='informacionJuego.php?juego=<?php echo $juego->codigo ?>'><img src='<?php echo "../assets/img/$juego->imagen"?>' class='imagenCaratula'></a>
+                        <div>
+                            <p class='tituloJuego'><?php echo $juego->nombreJuego?></p>
+                            
+                            <?php
+                            //Mostrar controles de administrador
+                            if (isset($_SESSION['usuario'])){
+                            
+                                if ($_SESSION['tipoUsuario']=='admin'){
+                            ?>
+                                    <form action="index.php" method="post">
+                                        <input type="hidden" name="codigoJuegoEliminar" value="<?php echo $juego->codigo ?>">
+                                        <input type="submit" name="eliminarJuego" value="Eliminar juego" <?php if ($juego->alquilado=='SI') echo 'disabled' ?>>
+                                    </form>
 
-                    echo $juego->mostrarFormatoIndex();
+                                    <form action="modificarJuego.php" method="post">
+                                        <input type="hidden" name="codigoJuegoModificar" value="<?php echo $juego->codigo ?>">
+                                        <input type="submit" name="modificarJuego" value="Modificar juego">
+                                    </form>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php
                 }
             ?>
         </section>
