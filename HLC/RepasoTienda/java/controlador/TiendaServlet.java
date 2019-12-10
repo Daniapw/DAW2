@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controlador;
 
 import java.io.IOException;
@@ -13,13 +12,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.BDDProductos;
+import modelo.Carrito;
+import modelo.Producto;
 
 /**
  *
- * @author diurno
+ * @author danir
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name = "TiendaServlet", urlPatterns = {"/TiendaServlet"})
+public class TiendaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,17 +35,36 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession sesion=request.getSession();
-                
-        if (sesion.getAttribute("usuario")!=null){
-            sesion.removeAttribute("usuario");
-            sesion.removeAttribute("carrito");
-            sesion.removeAttribute("productosBD");
 
+        HttpSession sesion=request.getSession();
+        
+        String rutaRedir="tienda.jsp";
+        
+        //Si el usuario no esta logeado se le redirige
+        if (sesion.getAttribute("usuario")==null)
+            rutaRedir="index.jsp";
+        
+        //Si el usuario ha hecho clic en boton para agregar producto a carrito
+        if (request.getParameter("agregarProductoCarrito")!=null){
+            
+            //Recuperar variables carrito y productos
+            BDDProductos productos=(BDDProductos) sesion.getAttribute("productosBD");
+            Carrito carrito=(Carrito) sesion.getAttribute("carrito");
+            int codProducto=Integer.parseInt(request.getParameter("codProductoTienda"));
+            
+            //Buscar producto en lista de productos
+            Producto producto=productos.getProducto(codProducto);
+        
+            //Agregar producto a carrito y meterlo en variable de sesion
+            carrito.add(producto);
+            sesion.setAttribute("carrito", carrito);
+            
+            //Cambiar ruta de redireccion
+            rutaRedir="tienda.jsp";
         }
         
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        //Redirigir
+        request.getRequestDispatcher(rutaRedir).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

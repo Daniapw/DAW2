@@ -12,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import modelo.ListaUsuarios;
+import modelo.Usuario;
 
 /**
  *
@@ -33,8 +36,64 @@ public class RegistroServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        HttpSession sesion=request.getSession();
+        
+        String rutaRedir="registro.jsp";
+        
+        //Si el usuario ya se ha logeado se le manda a la tienda
+        if (sesion.getAttribute("usuario")!=null)
+            rutaRedir="tienda.jsp";
+        
+        //Si se ha enviado el form de registro
+        if (request.getParameter("btnRegistro")!=null){
+            
+            //Reiniciar variables de sesion que controlan los errores
+            sesion.setAttribute("usuarioYaExiste", false);
+            sesion.setAttribute("contraIncorrecta", false);
+
+            
+            //Si la contrasena es correcta
+            if (comprobarContra(request.getParameter("contraRegistro"), request.getParameter("confirmarContraRegistro"))){
+                
+                //Se obtiene la lista
+                ListaUsuarios lista=(ListaUsuarios) sesion.getAttribute("listaUsuarios");
+                
+                //Si el nombre de usuario esta libre
+                if (lista.comprobarNombreUsuario(request.getParameter("usuarioRegistro"))){
+                    
+                    //Se guarda el usuario en la lista
+                    lista.add(new Usuario(request.getParameter("usuarioRegistro"), request.getParameter("contraRegistro"), "usuario"));
+                    
+                    //Se guarda la lista en la variable de sesion
+                    sesion.setAttribute("listaUsuario", lista);
+                    
+                    //El registro se ha completado
+                    sesion.setAttribute("registroCompletado", false);
+
+                }
+                else
+                    sesion.setAttribute("usuarioYaExiste", true);
+                
+            }
+            //Si la contrasena no es correcta
+            else
+                sesion.setAttribute("contraIncorrecta", true);
+        }
+        
+        //Redireccion
+        request.getRequestDispatcher(rutaRedir).forward(request, response);
     }
 
+    //Comprobar contrasena
+    private boolean comprobarContra(String contra, String contraConfirm){
+        if (contra.equals(contraConfirm))
+            return true;
+        
+        return false;
+    }
+    
+    
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

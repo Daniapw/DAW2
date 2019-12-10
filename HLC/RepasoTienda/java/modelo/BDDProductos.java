@@ -16,11 +16,11 @@ public class BDDProductos extends ArrayList<Producto>{
     
     
     public BDDProductos() {
-        Producto producto1 = new Producto("Portatil Alienware", 670.8);
-        Producto producto2 = new Producto("Raton Razer", 170.5);
-        Producto producto3 = new Producto("Teclado Mecanico Corsair", 90.8);
-        Producto producto4 = new Producto("Auriculares Inalambricos Sennheiser", 114.8);
-        Producto producto5 = new Producto("Ventilador PC Templar", 21.8);
+        Producto producto1 = new Producto(1, "Portatil Alienware", 670.8);
+        Producto producto2 = new Producto(2, "Raton Razer", 170.5);
+        Producto producto3 = new Producto(3, "Teclado Mecanico Corsair", 90.8);
+        Producto producto4 = new Producto(4, "Auriculares Inalambricos Sennheiser", 114.8);
+        Producto producto5 = new Producto(5, "Ventilador PC Templar", 21.8);
         
         this.add(producto1);
         this.add(producto2);
@@ -29,4 +29,32 @@ public class BDDProductos extends ArrayList<Producto>{
         this.add(producto5);
     }
     
+    //Buscar producto
+    public Producto getProducto(int codigo){
+        
+        for (Producto producto:this){
+            
+            if (producto.getCodProducto()==codigo)
+                return producto;
+        }
+        
+        return null;
+    }
+    
+    
+    public String toString(){
+        StringBuffer str=new StringBuffer();
+        
+        for (Producto producto:this){
+             str.append(
+                "<form action='TiendaServlet' method='post'>"
+                    + "<p>" + producto.toString()+ "</p>"
+                    + "<input type='hidden' name='codProductoTienda' value='"+producto.getCodProducto()+"'>"
+                    + "<input type='submit' name='agregarProductoCarrito' value='Agregar al carrito'>"
+              + "</form>");
+        }
+
+        
+        return str.toString();
+    }
 }

@@ -15,6 +15,21 @@ import java.util.ArrayList;
 public class Carrito extends ArrayList<Producto> {
 
     public Carrito() {}
-    
-    
+
+    //Listar productos del carro
+    @Override
+    public String toString(){
+        StringBuffer str=new StringBuffer();
+        
+        if (this.isEmpty())
+            str.append("<p>No hay ningun producto en el carrito</p>");
+        else{
+            
+            for (Producto producto:this){
+                str.append(producto.toString()+"<br>");
+            }   
+        }
+        
+        return str.toString();
+    }
 }

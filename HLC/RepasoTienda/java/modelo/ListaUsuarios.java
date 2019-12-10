@@ -29,4 +29,16 @@ public class ListaUsuarios extends ArrayList<Usuario> {
         
         return null;
     }
+    
+    //Comprobar si el nombre de usuario existe
+    public boolean comprobarNombreUsuario(String nombre){
+        
+        for (Usuario usuario:this){
+            if (usuario.getUsuario().equals(nombre))
+                return false;
+        }
+        
+        return true;
+    }
+    
 }

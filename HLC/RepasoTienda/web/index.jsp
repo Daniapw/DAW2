@@ -26,14 +26,16 @@
     <body>
         <h1>Login tienda</h1>
         <%
-            //Mostrar mensaje de error si procede
-            if ((Boolean) sesion.getAttribute("intentoFallido"))
-                out.println("<p style='color:red;'>Usuario o contraseña incorrectos</p>");
+        //Mostrar mensaje de error si procede
+        if ((Boolean) sesion.getAttribute("intentoFallido"))
+            out.println("<p style='color:red;'>Usuario o contraseña incorrectos</p>");
         %>
         <form action="LoginServlet" method="post">
             Usuario: <input type="text" name="usuarioLogin" required><br>
             Contraseña: <input type="password" name="contraLogin" required><br>
             <input type="submit" name="login" value="Login">
-        </form>
+        </form><br>
+        
+        <a href="registro.jsp">Registrarse</a>
     </body>
 </html>
