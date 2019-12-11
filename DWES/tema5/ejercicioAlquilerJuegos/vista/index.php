@@ -71,12 +71,12 @@ if (isset($_SESSION['usuario'])){
                             ?>
                                     <form action="index.php" method="post">
                                         <input type="hidden" name="codigoJuegoEliminar" value="<?php echo $juego->codigo ?>">
-                                        <input type="submit" name="eliminarJuego" value="Eliminar juego" <?php if ($juego->alquilado=='SI') echo 'disabled' ?>>
-                                    </form>
+                                        <input type="submit" name="eliminarJuego" class="boton" value="Eliminar juego" <?php if ($juego->alquilado=='SI') echo 'disabled' ?>>
+                                    </form><br>
 
                                     <form action="modificarJuego.php" method="post">
                                         <input type="hidden" name="codigoJuegoModificar" value="<?php echo $juego->codigo ?>">
-                                        <input type="submit" name="modificarJuego" value="Modificar juego">
+                                        <input type="submit" name="modificarJuego" class="boton" value="Modificar juego">
                                     </form>
                             <?php
                                 }

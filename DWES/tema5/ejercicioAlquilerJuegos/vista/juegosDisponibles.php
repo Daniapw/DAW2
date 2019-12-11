@@ -29,15 +29,21 @@ if (!isset($_SESSION['usuario']))
                 $juegos=JuegoControlador::getJuegosDisponibles();
         
                 //Mostrar lista
-                foreach($juegos as $juego){
-                ?>
-                    <div class='juegoIndex'>
-                        <a href='informacionJuego.php?juego=<?php echo $juego->codigo ?>'><img src='<?php echo "../assets/img/$juego->imagen"?>' class='imagenCaratula'></a>
-                        <div>
-                            <p class='tituloJuego'><?php echo $juego->nombreJuego?></p>
+                
+                if (!empty($juegos)){
+                    foreach($juegos as $juego){
+                    ?>
+                        <div class='juegoIndex'>
+                            <a href='informacionJuego.php?juego=<?php echo $juego->codigo ?>'><img src='<?php echo "../assets/img/$juego->imagen"?>' class='imagenCaratula'></a>
+                            <div>
+                                <p class='tituloJuego'><?php echo $juego->nombreJuego?></p>
+                            </div>
                         </div>
-                    </div>
-                <?php
+                    <?php
+                    }
+                }
+                else{
+                    echo "<center><h1>Lo sentimos, no hay juegos disponibles</h1></center>";
                 }
             ?>
         </section>

@@ -1,15 +1,20 @@
 body{
     padding:0;
     margin:0;
-    font-family:sans-serif;
+    font-family:Tahoma;
 }
 
 /*Botones*/
 .boton{
     padding:5px 20px 5px 20px;
-    background-color:brown;
+    background-color:firebrick;
     border-radius:1px 5px;
+    border-color:#333333;
     color:white;
+}
+
+.boton[disabled]{
+    background-color:gray;
 }
 
 /*Body Alquiler*/
@@ -35,6 +40,10 @@ body{
 /*Titulo menu*/
 #tituloPag{
     text-align:center;
+    text-decoration:none;
+    font-size:25px;
+    color:white;
+    font-weight:normal;
 }
 
 /*Login menu*/
@@ -45,17 +54,22 @@ body{
 /*Opciones usuario*/
 .opcionesMenu{
     text-align:center;
+    
 }
 
 .opcionesMenu ul li{
     display:inline;
-    
+    border:1px solid #333333;
+    padding:5px;
+}
+
+.opcionesMenu ul li:hover{
+    background-color:darkred;
 }
 
 .opcionesMenu a{
     text-decoration:none;
-    color:black;
-    font-weight: bold;
+    color:white;
     padding:10px;
 }
 
@@ -104,10 +118,11 @@ body{
     text-align:center;
 }
 
-.login{
-    margin-top:10px;
-    border:1px solid gray;
+.form{
+    margin:auto;
+    border:1px solid firebrick;
     padding:10px;
+    width:30%;
 }
 
 .miniaturaAlq{

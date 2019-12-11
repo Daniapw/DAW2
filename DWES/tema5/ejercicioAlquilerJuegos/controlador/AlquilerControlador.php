@@ -5,6 +5,7 @@ require_once '../modelo/Alquiler.php';
 
 class AlquilerControlador {
     
+    //Crear registro para nuevo alquiler
     public static function insertAlquiler($codJuego, $dniCliente){
         $conex=new Conexion();
         
@@ -14,12 +15,11 @@ class AlquilerControlador {
         //Fecha de alquiler mas 7 dias
         $fechaDev=date("Y-m-d", strtotime("+7 days"));
         
-        $conex->query("INSERT INTO alquiler VALUES('$codJuego', '$dniCliente', '$fechaAlquiler', '$fechaDev');");
-
-        if ($conex->errno)
-            echo $conex->error;
+        $resultado=$conex->query("INSERT INTO alquiler VALUES('$codJuego', '$dniCliente', '$fechaAlquiler', '$fechaDev');");
         
         $conex->close();
+        
+        return $resultado;
     }
     
     //Obtener todos los alquileres

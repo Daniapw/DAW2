@@ -20,10 +20,9 @@ $juego= JuegoControlador::getJuego($_POST['codigoJuegoModificar']);
 //Si se le ha dado a enviar
 if (isset($_POST['modificar'])){
     //Si no se ha subido una nueva caratula se actualiza el juego con la caratula que tenia antes
-    if ($_FILES['imagenCaratulaMod']['size']==0)
+    if (!is_uploaded_file($_FILES['imagenCaratulaMod']['tmp_name']))
         $juegoMod=new Juego($_POST['codigoJuegoModificar'], $_POST['tituloJuegoMod'], $_POST['consolaJuegoMod'], $_POST['annoJuegoMod'], $_POST['precioJuegoMod'], $_POST['alquiladoMod'], $juego->imagen);
     else{
-
         $nombreFicheroCaratula=JuegoControlador::subirCaratula('imagenCaratulaMod');
         
         $juegoMod=new Juego($_POST['codigoJuegoModificar'], $_POST['tituloJuegoMod'], $_POST['consolaJuegoMod'], $_POST['annoJuegoMod'], $_POST['precioJuegoMod'], $_POST['alquiladoMod'], $nombreFicheroCaratula);
@@ -32,11 +31,10 @@ if (isset($_POST['modificar'])){
     
     //Actualizar juego
     $juegoSubido=JuegoControlador::updateJuego($juegoMod);
-    
-    
+   
 }
 
-//Obtener datos del juego
+//Obtener datos del juego actualizado
 $juego= JuegoControlador::getJuego($_POST['codigoJuegoModificar']);
 
 
@@ -52,20 +50,26 @@ $juego= JuegoControlador::getJuego($_POST['codigoJuegoModificar']);
         include_once 'menu.php';
         ?>
         
-        <h1>Modificar <?php echo $juego->nombreJuego ?></h1>
-        
+        <!-- Titulo -->
+        <center><h1>Modificar <?php echo $juego->nombreJuego ?></h1></center>
+
         <?php
         //Mostrar mensaje de error o exito
         if (isset($juegoSubido)){
             if (!$juegoSubido)
-                echo "<p class='mensajeError'>Error al modificar juego</p>";
+                echo "<center><p class='mensajeError'>Error al modificar juego</p></center>";
             else
-                echo "<p class='mensajeExito'>Juego modificado con exito</p>";
+                echo "<center><p class='mensajeExito'>Juego modificado con exito</p></center>";
         }
-        
         ?>
-        <div>
-            <img class="miniaturaAlq" src="<?php echo "../assets/img/$juego->imagen" ?>">
+        
+        <!--Div Formulario-->
+        <div class="form">
+            
+            <!--Miniatura del juego-->
+            <center><img class="miniaturaAlq" src="<?php echo "../assets/img/$juego->imagen" ?>"></center>
+            
+            <!-- Formulario con datos del juego -->
             <form action="modificarJuego.php" method="post" enctype="multipart/form-data">
                 Código: <input type="text" name="codigoJuegoModificar" value="<?php echo $juego->codigo ?>" readonly><br>
                 Titulo: <input type="text" name="tituloJuegoMod" value="<?php echo $juego->nombreJuego ?>" required><br>
@@ -76,8 +80,8 @@ $juego= JuegoControlador::getJuego($_POST['codigoJuegoModificar']);
                 <input type="file" name="imagenCaratulaMod"><br>
                 Alquilado:
                 <select name="alquiladoMod">
-                    <option value="SI" <?php if ($juego->alquilado=='SI') echo "checked" ?>>SI</option>
-                    <option value="NO" <?php if ($juego->alquilado=='NO') echo "checked" ?>>NO</option>
+                    <option value="SI" <?php if ($juego->alquilado=='SI') echo "selected" ?>>SI</option>
+                    <option value="NO" <?php if ($juego->alquilado=='NO') echo "selected" ?>>NO</option>
                 </select><br>
 
                 <input type="submit" value="Modificar" name="modificar" />

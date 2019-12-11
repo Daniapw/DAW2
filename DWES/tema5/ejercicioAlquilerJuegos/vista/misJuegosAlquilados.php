@@ -7,6 +7,7 @@ require_once '../modelo/Alquiler.php';
 
 session_start();
 
+//Redirigir si es necesario
 if (!isset($_SESSION['usuario']))
     header("Location: index.php");
 
@@ -38,13 +39,12 @@ if (isset($_POST['devolver']))
                 //Mensaje devolucion
                 if (isset($_POST['devolver'])){
                     if ($resultadoDev)
-                        echo "<center><h2 style='color:green'>Has devuelto $_POST[nombreJuegoDev] con exito! </h2></center>";
+                        echo "<center><h2 style='color:green'>Has devuelto '$_POST[nombreJuegoDev]' con exito! </h2></center>";
                     else
-                        echo "<center><h2 style='color:red'>Ha habido un error al devolver $_POST[nombreJuegoDev] </h2></center>";
+                        echo "<center><h2 style='color:red'>Ha habido un error al devolver '$_POST[nombreJuegoDev]' </h2></center>";
 
                 }
-            
-            
+                
                 //Alquileres del usuario
                 $alquileres= AlquilerControlador::getAlquileresUsuario($_SESSION['usuario']);
                 

@@ -1,6 +1,6 @@
 <nav class="menu">
     
-    <a href="index.php"><h1 id="tituloPag">Videoclub Comares</h1></a>
+    <a href="index.php" id="tituloPag"><h1>Videoclub Comares</h1></a>
     <?php
     //Menu que solo aparecera si estas logeado
     if (isset($_SESSION['usuario'])){

@@ -20,14 +20,11 @@ class JuegoControlador {
     public static function eliminarJuego($codJuego){
         $conex=new Conexion();
         
-        $conex->query("DELETE FROM juegos WHERE Codigo='$codJuego';");
-        
-        if ($conex->errno)
-            return false;
+        $resultado=$conex->query("DELETE FROM juegos WHERE Codigo='$codJuego';");
         
         $conex->close();
         
-        return true;
+        return $resultado;
     }
     
     //Modificar juego
@@ -70,9 +67,14 @@ class JuegoControlador {
         
         $resultado=$conex->query("SELECT * FROM juegos WHERE Codigo='$cod';");
         
-        $registro=$resultado->fetch_object();
         
-        $juego=new Juego($registro->Codigo, $registro->Nombre_juego, $registro->Nombre_consola, $registro->Anno, $registro->Precio, $registro->Alguilado, $registro->Imagen);
+        if ($conex->affected_rows){
+            $registro=$resultado->fetch_object();
+
+            $juego=new Juego($registro->Codigo, $registro->Nombre_juego, $registro->Nombre_consola, $registro->Anno, $registro->Precio, $registro->Alguilado, $registro->Imagen);
+        }
+        else
+            $juego=false;
         
         $conex->close();
         

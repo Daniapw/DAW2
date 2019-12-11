@@ -17,25 +17,22 @@ if ($_SESSION["tipoUsuario"]!="admin")
 //Si se le ha dado a enviar
 if (isset($_POST['anadir'])){
     
-    $error=false;
+    $juegoInsertado=false;
+   
+    //Si el juego no existe en la base de datos se intenta subir
+    if (JuegoControlador::getJuego('codJuegoAdd')==false){
     
-    //Si el fichero se ha subido correctamente
-    if (is_uploaded_file($_FILES['imagenCaratulaAdd']['tmp_name'])){
+        if (is_uploaded_file($_FILES['imagenCaratulaAdd']['tmp_name'])){
 
-        $nombreFicheroCaratula= JuegoControlador::subirCaratula('imagenCaratulaAdd');
+            $nombreFicheroCaratula= JuegoControlador::subirCaratula('imagenCaratulaAdd');
 
-        //Insertar juego en BD
-        $juego=new Juego($_POST['codJuegoAdd'], $_POST['tituloJuegoAdd'], $_POST['consolaJuegoAdd'], $_POST['annoJuegoAdd'], $_POST['precioJuegoAdd'], 'NO', $nombreFicheroCaratula);
-        
-        $result=JuegoControlador::insertJuego($juego);
-        
-        
-        if (!$result)
-            $error=true;
-        
+            //Insertar juego en BD
+            $juego=new Juego($_POST['codJuegoAdd'], $_POST['tituloJuegoAdd'], $_POST['consolaJuegoAdd'], $_POST['annoJuegoAdd'], $_POST['precioJuegoAdd'], 'NO', $nombreFicheroCaratula);
+
+            $juegoInsertado=JuegoControlador::insertJuego($juego);
+
+        }
     }
-    else
-        $error=true;
     
 }
 
@@ -51,20 +48,20 @@ if (isset($_POST['anadir'])){
         include_once 'menu.php';
         ?>
         
-        <h1>Añadir un juego a la base de datos</h1>
+        <center><h1>Añadir un juego a la base de datos</h1></center>
         
         <?php
         //Mostrar mensaje de error o exito
-        if (isset($error)){
-            if ($error)
-                echo "<p class='mensajeError'>Error al subir juego en base de datos</p>";
+        if (isset($juegoInsertado)){
+            if (!$juegoInsertado)
+                echo "<center><p class='mensajeError'>Error: el juego ya existe en la BDD</p></center>";
             else
-                echo "<p class='mensajeExito'>Juego subido a la base de datos</p>";
+                echo "<center><p class='mensajeExito'>Juego subido a la base de datos</p></center>";
         }
             
         //Formulario
         ?>
-        <div>
+        <div class="form">
             <form action="anadirJuegos.php" method="post" enctype="multipart/form-data">
                 Código: <input type="text" name="codJuegoAdd" required><br>
                 Titulo: <input type="text" name="tituloJuegoAdd" required><br>

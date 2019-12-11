@@ -7,8 +7,11 @@ session_start();
 
 //Si el usuario le ha dado a alquilar
 if (isset($_POST['alquilar'])){
-    AlquilerControlador::insertAlquiler($_POST['codJuego'], $_SESSION['usuario']);
-    JuegoControlador::updateEstadoAlquiler($_POST['codJuego'], "SI");
+    $resultadoAlquiler=AlquilerControlador::insertAlquiler($_POST['codJuego'], $_SESSION['usuario']);
+    
+    //Si se ha podido crear el alquiler con exito
+    if ($resultadoAlquiler)
+        JuegoControlador::updateEstadoAlquiler($_POST['codJuego'], "SI");
 }
 
 //Juego en cuestion
@@ -42,10 +45,12 @@ else
         <section class="cuerpo">
             <!--Imagen del juego-->
             <?php
-            //Mensaje de alquiler con exito
-            if (isset($_POST['alquilar'])){?>
-                <center><p class="mensajeExito">Has alquilado <?php echo $juego->nombreJuego ?>!</p></center>
-            <?php
+            //Mensaje de alquiler 
+            if (isset($resultadoAlquiler)){
+                if ($resultadoAlquiler)
+                    echo "<center><p class='mensajeExito'>Has alquilado '$juego->nombreJuego'!</p></center>";
+                else
+                    echo "<center><p class='mensajeError'>Ha habido un error al procesar el alquiler</p></center>";
             }?>
             
             <!--Imagen juego-->
@@ -67,10 +72,33 @@ else
             <!--Formulario alquiler-->
             <div class="formAlquiler">
                 <form action="<?php echo $ruta ?>" method="post">
-                    <input type="submit" name="alquilar" value="<?php if ($juego->alquilado=='SI') echo "No disponible"; else echo "Alquilar"; ?>" <?php if ($juego->alquilado=='SI') echo "disabled" ?>>
+                    <input type="submit" name="alquilar" class="boton" value="<?php if ($juego->alquilado=='SI') echo "No disponible"; else echo "Alquilar"; ?>" <?php if ($juego->alquilado=='SI') echo "disabled" ?>>
                     <input type="hidden" value="<?php echo $juego->codigo ?>" name="codJuego">
                 </form>
             </div>
+            
+            
+            <?php
+            //Mostrar controles de administrador
+            if (isset($_SESSION['usuario'])){
+
+                if ($_SESSION['tipoUsuario']=='admin'){
+            ?>
+                    <div class="formAlquiler">
+                        <form action="index.php" method="post">
+                            <input type="hidden" name="codigoJuegoEliminar" value="<?php echo $juego->codigo ?>">
+                            <input type="submit" class="boton" name="eliminarJuego" value="Eliminar juego" <?php if ($juego->alquilado=='SI') echo 'disabled' ?>>
+                        </form><br>
+
+                        <form action="modificarJuego.php" method="post">
+                            <input type="hidden" name="codigoJuegoModificar" value="<?php echo $juego->codigo ?>">
+                            <input type="submit" class="boton" name="modificarJuego" value="Modificar juego">
+                        </form>
+                    </div>
+            <?php
+                }
+            }
+            ?>
         </section>
     </body>
 </html>

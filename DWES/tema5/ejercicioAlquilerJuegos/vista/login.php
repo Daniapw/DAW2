@@ -37,10 +37,12 @@ if (isset($_SESSION['usuario']))
             include_once 'menu.php';
         ?>
         
-        <!--Form login-->
+        <!--Titulo-->
+        <center><h1>Login</h1></center>
         
-        <div class="login">
-            <h1>Login</h1>
+        <!--Form login-->
+        <div class="form">
+            
             <?php
                 if (isset($_POST['login']))
                     echo "<p style='color:red;'>Usuario o contraseña incorrectos</p>";
