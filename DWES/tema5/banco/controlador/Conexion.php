@@ -19,5 +19,6 @@ class Conexion extends mysqli{
     
     public function __construct() {
         parent::__construct($this->server, $this->usuario, $this->pass, $this->bdd);
+        mysqli_set_charset($this, "utf8");
     }
 }
