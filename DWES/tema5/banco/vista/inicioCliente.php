@@ -18,6 +18,10 @@ if (!isset($_POST['historialCuenta']))
 //Obtener historial
 if (isset($_POST['historialCuenta']))
     $transferencias= TransferenciaControlador::getTransferencias($_POST['ibanHistorial']);
+
+//Quitar cuenta transferencia
+if (isset($_SESSION['cuentaTransferencia']))
+    unset($_SESSION['cuentaTransferencia']);
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +38,7 @@ if (isset($_POST['historialCuenta']))
         echo "<h3>Mis cuentas</h3>";
         
         
-        //Si no se ha solicitado el historial de una cuenta
+        //Si no se ha solicitado el historial de una cuenta se mostrara una lista de las cuentas del usuario
         if (!isset($_POST['historialCuenta'])){
             //Mostrar tabla con cuentas de usuario si las tiene
             if (!empty($cuentas)){
@@ -54,7 +58,8 @@ if (isset($_POST['historialCuenta']))
                         <td><?php echo $cuenta->iban ?></td>
                         <td><?php echo $cuenta->saldo ?>€</td>
                         <td>
-                            <form action='#' method="post">
+                            <form action='transferencias.php' method="post">
+                                <input type='hidden' name='ibanTransferencia' value='<?php echo $cuenta->iban ?>'>
                                 <input type='submit' name='transferenciasCuenta' value='Transferencia'>
                             </form>
 
@@ -77,31 +82,35 @@ if (isset($_POST['historialCuenta']))
                 echo "<p>No tienes ninguna cuenta ahora mismo</p>";
             
         }
-        //Si se ha solicitado el historial de una cuenta
+        //Si se ha solicitado el historial de una cuenta se mostrara una lista de transferencias realizadas desde esa cuenta
         else{
             echo "<h3>Historial de transferencias realizadas desde la cuenta $_POST[ibanHistorial]</h3>";
             ?>
-              
-                <table border='1' cellpadding='10'>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Cantidad</th>
-                        <th>Destino</th>
-                    </tr>
-                    
-                    <?php
-                    
-                    foreach($transferencias as $transferencia){
-                    ?>   
-                        <tr>
-                            <td><?php echo $transferencia->fecha ?></td>
-                            <td><?php echo $transferencia->cantidad ?>€</td>
-                            <td><?php echo $transferencia->ibanDestino ?></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </table>
+
+            <table border='1' cellpadding='10'>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Cantidad</th>
+                    <th>Destino</th>
+                </tr>
+
+            <?php
+
+            foreach($transferencias as $transferencia){
+            ?>   
+                <tr>
+                    <td><?php echo $transferencia->getFechaFormateada() ?></td>
+                    <td><?php echo $transferencia->cantidad ?>€</td>
+                    <td><?php echo $transferencia->ibanDestino ?></td>
+                </tr>
+            <?php
+            }
+            ?>
+            </table>
+
+            <br>
+            <a href="inicioCliente.php">Volver a inicio</a>
+            <br>
         <?php 
         }
         ?>

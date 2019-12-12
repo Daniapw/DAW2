@@ -22,6 +22,8 @@ class Cuenta {
         $this->dni=$dni;
     }
     
+
+    
     public function __get($name) {
         return $this->$name;
     }

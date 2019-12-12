@@ -48,4 +48,5 @@ class UsuarioControlador {
         
         return $usuario;
     }
+    
 }

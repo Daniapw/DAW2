@@ -27,4 +27,24 @@ class TransferenciaControlador {
         return $transferencias;
     }
     
+    //Insertar nueva transferencia
+    public static function insertTransferencia($transferencia){
+        $conex=new Conexion();
+        
+        $conex->query("INSERT INTO transferencias VALUES('$transferencia->ibanOrigen', '$transferencia->ibanDestino', '$transferencia->fecha', $transferencia->cantidad);");
+        
+        $conex->close();
+    }
+    
+    //Realizar nueva transferencia
+    public static function realizarTransferencia($transferencia){
+        $conex=new Conexion();
+        
+        $conex->query("UPDATE cuentas SET saldo=saldo-$transferencia->cantidad WHERE iban='$transferencia->ibanOrigen'");
+        $conex->query("UPDATE cuentas SET saldo=saldo+$transferencia->cantidad WHERE iban='$transferencia->ibanDestino'");
+        self::insertTransferencia($transferencia);
+        
+        $conex->close();
+    }
+    
 }
