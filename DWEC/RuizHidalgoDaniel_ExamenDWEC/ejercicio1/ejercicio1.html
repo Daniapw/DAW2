@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="ejercicio1.js"></script>
+
+    <style>
+        #pass2Span{
+            display: none;
+        }
+    
+        #imagen{
+            display:none;
+        }
+
+        #textoError{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" id="form1">
+        Usuario: <input type="text" name="usuario" id="usuario"><br>
+        <p id="textoError"></p>
+        Contraseña: <input type="password" name="pass" id="pass" ><br>
+        <span id="pass2Span">
+            Confirmar contraseña: <input type="password" name="pass2" id="pass2"><br>
+        </span>
+
+        <input type="submit" name="enviar" value="Enviar" id="enviarForm" disabled>
+    </form>
+
+    <img src="error.jpg" id="imagen">
+</body>
+</html>
