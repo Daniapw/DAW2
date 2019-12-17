@@ -1,4 +1,4 @@
-#video-container {
+.video-container {
 	position: relative;
 }
 
@@ -20,7 +20,7 @@
 
 }
 
-#video-container:hover #controlesVideo {
+.video-container:hover #controlesVideo {
 	opacity: .7;
 }
 

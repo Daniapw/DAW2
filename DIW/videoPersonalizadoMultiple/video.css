@@ -1,0 +1,88 @@
+.video-container {
+	position: relative;
+}
+
+
+.controlesVideo {
+	position: absolute;
+	width:100%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 5px;
+	opacity: 0;
+	-webkit-transition: opacity .3s;
+	-moz-transition: opacity .3s;
+	-o-transition: opacity .3s;
+	-ms-transition: opacity .3s;
+	transition: opacity .3s;
+    background-color:rgb(19, 19, 19);
+
+}
+
+.video-container:hover .controlesVideo {
+	opacity: .7;
+}
+
+.controlesVideo button {
+	background-color: transparent;
+	border: 0;
+	color: #EEE;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.barraVideo{
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    height:3px;
+}
+
+.barraVideo::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+	height: 15px;
+	border:1px solid white;
+
+    border-radius: 50%; 
+    background: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  
+.barraVideo::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+	border-radius: 50%;
+	border:1px solid white;
+    background: black;
+    cursor: pointer;
+}
+
+.barraProgresoVideo {
+    margin-bottom:10px;
+	width: 100%;
+}
+
+.wrapperPlayVolumenVideo{
+	float:left;
+}
+
+.wrapperVolumenVideo{
+	float:left;
+}
+
+.barraVolumenVideo {
+    width: 80px;
+}
+
+.wrapperDuracionVideo{
+	float:left;
+}
+
+.wrapperPntCompletaVideo{
+	float:right;
+}
+
