@@ -2,29 +2,28 @@ $(function(){
     //Video
     var video=document.getElementById("video");
     
+    //Event listener para parar y reanudar video al hacer click sobre el mismo
     video.addEventListener("click", function(){
-        if (video.paused){
+        if (video.paused)
             video.play();
-            $("#iconoPlayPausa").attr("class", "far fa-pause-circle fa-2x");
-        }
         //Pausar video
-        else{
+        else
             video.pause();
-            $("#iconoPlayPausa").attr("class","far fa-play-circle fa-2x");
-        }
+
+        actualizaIconoPlay();
     });
 
     //Botones
-    var btnPlayPausa=document.getElementById("btnPlayPausa");
-    var btnSilenciar=document.getElementById("btnSilenciar");
-    var btnPantCompleta=document.getElementById("btnPantCompleta");
-
-    configuracionBotonesVideo();
+    btnPlayPausa=document.getElementById("btnPlayPausaVideo");
+    btnSilenciar=document.getElementById("btnSilenciarVideo");
+    btnPantCompleta=document.getElementById("btnPantCompletaVideo");
 
     //Barras de volumen y progreso
-    var barraProgreso=document.getElementById("barraProgreso");
-    var barraVolumen=document.getElementById("barraVolumen");
+    barraProgreso=document.getElementById("barraProgresoVideo");
+    barraVolumen=document.getElementById("barraVolumenVideo");
 
+
+    configuracionBotonesVideo();
     configurarBarrasVideo();
    
 })
@@ -124,17 +123,17 @@ function configurarBarrasVideo(){
 function actualizarIconoSonido(){
 
     if (video.muted)
-        $("#iconoSonido").attr("class", "fas fa-volume-mute fa-2x");
+        $("#iconoSonidoVideo").attr("class", "fas fa-volume-mute fa-2x");
     else{
 
         volumen=barraVolumen.value;
 
         if (volumen==0)
-            $("#iconoSonido").attr("class", "fas fa-volume-off fa-2x");
+            $("#iconoSonidoVideo").attr("class", "fas fa-volume-off fa-2x");
         else if(volumen>0 && volumen<=0.5)
-            $("#iconoSonido").attr("class", "fas fa-volume-down fa-2x");
+            $("#iconoSonidoVideo").attr("class", "fas fa-volume-down fa-2x");
         else if(volumen>0.5)
-            $("#iconoSonido").attr("class", "fas fa-volume-up fa-2x");
+            $("#iconoSonidoVideo").attr("class", "fas fa-volume-up fa-2x");
 
     }
 
@@ -143,8 +142,8 @@ function actualizarIconoSonido(){
 //Actualizar icono play
 function actualizaIconoPlay(){
     if (video.paused)
-        $("#iconoPlayPausa").attr("class", "far fa-play-circle fa-2x");
+        $("#iconoPlayPausaVideo").attr("class", "far fa-play-circle fa-2x");
     else
-        $("#iconoPlayPausa").attr("class","far fa-pause-circle fa-2x");
+        $("#iconoPlayPausaVideo").attr("class","far fa-pause-circle fa-2x");
 
 }
