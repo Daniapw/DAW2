@@ -1,0 +1,24 @@
+SPIDERMAN:
+-Banner: hobbyconsolas.com
+-Origen1: wallpapermaiden.com
+-Origen2: wall.alphacoders.com
+
+Superman:
+-Banner: moviepilot.de
+-Origen1: cinemascomic.es
+-Origen2: inverse.com
+
+Iron Man:
+-Banner: wallpapersmug.com
+-Origen1: wallpapersmug.com
+-Origen2: best-wallpaper.net
+
+Flash
+-Banner: denofgeek.com
+-Origen1: initiate.aplhacoders.com
+-Origen2: tumblr.com
+
+Wonder Woman
+-Banner: wallpaperaccess.com
+-Origen1: zonanegativa.com
+-Origen2: freaksugar.com
