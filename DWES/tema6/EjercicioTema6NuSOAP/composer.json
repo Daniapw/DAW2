@@ -1,0 +1,13 @@
+{
+    "name": "vendor/ejercicio-tema6-nu-s-o-a-p",
+    "description": "Description of project EjercicioTema6NuSOAP.",
+    "authors": [
+        {
+            "name": "DWES",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "econea/nusoap": "dev-master"
+    }
+}
