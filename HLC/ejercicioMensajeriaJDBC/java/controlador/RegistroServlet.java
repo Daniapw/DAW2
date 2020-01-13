@@ -59,7 +59,7 @@ public class RegistroServlet extends HttpServlet {
             
             //Registro usuario
             if (registroCorrecto){
-                ControladorUsuario.insertUsuario(new Usuario(nombreUsuario, passUsuario));
+                ControladorUsuario.insertUsuario(new Usuario(nombreUsuario, passUsuario, "usuario", false));
                 sesion.setAttribute("registroCompletado", true);
             }
         }

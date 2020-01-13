@@ -29,7 +29,7 @@ public class ControladorUsuario {
 
                 
         while(resultados.next()){
-            usuarios.add(new Usuario(resultados.getString(1), resultados.getString(2), resultados.getBoolean(4)));
+            usuarios.add(new Usuario(resultados.getString(1), resultados.getString(2), resultados.getString(3), resultados.getBoolean(4)));
         }
         
         conexion.close();
@@ -92,7 +92,7 @@ public class ControladorUsuario {
             ResultSet resultados=ps.executeQuery();
             
             if (resultados.next())
-                usuario=new Usuario(resultados.getString(1), resultados.getString(2), resultados.getBoolean(4));
+                usuario=new Usuario(resultados.getString(1), resultados.getString(2), resultados.getString(3), resultados.getBoolean(4));
             
             conex.close();
             ps.close();
@@ -115,11 +115,13 @@ public class ControladorUsuario {
         Connection conex=Conexion.getConex();
                 
         try {
-            PreparedStatement ps=conex.prepareStatement("INSERT INTO usuarios VALUES(?,?,null,?);");
+            PreparedStatement ps=conex.prepareStatement("INSERT INTO usuarios VALUES(?,?,?,?);");
             
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getPass());
-            ps.setBoolean(3, usuario.isClaveBooleana());
+            ps.setString(3, usuario.getTipo());
+            ps.setBoolean(4, usuario.isBloqueado());
+
             
             ps.execute();
             

@@ -12,41 +12,14 @@ package modelo;
 public class Usuario {
     private String nombre;
     private String pass;
-    private int[] claves=new int[10];
-    private boolean claveBooleana;
+    private String tipo;
+    private boolean bloqueado;
 
-    public Usuario(String nombre, String pass, boolean claveBooleana) {
+    public Usuario(String nombre, String pass, String tipo, boolean bloqueado) {
         this.nombre = nombre;
         this.pass = pass;
-        this.claveBooleana=claveBooleana;
-    }
-    
-    public Usuario(String nombre, String pass) {
-        this.nombre = nombre;
-        this.pass = pass;
-        
-        //Generar claves
-        this.claves=generarClaves();
-        
-        //Generar clave booleana
-        double numeroAleatorio=Math.random();
-        if (numeroAleatorio>0.5)
-            this.claveBooleana=true;
-        else
-            this.claveBooleana=false;
-    }
-
-    public static int[] generarClaves(){
-        int numero=0;
-        
-        int[] numeros=new int[10];
-        
-        for (int i=0; i < 10; i++){
-            numero=(int) Math.round(Math.random()*(50-1)+1);
-            numeros[i]=numero;
-        }
-        
-        return numeros;
+        this.tipo=tipo;
+        this.bloqueado=bloqueado;
     }
     
     
@@ -66,21 +39,23 @@ public class Usuario {
         this.pass = pass;
     }
 
-    public int[] getClaves() {
-        return claves;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setClaves(int[] claves) {
-        this.claves = claves;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public boolean isClaveBooleana() {
-        return claveBooleana;
+    public boolean isBloqueado() {
+        return bloqueado;
     }
 
-    public void setClaveBooleana(boolean claveBooleana) {
-        this.claveBooleana = claveBooleana;
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
     }
+
+    
     
     
 }
