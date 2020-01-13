@@ -1,4 +1,3 @@
-<%@page import="java.util.ArrayList"%>
 <%@page import="modelo.Mensaje"%>
 <%@page import="java.util.List"%>
 <%@page import="controlador.ControladorMensajes"%>
@@ -12,15 +11,7 @@
         request.getRequestDispatcher("login.jsp").forward(request,response);
     
     Usuario usuarioLogeado=(Usuario) sesion.getAttribute("usuarioLogeado");
-    
-    List<Mensaje> mensajes=new ArrayList<Mensaje>();
-    
-    //Obtener mensajes
-    if (usuarioLogeado.getTipo().equalsIgnoreCase("admin"))
-        mensajes=ControladorMensajes.getAllMensajes();
-    else
-        mensajes=ControladorMensajes.getMensajesUsuario(usuarioLogeado.getNombre());
-   
+    List<Mensaje> mensajesRecibidos=ControladorMensajes.getMensajesEnviados(usuarioLogeado.getNombre());
 
 %>
 <!DOCTYPE html>
@@ -43,19 +34,20 @@
         </div>
         
         
-        <h3>Mensajes recibidos</h3>
+        <h3>Mensajes enviados</h3>
+        
         <%
             //Mostrar mensaje de error en caso de que no haya recibido ningun mensaje
-            if (mensajes.size()<1)
-                out.println("<p style='mensajeError'>Aun no has recibido ningun mensaje</p>");
+            if (mensajesRecibidos.size()<1)
+                out.println("<p style='mensajeError'>Aun no has enviado ningun mensaje</p>");
             
-            //Mostrar mensajes recibidos
+            //Mostrar mensajes enviados
             else{
         %>
                 <div class="contenedorMensajes">
                     <%
-                        for (Mensaje mensaje:mensajes){
-                            out.println(mensaje.toString());
+                        for (Mensaje mensaje:mensajesRecibidos){
+                            out.println(mensaje.toStringEnviados());
                         }
                     %>
                 </div>

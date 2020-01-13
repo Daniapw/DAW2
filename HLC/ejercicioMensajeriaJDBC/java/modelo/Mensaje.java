@@ -48,6 +48,44 @@ public class Mensaje {
         return listaNumeros;
     }
     
+    @Override
+    /**
+     * toString para mostrar mensajes en pantalla
+     */
+    public String toString(){
+        return 
+                "<div class='mensaje'>"
+                    + "<div class='autor'>Enviado por: "+this.autor+"</div>"
+                    + "<div class='cuerpo'>"
+
+                            +"<div class='contenido'>"
+                                + this.contenido
+                            +"</div>"
+
+                            +"<div class=\"controlesMensaje\">" +
+                                "<form action=\"MensajesServlet\" method=\"post\">" +
+                                    "<input type=\"hidden\" name=\"idMensaje\" value='"+this.idMensaje+"'>" +
+                                    "<input type=\"submit\" name=\"btnEliminarMensaje\" value=\"Eliminar mensaje\">" +
+                                "</form>" +
+                            "</div>"
+                    +"</div>"
+                +"</div>";
+    }
+    
+    /**
+     * toString para mostrar mensajes en pantalla
+     */
+    public String toStringEnviados(){
+        return 
+                "<div class='mensaje'>"
+                    + "<div class='autor'>Enviado a: "+this.destinatario+"</div>"
+                    + "<div class='cuerpo'>"
+                            +"<div class='contenido'>"
+                                + this.contenido
+                            +"</div>"
+                    +"</div>"
+                +"</div>";
+    }
     
     public int getIdMensaje() {
         return idMensaje;

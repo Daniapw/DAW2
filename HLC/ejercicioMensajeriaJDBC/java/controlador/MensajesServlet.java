@@ -6,20 +6,22 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Mensaje;
 import modelo.Usuario;
 
 /**
  *
  * @author danir
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "MensajesServlet", urlPatterns = {"/MensajesServlet"})
+public class MensajesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,38 +34,30 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        //Sesion
         HttpSession sesion=request.getSession();
         
-        //Ruta redireccion
-        String ruta="login.jsp";
-        
-        //Recoger parametros
-        if (request.getParameter("enviarLogin")!=null){
-            String usuarioLogin=request.getParameter("usuarioLogin");
-            String passLogin=request.getParameter("passLogin");
+        //Eliminar mensaje
+        if (request.getParameter("btnEliminarMensaje")!=null){
+            int id=Integer.parseInt(request.getParameter("idMensaje"));
             
-            //Comprobacion y login
-            if (ControladorUsuario.login(usuarioLogin, passLogin)){
-                
-                //Obtener usuario de bd y crear objeto Usuario
-                Usuario usuarioLogeado=ControladorUsuario.getUsuario(usuarioLogin);
-                
-                //Atributos de sesion
-                sesion.setAttribute("intentoFallido", false);
-                sesion.setAttribute("usuarioLogeado", usuarioLogeado);
-                
-                ruta="panelMensajes.jsp";
-            }
-            else
-                sesion.setAttribute("intentoFallido", true);
+            ControladorMensajes.deleteMensaje(id);
         }
         
+        //Enviar mensaje
+        if (request.getParameter("btnEnviarMensaje")!=null){
+            
+            //Obtener datos del mensaje
+            Usuario usuario=(Usuario) sesion.getAttribute("usuarioLogeado");
+            String destinatarioMensaje=request.getParameter("destinatarioEnviar");
+            String contenidoMensaje=request.getParameter("contenidoMensajeEnviar");
+            
+            
+            //Insertar mensaje en BD
+            ControladorMensajes.insertMensaje(new Mensaje(0, usuario.getNombre(), destinatarioMensaje, contenidoMensaje, "1", true));
+            
+        }
         
-        //Redireccion
-        request.getRequestDispatcher(ruta).forward(request, response);
+        request.getRequestDispatcher("panelMensajes.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

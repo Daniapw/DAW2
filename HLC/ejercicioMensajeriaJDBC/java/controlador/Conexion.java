@@ -9,8 +9,8 @@ import java.sql.*;
  */
 public class Conexion {
     private static final String URL="jdbc:mysql://localhost:3306/ejerciciomensajeria";;
-    private static String usuario="root";
-    private static String pass="root";
+    private static String usuario="dwes";
+    private static String pass="abc123.";
     private static Connection conex;
     
     /**

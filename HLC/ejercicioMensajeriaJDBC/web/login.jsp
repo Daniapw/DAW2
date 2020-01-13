@@ -1,16 +1,12 @@
+<%@page import="modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     //Sesion
     HttpSession sesion=request.getSession();
 
     //Redireccion en caso de que el usuario ya se haya logeado
-    if (sesion.getAttribute("usuarioLogeado")!=null){
-        String ruta="panelMensajes.jsp";
-        
-        
+    if (sesion.getAttribute("usuarioLogeado")!=null)
         request.getRequestDispatcher("panelMensajes.jsp").forward(request, response);
-    }
-
      
     //Atributo de error de login sesion
     if (sesion.getAttribute("intentoFallido")==null)

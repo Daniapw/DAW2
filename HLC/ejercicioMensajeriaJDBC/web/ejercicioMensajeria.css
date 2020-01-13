@@ -1,0 +1,58 @@
+body{
+    font-family:"Arial";
+}
+
+.contenedorMenu{
+    margin:10px;
+}
+
+.menu li{
+    display:inline;
+    background-color:blue;
+    padding:10px;
+    
+}
+
+.menu li a{
+    text-decoration: none;
+    font-weight:bold;
+    color:white;
+}
+
+.menu li:hover{
+    background-color:lightblue;
+}
+
+.mensajeError{
+    color:red;
+}
+
+.contenedorMensajes{
+    width:400px;
+    background-color:red;
+    border:1px black;
+    margin:10px;
+}
+
+.autor{
+    border:1px solid black;
+    font-weight:bold;
+    background-color:grey;
+    padding:5px;
+}
+
+.cuerpo{
+    border:1px solid black;
+    margin-top:7px;
+    padding:10px;
+}
+
+.mensaje{
+    background-color:lightskyblue;
+    padding:13px;
+}
+
+.controlesMensaje{
+    padding:10px;
+    float:right;
+}
