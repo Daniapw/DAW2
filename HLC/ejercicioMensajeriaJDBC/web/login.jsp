@@ -4,8 +4,13 @@
     HttpSession sesion=request.getSession();
 
     //Redireccion en caso de que el usuario ya se haya logeado
-    if (sesion.getAttribute("usuarioLogeado")!=null)
+    if (sesion.getAttribute("usuarioLogeado")!=null){
+        String ruta="panelMensajes.jsp";
+        
+        
         request.getRequestDispatcher("panelMensajes.jsp").forward(request, response);
+    }
+
      
     //Atributo de error de login sesion
     if (sesion.getAttribute("intentoFallido")==null)

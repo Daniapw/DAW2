@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Usuario;
 
 /**
  *
@@ -46,9 +47,20 @@ public class LoginServlet extends HttpServlet {
             
             //Comprobacion y login
             if (ControladorUsuario.login(usuarioLogin, passLogin)){
+                
+                //Obtener usuario de bd y crear objeto Usuario
+                Usuario usuarioLogeado=ControladorUsuario.getUsuario(usuarioLogin);
+                
+                //Atributos de sesion
                 sesion.setAttribute("intentoFallido", false);
-                sesion.setAttribute("usuarioLogeado", ControladorUsuario.getUsuario(usuarioLogin));
-                ruta="panelMensajes.jsp";
+                sesion.setAttribute("usuarioLogeado", usuarioLogeado);
+                
+                
+                //Cambiar ruta en funcion del tipo de usuario logeado
+                if (usuarioLogeado.getTipo().equalsIgnoreCase("usuario"))
+                    ruta="panelMensajes.jsp";
+                else
+                    ruta="panelAdmin.jsp";
             }
             else
                 sesion.setAttribute("intentoFallido", true);
