@@ -6,6 +6,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,8 @@ import modelo.Usuario;
  *
  * @author danir
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ServletAdmin", urlPatterns = {"/ServletAdmin"})
+public class ServletAdmin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,42 +33,24 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        //Sesion
         HttpSession sesion=request.getSession();
         
-        //Ruta redireccion
-        String ruta="login.jsp";
+        String ruta="panelControlUsuarios.jsp";
         
-        //Recoger parametros
-        if (request.getParameter("enviarLogin")!=null){
-            String usuarioLogin=request.getParameter("usuarioLogin");
-            String passLogin=request.getParameter("passLogin");
+        //Si se ha enviado el parametro nombreUsuarioControl
+        if (request.getParameter("nombreUsuarioControl")!=null){
+            String nombreUsuario=request.getParameter("nombreUsuarioControl");
             
-            //Comprobacion y login
-            if (ControladorUsuario.login(usuarioLogin, passLogin)){
-                
-                //Obtener usuario de bd y crear objeto Usuario
-                Usuario usuarioLogeado=ControladorUsuario.getUsuario(usuarioLogin);
-                
-                    if (!usuarioLogeado.isBloqueado()){
-                        //Atributos de sesion
-                        sesion.setAttribute("intentoFallido", false);
-                        sesion.setAttribute("usuarioLogeado", usuarioLogeado);
-
-                        ruta="panelMensajes.jsp";
-                    }
-                    else
-                        sesion.setAttribute("usuarioBloqueado", true);
-            }
-            else
-                sesion.setAttribute("intentoFallido", true);
+            //Dependiendo del boton pulsado se cambiara el estado de bloqueo a false o true
+            if (request.getParameter("desbloquearUsuario")!=null)
+                ControladorUsuario.cambiarBloqueo(nombreUsuario, false);
+           
+            if (request.getParameter("bloquearUsuario")!=null)
+                ControladorUsuario.cambiarBloqueo(nombreUsuario, true);
         }
         
-        
         //Redireccion
-        request.getRequestDispatcher(ruta).forward(request, response);
+        request.getRequestDispatcher("panelControlUsuarios.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

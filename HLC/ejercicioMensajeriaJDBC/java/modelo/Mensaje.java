@@ -32,6 +32,79 @@ public class Mensaje {
         
     } 
     
+    public Mensaje(String autor, String destinatario, String contenido){
+        this.autor=autor;
+        this.destinatario=destinatario;
+        this.claves=generarClaves();
+        
+        double numero=Math.random();
+        
+        if (numero<0.5)
+            this.claveBooleana=false;
+        else
+            this.claveBooleana=true;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    private String encriptarMensaje(){
+        String mensajeEncr="";
+        char[] caracteres=contenido.toCharArray();
+        int contadorClave=0;
+        int codigoAscii=0;
+        
+        //Se recorren los caracteres del mensaje 1 por 1
+        for (int i=0; i < caracteres.length;i++){
+            
+            //Si el caracter es una letra se codifica
+            if (Character.isLetter(caracteres[i])){
+                //Primero se obtiene el codigo ascii del caracter
+                codigoAscii=(int) caracteres[i];
+                
+                //Luego se le suma o restael valor actual de claves dependiendo de la clave booleana
+                if (claveBooleana)
+                    codigoAscii+=claves.get(contadorClave);
+                else
+                    codigoAscii-=claves.get(contadorClave);
+                
+                //El caracter encriptado se anade al mensaje
+                mensajeEncr=mensajeEncr+Character.toString((char) codigoAscii);
+                
+                //Se aumenta el contador clave
+                contadorClave++;
+                
+                //Si el contador de claves ha llegado a 9
+                if (contadorClave==10)
+                    contadorClave=0;
+            }
+        }
+        
+        return mensajeEncr;
+    }
+    
+    /**
+     * Funcion para generar las claves
+     * @return 
+     */
+    private static List<Integer> generarClaves(){
+        int numero=0;
+        List<Integer> numeros=new ArrayList<Integer>();
+        
+        do{
+            //Se genera un numero aleatorio entre 1 y 50
+            numero=(int) Math.round(Math.random()*(50-1)+1);
+            
+            //Anadir numeros
+            numeros.add(numero);
+            
+        }while(numeros.size()<10);
+        
+        return numeros;
+    }
+    
+    
     /**
      * Parsear numeros del campo claves
      * @param claves
@@ -55,7 +128,7 @@ public class Mensaje {
     public String toString(){
         return 
                 "<div class='mensaje'>"
-                    + "<div class='autor'>Enviado por: "+this.autor+"</div>"
+                    + "<div class='autor'>Enviado por: "+this.autor+" || Destinatario: "+this.destinatario+"</div>"
                     + "<div class='cuerpo'>"
 
                             +"<div class='contenido'>"

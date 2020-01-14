@@ -52,5 +52,7 @@
             
             <input type="submit" name="btnEnviarMensaje" value="Enviar mensaje">
         </form>
+        <a href="LogoffServlet">Cerrar sesion</a>
+
     </body>
 </html>

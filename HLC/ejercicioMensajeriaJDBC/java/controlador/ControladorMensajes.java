@@ -19,6 +19,10 @@ import modelo.Mensaje;
  */
 public class ControladorMensajes {
     
+    /**
+     * Obtener todos los mensajes
+     * @return 
+     */
     public static List<Mensaje> getAllMensajes(){
         Connection conex=Conexion.getConex();
         List<Mensaje> mensajes=new ArrayList<Mensaje>();
@@ -105,6 +109,8 @@ public class ControladorMensajes {
         
         return mensajes;      
     }
+    
+    
     
     /**
      * Insertar mensaje en bd

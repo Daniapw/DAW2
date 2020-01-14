@@ -1,3 +1,4 @@
+<%@page import="controlador.ControladorUsuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.Mensaje"%>
 <%@page import="java.util.List"%>
@@ -7,21 +8,19 @@
 <%
     HttpSession sesion=request.getSession();
     
-    //Redirigir si es necesario
+    //Redirigir si el usuario no esta logeado
     if (sesion.getAttribute("usuarioLogeado")==null)
         request.getRequestDispatcher("login.jsp").forward(request,response);
     
     Usuario usuarioLogeado=(Usuario) sesion.getAttribute("usuarioLogeado");
     
+    //Si el usuario no es administrador se le redirige
+    if (!usuarioLogeado.getTipo().equalsIgnoreCase("admin"))
+        request.getRequestDispatcher("panelMensajes.jsp").forward(request,response);
     
-    //Obtener mensajes
-    List<Mensaje> mensajes=new ArrayList<Mensaje>();
-
-    //Determinar que mensajes se mostraran segun nivel de usuario
-    if (usuarioLogeado.getTipo().equalsIgnoreCase("admin"))
-        mensajes=ControladorMensajes.getAllMensajes();
-    else
-        mensajes=ControladorMensajes.getMensajesUsuario(usuarioLogeado.getNombre());
+    
+    //Obtener lista de usuarios
+    List<Usuario> listaUsuarios=ControladorUsuario.getAllUsuarios();
    
 
 %>
@@ -47,27 +46,25 @@
                 %>
             </ul>
         </div>
-        
-        
-        <h3>Mensajes recibidos</h3>
-        <%
-            //Mostrar mensaje de error en caso de que no haya recibido ningun mensaje
-            if (mensajes.size()<1)
-                out.println("<p style='mensajeError'>Aun no has recibido ningun mensaje</p>");
             
-            //Mostrar mensajes recibidos
-            else{
-        %>
-                <div class="contenedorMensajes">
-                    <%
-                        for (Mensaje mensaje:mensajes){
-                            out.println(mensaje.toString());
-                        }
-                    %>
+        <!--Lista usuarios-->
+        <h3>Control de usuarios</h3>
+        <div class="cuerpo">
+            <%
+            //Recorrer lista de usuarios y crear formularios
+            for(Usuario usuario:listaUsuarios){%>
+                <div class="usuarioLista">
+                    <form action="ServletAdmin" method="POST">
+                        Usuario <% out.println(usuario.getNombre()); %>
+                        <input type="hidden" name="nombreUsuarioControl" value="<% out.println(usuario.getNombre()); %>">
+                        <input type="submit" name="desbloquearUsuario" value="Desbloquear" <% if (!usuario.isBloqueado()) out.println("disabled");%>>
+                        <input type="submit" name="bloquearUsuario" value="Bloquear" <% if(usuario.isBloqueado()) out.println("disabled");%>>
+                    </form>
                 </div>
-        <%
+            <%
             }
-        %>
+            %>
+        </div>
         <a href="LogoffServlet">Cerrar sesion</a>
     </body>
 </html>

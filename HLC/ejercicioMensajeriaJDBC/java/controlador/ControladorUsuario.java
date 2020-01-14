@@ -123,7 +123,7 @@ public class ControladorUsuario {
             ps.setBoolean(4, usuario.isBloqueado());
 
             
-            ps.execute();
+            ps.executeUpdate();
             
             conex.close();
             ps.close();
@@ -131,5 +131,33 @@ public class ControladorUsuario {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }        
+    }
+    
+    /**
+     * Cambiar estado de bloqueo de un usuario
+     * @param usuario 
+     * @param estadoBloqueo 
+     */
+    public static void cambiarBloqueo(String usuario, boolean estadoBloqueo){
+        Connection conex=Conexion.getConex();        
+
+        //Por algun motivo, al pasar el string han debido de anadirse espacios o algo por el estilo, asi que hay que hacerle un trim()
+        usuario=usuario.trim();
+        
+        try {
+            PreparedStatement ps=conex.prepareStatement("UPDATE usuarios SET bloqueado=? WHERE nombre=?");
+
+            ps.setBoolean(1, estadoBloqueo);
+            ps.setString(2, usuario);
+            
+            ps.executeUpdate();
+            
+            ps.close();
+            conex.close();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }        
+
     }
 }

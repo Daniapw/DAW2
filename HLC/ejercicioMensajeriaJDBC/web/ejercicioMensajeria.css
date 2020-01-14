@@ -29,8 +29,7 @@ body{
 
 .contenedorMensajes{
     width:400px;
-    background-color:red;
-    border:1px black;
+    border:1px solid black;
     margin:10px;
 }
 
@@ -48,8 +47,8 @@ body{
 }
 
 .mensaje{
-    background-color:lightskyblue;
     padding:13px;
+    margin-bottom:20px;
 }
 
 .controlesMensaje{

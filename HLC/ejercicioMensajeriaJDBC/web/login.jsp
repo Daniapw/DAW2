@@ -18,13 +18,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="ejercicioMensajeria.css">
+
     </head>
     <body>
         <h1>Bienvenido al foro Comares</h1>
         <%
-            //Mostrar mensaje de error
+            //Mostrar mensajes de error
             if ((Boolean) sesion.getAttribute("intentoFallido"))
                 out.println("<p style='color:red;'>Usuario o contrasena incorrectos, vuelva a intentarlo.</p>");
+            
+            if (sesion.getAttribute("usuarioBloqueado")!=null)
+                out.println("<p class='mensajeError'>Su cuenta ha sido bloqueada. Contacte con un administrador si desea mas informacion");
                 
         %>
         <!--Formulario de logeo-->

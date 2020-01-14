@@ -6,7 +6,6 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,7 +56,7 @@ public class MensajesServlet extends HttpServlet {
             
         }
         
-        request.getRequestDispatcher("panelMensajes.jsp").forward(request,response);
+        request.getRequestDispatcher("panelMensajesEnviados.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
