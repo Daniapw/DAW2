@@ -13,103 +13,106 @@ import java.util.List;
  * @author danir
  */
 public class NewMain {
-    public static String caracteresMinus="abcdefghijklmnopqrstuvwxyz";
 
-    
-    
+    public static String caracteresMinus = "abcdefghijklmnopqrstuvwxyz";
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        List<Integer> claves=generarClaves();
-        
-        for(Integer i:claves){
-            System.out.println(i.toString());
-        }
-        
-        String mensaje="hola amigo";
-        String mensajeEncr=encriptarMensaje(mensaje, true, claves);
-        
-        System.out.println("Mensaje: \n"+mensaje);
-        System.out.println("\nMensaje encriptado: "+mensajeEncr);
-        System.out.println("\nMensaje desencriptado: "+desencriptarMensaje(mensajeEncr, true, claves));
 
-
+        //Se genera un numero aleatorio entre 1 y 50
+        int numero = (int) Math.round(Math.random() * (50 - 1) + 1);
+        System.out.println(numero);
+        String mensaje = "hola, tio";
+        String mensajeEncr=encriptarMensaje(mensaje, numero);
+        
+         System.out.println("Mensaje: \n"+mensaje);
+         System.out.println("\nMensaje encriptado: "+mensajeEncr);
+         System.out.println("\nMensaje desencriptado "+desencriptarMensaje(mensajeEncr, numero));
     }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    private static String encriptarMensaje(String contenido, boolean claveBooleana, List<Integer> claves){
-        int contadorClaves=0;
+    private static String encriptarMensaje(String contenido, int clave) {
         String caracterActualEnString;
         char caracterActualEnChar;
-        String mensajeEncr="";
-        
-        for (int i=0; i < contenido.length(); i++){
-            caracterActualEnString= contenido.substring(i, 1);
-            caracterActualEnChar=caracterActualEnString.charAt(0);
+        String mensajeEncr = "";
+
+        //Se recorre el texto
+        for (int i = 0; i < contenido.length(); i++) {
             
-            if (Character.isLetter(caracterActualEnChar)){
-                int posicionEnArray=caracteresMinus.indexOf(caracterActualEnChar);
-                
-                
-                mensajeEncr=mensajeEncr+caracteresMinus.substring(posicionEnArray+claves.get(contadorClaves),1);
-                
-                contadorClaves++;
-                
-                if (contadorClaves==10)
-                    contadorClaves=0;
+            //Se guarda el caracter en formato String y en formato char
+            caracterActualEnString = contenido.substring(i, i+1);
+            caracterActualEnChar = caracterActualEnString.charAt(0);
+            
+            //Si el caracter es una letra
+            if (Character.isLetter(caracterActualEnChar)) {
+                int posicionEnArray = caracteresMinus.indexOf(caracterActualEnChar);
+                int posicionFinal=(posicionEnArray + clave) % caracteresMinus.length();
+
+                caracterActualEnString = caracteresMinus.substring(posicionFinal, posicionFinal+1);
+
             }
+
+            mensajeEncr = mensajeEncr + caracterActualEnString;
         }
-        
+
         return mensajeEncr;
     }
-    
-        /**
-     * 
-     * @return 
+
+    /**
+     *
+     * @return
      */
-    private static String desencriptarMensaje(String contenido, boolean claveBooleana, List<Integer> claves){
-        int contadorClaves=0;
+    private static String desencriptarMensaje(String contenido, int clave) {
         String caracterActualEnString;
         char caracterActualEnChar;
-        String mensajeEncr="";
-        
-        for (int i=0; i < contenido.length(); i++){
-            caracterActualEnString= contenido.substring(i, 1);
-            caracterActualEnChar=caracterActualEnString.charAt(0);
+        String mensajeEncr = "";
+
+        //Se recorre el texto
+        for (int i = 0; i < contenido.length(); i++) {
             
-            if (Character.isLetter(caracterActualEnChar)){
-                int posicionEnArray=caracteresMinus.indexOf(caracterActualEnChar);
-                
-                mensajeEncr=mensajeEncr+caracteresMinus.substring(posicionEnArray+contadorClaves,1);
+            //Se guarda el caracter en formato String y en formato char
+            caracterActualEnString = contenido.substring(i, i+1);
+            caracterActualEnChar = caracterActualEnString.charAt(0);
+            
+            //Si el caracter es una letra
+            if (Character.isLetter(caracterActualEnChar)) {
+                int posicionEnArray = caracteresMinus.indexOf(caracterActualEnChar);
+                int posicionFinal=(posicionEnArray - clave) % caracteresMinus.length();
+
+                caracterActualEnString = caracteresMinus.substring(posicionFinal, posicionFinal+1);
+
             }
+
+            mensajeEncr = mensajeEncr + caracterActualEnString;
         }
-        
+
         return mensajeEncr;
     }
-    
+
     /**
      * Funcion para generar las claves
-     * @return 
+     *
+     * @return
      */
-    private static List<Integer> generarClaves(){
-        int numero=0;
-        List<Integer> numeros=new ArrayList<Integer>();
-        
-        do{
+    private static List<Integer> generarClaves() {
+        int numero = 0;
+        List<Integer> numeros = new ArrayList<Integer>();
+
+        do {
             //Se genera un numero aleatorio entre 1 y 50
-            numero=(int) Math.round(Math.random()*(50-1)+1);
-            
+            numero = (int) Math.round(Math.random() * (50 - 1) + 1);
+
             //Anadir numeros
             numeros.add(numero);
-            
-        }while(numeros.size()<10);
-        
+
+        } while (numeros.size() < 10);
+
         return numeros;
     }
-    
-    
+
 }

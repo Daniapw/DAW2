@@ -161,4 +161,13 @@ public class ControladorMensajes {
         }
 
     }
+    
+    /**
+     * 
+     */
+    public static void obtenerSpammers(){
+        
+        String sql="SELECT autor, contenido, COUNT(contenido) FROM mensajes m GROUP BY autor, contenido HAVING COUNT(contenido) > 2";
+
+    }
 }
