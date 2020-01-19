@@ -118,16 +118,18 @@ public class ControladorMensajes {
      */
     public static void insertMensaje(Mensaje mensaje){
         Connection conex=Conexion.getConex();
-                
+        
+        //Encriptar mensaje
+        mensaje.encriptarMensaje();  
+        
         try {
             PreparedStatement ps=conex.prepareStatement("INSERT INTO mensajes (autor, destinatario, contenido, claves, claveBooleana) VALUES(?,?,?,?,?);");
             
             ps.setString(1, mensaje.getAutor());
             ps.setString(2, mensaje.getDestinatario());
             ps.setString(3, mensaje.getContenido());
-            ps.setString(4, "1");
+            ps.setString(4, mensaje.formatearClaves());
             ps.setBoolean(5, mensaje.isClaveBooleana());
-
             
             ps.execute();
             
@@ -159,15 +161,6 @@ public class ControladorMensajes {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-    }
-    
-    /**
-     * 
-     */
-    public static void obtenerSpammers(){
-        
-        String sql="SELECT autor, contenido, COUNT(contenido) FROM mensajes m GROUP BY autor, contenido HAVING COUNT(contenido) > 2";
 
     }
 }

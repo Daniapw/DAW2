@@ -22,78 +22,103 @@ public class NewMain {
     public static void main(String[] args) {
 
         //Se genera un numero aleatorio entre 1 y 50
-        int numero = (int) Math.round(Math.random() * (50 - 1) + 1);
-        System.out.println(numero);
-        String mensaje = "hola, tio";
-        String mensajeEncr=encriptarMensaje(mensaje, numero);
+        List<Integer> claves=generarClaves();
+
+        String mensaje = "hoLa TiOoOOOOOOóoo.....";
+        String mensajeEncr=encriptarMensaje(mensaje, claves);
         
-         System.out.println("Mensaje: \n"+mensaje);
-         System.out.println("\nMensaje encriptado: "+mensajeEncr);
-         System.out.println("\nMensaje desencriptado "+desencriptarMensaje(mensajeEncr, numero));
+        System.out.println("Mensaje: \n"+mensaje);
+        System.out.println("\nMensaje encriptado: "+mensajeEncr);
+        System.out.println("\nMensaje desencriptado: "+desencriptarMensaje(mensajeEncr, claves));
+
     }
 
     /**
-     *
+     * Encriptar mensaje
      * @return
      */
-    private static String encriptarMensaje(String contenido, int clave) {
-        String caracterActualEnString;
-        char caracterActualEnChar;
-        String mensajeEncr = "";
-
-        //Se recorre el texto
-        for (int i = 0; i < contenido.length(); i++) {
+    private static String encriptarMensaje(String contenido, List<Integer> claves) {
+        
+        StringBuilder sb=new StringBuilder();
+        int contadorClaves=0;
+        
+        for(int i=0;i<contenido.length();i++){
             
-            //Se guarda el caracter en formato String y en formato char
-            caracterActualEnString = contenido.substring(i, i+1);
-            caracterActualEnChar = caracterActualEnString.charAt(0);
+            char charActual=contenido.charAt(i);
             
-            //Si el caracter es una letra
-            if (Character.isLetter(caracterActualEnChar)) {
-                int posicionEnArray = caracteresMinus.indexOf(caracterActualEnChar);
-                int posicionFinal=(posicionEnArray + clave) % caracteresMinus.length();
-
-                caracterActualEnString = caracteresMinus.substring(posicionFinal, posicionFinal+1);
-
+            if(charActual>='A' && charActual<='Z'){
+                int codigoAscii=charActual-'A'+claves.get(contadorClaves);
+                
+                codigoAscii=codigoAscii%26;
+                
+                sb.append((char)(codigoAscii+'A'));
+                
+                contadorClaves++;
             }
-
-            mensajeEncr = mensajeEncr + caracterActualEnString;
+            else if(charActual>='a' && charActual<='z'){
+                int codigoAscii=charActual-'a'+claves.get(contadorClaves);
+                codigoAscii=codigoAscii%26;
+                
+                sb.append((char)(codigoAscii+'a'));
+                
+                contadorClaves++;
+            }
+            else{
+                sb.append(charActual);
+            }
+            
+            //Reiniciar contador
+            if (contadorClaves==10)
+                contadorClaves=9;
+            
         }
-
-        return mensajeEncr;
+        
+        return sb.toString();
     }
 
     /**
-     *
+     * Desencriptar mensaje
      * @return
      */
-    private static String desencriptarMensaje(String contenido, int clave) {
-        String caracterActualEnString;
-        char caracterActualEnChar;
-        String mensajeEncr = "";
+    private static String desencriptarMensaje(String contenido, List<Integer> claves) {
+    
+        StringBuilder sb=new StringBuilder();
+        int contadorClaves=0;
 
-        //Se recorre el texto
-        for (int i = 0; i < contenido.length(); i++) {
+        for(int i=0;i<contenido.length();i++){
             
-            //Se guarda el caracter en formato String y en formato char
-            caracterActualEnString = contenido.substring(i, i+1);
-            caracterActualEnChar = caracterActualEnString.charAt(0);
+            char charActual=contenido.charAt(i);
             
-            //Si el caracter es una letra
-            if (Character.isLetter(caracterActualEnChar)) {
-                int posicionEnArray = caracteresMinus.indexOf(caracterActualEnChar);
-                int posicionFinal=(posicionEnArray - clave) % caracteresMinus.length();
-
-                caracterActualEnString = caracteresMinus.substring(posicionFinal, posicionFinal+1);
-
+            if(charActual>='A' && charActual<='Z'){
+                int codigoAscii=charActual-'A'-claves.get(contadorClaves);
+                
+                if(codigoAscii<0)
+                    codigoAscii=26+codigoAscii;
+                
+                sb.append((char)(codigoAscii+'A'));
+                contadorClaves++;
             }
-
-            mensajeEncr = mensajeEncr + caracterActualEnString;
+            else if(charActual>='a' && charActual<='z'){
+                int codigoAscii=charActual-'a'-claves.get(contadorClaves);
+                
+                if(codigoAscii<0)
+                    codigoAscii=26+codigoAscii;
+                
+                sb.append((char)(codigoAscii+'a'));
+                contadorClaves++;
+            }
+            else{
+                sb.append(charActual);
+            }
+        
+            //Reiniciar contador
+            if (contadorClaves==10)
+                contadorClaves=9;
+            
         }
-
-        return mensajeEncr;
+        return sb.toString();
     }
-
+    
     /**
      * Funcion para generar las claves
      *
@@ -105,7 +130,7 @@ public class NewMain {
 
         do {
             //Se genera un numero aleatorio entre 1 y 50
-            numero = (int) Math.round(Math.random() * (50 - 1) + 1);
+            numero = (int) Math.round(Math.random() * (26 - 1) + 1);
 
             //Anadir numeros
             numeros.add(numero);

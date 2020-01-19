@@ -35,6 +35,8 @@ public class MensajesServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sesion=request.getSession();
         
+        String ruta="panelMensajes.jsp";
+        
         //Eliminar mensaje
         if (request.getParameter("btnEliminarMensaje")!=null){
             int id=Integer.parseInt(request.getParameter("idMensaje"));
@@ -52,11 +54,14 @@ public class MensajesServlet extends HttpServlet {
             
             
             //Insertar mensaje en BD
-            ControladorMensajes.insertMensaje(new Mensaje(0, usuario.getNombre(), destinatarioMensaje, contenidoMensaje, "1", true));
+            ControladorMensajes.insertMensaje(new Mensaje(usuario.getNombre(), destinatarioMensaje, contenidoMensaje));
+            
+            ruta="panelMensajesEnviados.jsp";
             
         }
         
-        request.getRequestDispatcher("panelMensajesEnviados.jsp").forward(request,response);
+        //Redireccion
+        request.getRequestDispatcher(ruta).forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

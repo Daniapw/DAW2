@@ -3,9 +3,9 @@ if (isset($_POST['enviar'])){
     
     //Determinar parametros de la url para la API
     if($_POST['monedaDestino']=="TODAS")
-        $urlApi="http://localhost/REST/ejerciciosREST/ejercicio3/ejercicio3.php?cantidad=$_POST[cantidad]&mo=$_POST[monedaOrigen]";
+        $urlApi="http://localhost/DWES/tema6/ejercicio3/ejercicio3.php?cantidad=$_POST[cantidad]&mo=$_POST[monedaOrigen]";
     else
-        $urlApi="http://localhost/REST/ejerciciosREST/ejercicio3/ejercicio3.php?cantidad=$_POST[cantidad]&mo=$_POST[monedaOrigen]&md=$_POST[monedaDestino]";
+        $urlApi="http://localhost/DWES/tema6/ejercicio3/ejercicio3.php?cantidad=$_POST[cantidad]&mo=$_POST[monedaOrigen]&md=$_POST[monedaDestino]";
     
     //Obtener json
     $json= file_get_contents($urlApi);
@@ -47,6 +47,53 @@ if (isset($_POST['enviar'])){
             echo "<hr>"
             . "<h3>Conversion</h3>";
             
+            $info="";
+            
+            //Obtener info conversion
+            if ($_POST['monedaOrigen']=="EUR"){
+                switch($_POST['monedaDestino']){
+                    case 'GBP':{
+                        $info="1€ son 0.85£";
+                        break;
+                    }
+
+                    case 'USD':{
+                        $info="1€ son 1.11$";
+                        break;
+                    }
+                }
+            }
+            elseif($_POST['monedaOrigen']=="USD"){
+
+                switch($_POST['monedaDestino']){
+                    case 'GBP':{
+                        $info="1$ son 0.77£";
+                        break;
+                    }
+
+                    case 'EUR':{
+                        $info="1$ son 0.90€";
+                        break;
+                    }
+                }   
+            }
+            elseif($_POST['monedaOrigen']=="GBP"){
+                switch($_POST['monedaDestino']){
+                    case 'EUR':{
+                        $info="1£ son 1.17€";
+                        break;
+                    }
+
+                    case 'USD':{
+                        $info="1£ son 1.30$";
+                        break;
+                    }
+                }     
+            }
+            
+            echo "<p>$info</p>";
+            
+            //Mostrar conversion
             if ($json==null)
                 echo "Error al realizar la conversion";
             else{                

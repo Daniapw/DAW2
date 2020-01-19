@@ -1,3 +1,5 @@
+<%@page import="controlador.ControladorUsuario"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="modelo.Mensaje"%>
 <%@page import="java.util.List"%>
 <%@page import="controlador.ControladorMensajes"%>
@@ -6,12 +8,23 @@
 <%
     HttpSession sesion=request.getSession();
     
-    //Redirigir si es necesario
+    //Redirigir si el usuario no esta logeado
     if (sesion.getAttribute("usuarioLogeado")==null)
         request.getRequestDispatcher("login.jsp").forward(request,response);
     
     Usuario usuarioLogeado=(Usuario) sesion.getAttribute("usuarioLogeado");
-    List<Mensaje> mensajesRecibidos=ControladorMensajes.getMensajesEnviados(usuarioLogeado.getNombre());
+    
+    //Si el usuario no es administrador se le redirige
+    if (!usuarioLogeado.getTipo().equalsIgnoreCase("admin"))
+        request.getRequestDispatcher("panelMensajes.jsp").forward(request,response);
+    
+    
+    //Obtener mensajes
+    List<Mensaje> mensajes=new ArrayList<Mensaje>();
+
+    //Obtener todos los mensajes de la base de datos
+    mensajes=ControladorMensajes.getAllMensajes();
+   
 
 %>
 <!DOCTYPE html>
@@ -44,7 +57,7 @@
         
         <%
             //Mostrar mensaje de error en caso de que no haya recibido ningun mensaje
-            if (mensajesRecibidos.size()<1)
+            if (mensajes.size()<1)
                 out.println("<p style='mensajeError'>Aun no has enviado ningun mensaje</p>");
             
             //Mostrar mensajes enviados
@@ -52,9 +65,11 @@
         %>
                 <div class="contenedorMensajes">
                     <%
-                        for (Mensaje mensaje:mensajesRecibidos){
-                            mensaje.desencriptarMensaje();
-                            out.println(mensaje.toStringEnviados());
+                        for (Mensaje mensaje:mensajes){
+                            if (mensaje.getAutor().equals(usuarioLogeado.getNombre()) || mensaje.getDestinatario().equals(usuarioLogeado.getNombre()) )
+                                mensaje.desencriptarMensaje();
+                                
+                            out.println(mensaje.toString());
                         }
                     %>
                 </div>

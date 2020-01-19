@@ -21,6 +21,15 @@ public class Mensaje {
     private List<Integer> claves=new ArrayList<Integer>();
     private boolean claveBooleana;
 
+    /**
+     * Constructor para recuperar mensajes
+     * @param idMensaje
+     * @param autor
+     * @param destinatario
+     * @param contenido
+     * @param claves
+     * @param claveBooleana 
+     */
     public Mensaje(int idMensaje, String autor, String destinatario, String contenido, String claves, boolean claveBooleana) {
         this.idMensaje = idMensaje;
         this.autor = autor;
@@ -32,9 +41,16 @@ public class Mensaje {
         
     } 
     
+    /**
+     * Constructor para crear mensajes
+     * @param autor
+     * @param destinatario
+     * @param contenido 
+     */
     public Mensaje(String autor, String destinatario, String contenido){
         this.autor=autor;
         this.destinatario=destinatario;
+        this.contenido=contenido;
         this.claves=generarClaves();
         
         double numero=Math.random();
@@ -46,42 +62,107 @@ public class Mensaje {
     }
     
     /**
-     * 
-     * @return 
+     * Encriptar mensaje
+     * @return
      */
-    private String encriptarMensaje(){
-        String mensajeEncr="";
-        char[] caracteres=contenido.toCharArray();
-        int contadorClave=0;
-        int codigoAscii=0;
+    public void encriptarMensaje() {
         
-        //Se recorren los caracteres del mensaje 1 por 1
-        for (int i=0; i < caracteres.length;i++){
+        StringBuilder sb=new StringBuilder();
+        int contadorClaves=0;
+        
+        //Se recorre el contenido del mensaje
+        for(int i=0;i<contenido.length();i++){
+  
+            //Se almacena el char actual
+            char charActual=contenido.charAt(i);
             
-            //Si el caracter es una letra se codifica
-            if (Character.isLetter(caracteres[i])){
-                //Primero se obtiene el codigo ascii del caracter
-                codigoAscii=(int) caracteres[i];
+            //Si es mayuscula
+            if(charActual>='A' && charActual<='Z'){
                 
-                //Luego se le suma o restael valor actual de claves dependiendo de la clave booleana
-                if (claveBooleana)
-                    codigoAscii+=claves.get(contadorClave);
-                else
-                    codigoAscii-=claves.get(contadorClave);
+                //Se obtiene el codigo 
+                int codigoAscii=charActual-'A'+claves.get(contadorClaves);
                 
-                //El caracter encriptado se anade al mensaje
-                mensajeEncr=mensajeEncr+Character.toString((char) codigoAscii);
+                //Se hace el modulo de 26 
+                codigoAscii=codigoAscii%26;
                 
-                //Se aumenta el contador clave
-                contadorClave++;
+                //Se concatena
+                sb.append((char)(codigoAscii+'A'));
                 
-                //Si el contador de claves ha llegado a 9
-                if (contadorClave==10)
-                    contadorClave=0;
+                //Se aumenta el contador
+                contadorClaves++;
             }
+            //Si es minuscula
+            else if(charActual>='a' && charActual<='z'){
+                int codigoAscii=charActual-'a'+claves.get(contadorClaves);
+                codigoAscii=codigoAscii%26;
+                
+                sb.append((char)(codigoAscii+'a'));
+                
+                contadorClaves++;
+            }
+            else{
+                sb.append(charActual);
+            }
+            
+            //Reiniciar contador
+            if (contadorClaves==10)
+                contadorClaves=9;
+            
         }
         
-        return mensajeEncr;
+        contenido=sb.toString();
+    }
+    
+    /**
+     * Desencriptar mensaje
+     * @return
+     */
+    public void desencriptarMensaje() {
+    
+        StringBuilder sb=new StringBuilder();
+        int contadorClaves=0;
+
+        //Se recorre el contenido del mensaje
+        for(int i=0;i<contenido.length();i++){
+            
+            //Se almacena el char actual
+            char charActual=contenido.charAt(i);
+            
+            //Si el char es mayuscula
+            if(charActual>='A' && charActual<='Z'){
+                
+                //Se recupera el codigo ascii inicial 
+                int codigoAscii=charActual-'A'-claves.get(contadorClaves);
+                
+                //Si el codigo es menor que 0 se le suma 26
+                if(codigoAscii<0)
+                    codigoAscii=26+codigoAscii;
+                
+                //Se concatena al mensaje
+                sb.append((char)(codigoAscii+'A'));
+                contadorClaves++;
+            }
+            //Si el char es minuscula
+            else if(charActual>='a' && charActual<='z'){
+                int codigoAscii=charActual-'a'-claves.get(contadorClaves);
+                
+                if(codigoAscii<0)
+                    codigoAscii=26+codigoAscii;
+                
+                sb.append((char)(codigoAscii+'a'));
+                contadorClaves++;
+            }
+            else{
+                sb.append(charActual);
+            }
+        
+            //Reiniciar contador
+            if (contadorClaves==10)
+                contadorClaves=9;
+            
+        }
+        
+        contenido=sb.toString();
     }
     
     /**
@@ -93,8 +174,8 @@ public class Mensaje {
         List<Integer> numeros=new ArrayList<Integer>();
         
         do{
-            //Se genera un numero aleatorio entre 1 y 50
-            numero=(int) Math.round(Math.random()*(50-1)+1);
+            //Se genera un numero aleatorio entre 1 y 26
+            numero=(int) Math.round(Math.random()*(26-1)+1);
             
             //Anadir numeros
             numeros.add(numero);
@@ -119,6 +200,20 @@ public class Mensaje {
         }
         
         return listaNumeros;
+    }
+    
+    /**
+     * Formatear claves a String
+     * @return 
+     */
+    public String formatearClaves(){
+        StringBuilder clavesFormateadas=new StringBuilder();
+        
+        for(Integer clave:claves){
+            clavesFormateadas.append(clave+",");
+        }
+        
+        return clavesFormateadas.toString();
     }
     
     @Override

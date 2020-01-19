@@ -27,22 +27,30 @@ class Baraja {
     }
     
     /**
-     * 
+     * Obtener cartas aleatorias
      * @param type $numeroCartas
      */
     public function getCartasAleatorias($numeroCartas){
         $arrayNumeros=[];
+        $arrayCartas=[];
         
+        //Generar array de numeros aleatorios
         for ($i=0; $i<$numeroCartas; $i++){
             
             do{
-                $numAleatorio= rand(1, 40);
+                $numAleatorio= rand(0, 39);
                 
             }while(in_array($numAleatorio, $arrayNumeros));
             
             $arrayNumeros[]=$numAleatorio;
         }
         
+        //Obtener cartas
+        foreach ($arrayNumeros as $numero){
+            $arrayCartas[]=$this->cartas[$numero];
+        }
+        
+        return $arrayCartas;
     }
 
 }

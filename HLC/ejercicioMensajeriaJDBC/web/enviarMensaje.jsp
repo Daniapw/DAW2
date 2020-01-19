@@ -32,8 +32,14 @@
                 <li><a href="panelMensajes.jsp">Mensajes recibidos</a></li>
                 <li><a href="panelMensajesEnviados.jsp">Mensajes enviados</a></li>
                 <li><a href="enviarMensaje.jsp">Enviar mensaje</a></li>
+                <%
+                    if (usuarioLogeado.getTipo().equalsIgnoreCase("admin")){
+                        out.println("<li><a href='panelMensajesAdmin.jsp'>Ver todos los mensajes</a></li>");
+                        out.println("<li><a href='panelControlUsuarios.jsp'>Control usuarios</a></li>");
+                    }
+                %>
             </ul>
-        </div>            
+        </div>          
                 
         <!--Formulario enviar mensaje-->
         <form action="MensajesServlet" method="POST">
