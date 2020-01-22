@@ -1,3 +1,4 @@
+<%@page import="controlador.ControladorUsuario"%>
 <%@page import="modelo.Mensaje"%>
 <%@page import="java.util.List"%>
 <%@page import="controlador.ControladorMensajes"%>
@@ -10,7 +11,14 @@
     if (sesion.getAttribute("usuarioLogeado")==null)
         request.getRequestDispatcher("login.jsp").forward(request,response);
     
-    Usuario usuarioLogeado=(Usuario) sesion.getAttribute("usuarioLogeado");
+    Usuario usuarioLogeado=ControladorUsuario.getUsuario((String) sesion.getAttribute("usuarioLogeado"));
+
+    //Si el usuario ha sido baneado se le redirige al login
+    if (usuarioLogeado.isBloqueado()){
+        sesion.setAttribute("usuarioBloqueado", true);
+        request.getRequestDispatcher("LogoffServlet").forward(request,response);
+    }
+    
     List<Mensaje> mensajesRecibidos=ControladorMensajes.getMensajesEnviados(usuarioLogeado.getNombre());
 
 %>

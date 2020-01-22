@@ -55,3 +55,17 @@ body{
     padding:10px;
     float:right;
 }
+
+.advertencia{
+    width:500px;
+    background-color:#ffbfc7;
+    color:red;
+    border:1px solid darkred;
+    padding:3px;
+    margin:auto;
+    margin-top:10px;
+}
+
+.advertencia h5{
+    text-align:center;
+}

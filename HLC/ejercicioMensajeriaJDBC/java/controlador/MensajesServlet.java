@@ -48,7 +48,7 @@ public class MensajesServlet extends HttpServlet {
         if (request.getParameter("btnEnviarMensaje")!=null){
             
             //Obtener datos del mensaje
-            Usuario usuario=(Usuario) sesion.getAttribute("usuarioLogeado");
+            Usuario usuario=ControladorUsuario.getUsuario((String) sesion.getAttribute("usuarioLogeado"));
             String destinatarioMensaje=request.getParameter("destinatarioEnviar");
             String contenidoMensaje=request.getParameter("contenidoMensajeEnviar");
             

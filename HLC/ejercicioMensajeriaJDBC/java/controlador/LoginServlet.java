@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
                     if (!usuarioLogeado.isBloqueado()){
                         //Atributos de sesion
                         sesion.setAttribute("intentoFallido", false);
-                        sesion.setAttribute("usuarioLogeado", usuarioLogeado);
+                        sesion.setAttribute("usuarioLogeado", usuarioLogin);
 
                         ruta="panelMensajes.jsp";
                     }

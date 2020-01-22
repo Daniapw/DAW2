@@ -5,8 +5,16 @@
  */
 package modelo;
 
+import controlador.Conexion;
+import controlador.ControladorMensajes;
+import static controlador.ControladorMensajes.getMensajesUsuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,124 +28,74 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        //Se genera un numero aleatorio entre 1 y 50
-        List<Integer> claves=generarClaves();
-
-        String mensaje = "hoLa TiOoOOOOOOóoo.....";
-        String mensajeEncr=encriptarMensaje(mensaje, claves);
+        List<String> spammers=getSpammers();
         
-        System.out.println("Mensaje: \n"+mensaje);
-        System.out.println("\nMensaje encriptado: "+mensajeEncr);
-        System.out.println("\nMensaje desencriptado: "+desencriptarMensaje(mensajeEncr, claves));
-
+        for (String spammer:spammers){
+            System.out.println(spammer+"\n");
+        }
     }
 
+ 
     /**
-     * Encriptar mensaje
-     * @return
+     * Obtener lista de posibles spammers
+     * @return 
      */
-    private static String encriptarMensaje(String contenido, List<Integer> claves) {
+    public static List<String> getSpammers(){
+        Connection conex=Conexion.getConex();
         
-        StringBuilder sb=new StringBuilder();
-        int contadorClaves=0;
+        //Lista en la que se guardaran los posibles spammers
+        List<String> spammers=new ArrayList<String>();
+        List<Mensaje> mensajesUsuarios=new ArrayList<Mensaje>();        
         
-        for(int i=0;i<contenido.length();i++){
+        try {
             
-            char charActual=contenido.charAt(i);
-            
-            if(charActual>='A' && charActual<='Z'){
-                int codigoAscii=charActual-'A'+claves.get(contadorClaves);
+            //Obtener nombres de los usuarios que hayan enviado 3 o mas mensajes y no hayan sido bloqueados
+            PreparedStatement ps=conex.prepareStatement("SELECT autor, count(autor) as cnt FROM mensajes m, usuarios u WHERE u.nombre=m.autor AND u.bloqueado=0 GROUP BY autor HAVING cnt>=3");
+
+            ResultSet posiblesSpammers=ps.executeQuery();
+
+            //Obtener mensajes de cada posible spammer y comprobar si de verdad estan spammeando
+            while(posiblesSpammers.next()){
+                //Obtener mensajes
+                mensajesUsuarios=ControladorMensajes.getMensajesEnviados(posiblesSpammers.getString(1));
+                int contadorSpam=1;
                 
-                codigoAscii=codigoAscii%26;
+                //Desencriptar mensajes
+                for (Mensaje mensaje:mensajesUsuarios){
+                    mensaje.desencriptarMensaje();
+                }
                 
-                sb.append((char)(codigoAscii+'A'));
-                
-                contadorClaves++;
+                //Recorrerlos y determinar si es un spammer
+                for(int i =0; i < mensajesUsuarios.size()-1; i++){
+                    //Mensaje actual desencriptado
+                    Mensaje mensajeActual=mensajesUsuarios.get(i);
+
+                    //Comparar con otros mensajes
+                    for (int j=0; j < mensajesUsuarios.size()-1;j++){
+                        Mensaje mensajeComparar=mensajesUsuarios.get(j);
+
+                        //Si el mensaje tiene el mismo contenido pero diferente autor se anade 1 al contador de spam
+                        if (mensajeActual.getContenido().equals(mensajeComparar.getContenido()) && !mensajeActual.getDestinatario().equals(mensajeComparar.getDestinatario()))
+                            contadorSpam++;
+                        
+                    }
+
+                    //Si el contador de spam ha llegado a 3 se anade a la lista de spammers
+                    if (contadorSpam>=3)
+                        spammers.add(posiblesSpammers.getString(1));
+                }
             }
-            else if(charActual>='a' && charActual<='z'){
-                int codigoAscii=charActual-'a'+claves.get(contadorClaves);
-                codigoAscii=codigoAscii%26;
-                
-                sb.append((char)(codigoAscii+'a'));
-                
-                contadorClaves++;
-            }
-            else{
-                sb.append(charActual);
-            }
             
-            //Reiniciar contador
-            if (contadorClaves==10)
-                contadorClaves=9;
+            conex.close();
+            ps.close();
+            posiblesSpammers.close();
             
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         
-        return sb.toString();
-    }
-
-    /**
-     * Desencriptar mensaje
-     * @return
-     */
-    private static String desencriptarMensaje(String contenido, List<Integer> claves) {
-    
-        StringBuilder sb=new StringBuilder();
-        int contadorClaves=0;
-
-        for(int i=0;i<contenido.length();i++){
-            
-            char charActual=contenido.charAt(i);
-            
-            if(charActual>='A' && charActual<='Z'){
-                int codigoAscii=charActual-'A'-claves.get(contadorClaves);
-                
-                if(codigoAscii<0)
-                    codigoAscii=26+codigoAscii;
-                
-                sb.append((char)(codigoAscii+'A'));
-                contadorClaves++;
-            }
-            else if(charActual>='a' && charActual<='z'){
-                int codigoAscii=charActual-'a'-claves.get(contadorClaves);
-                
-                if(codigoAscii<0)
-                    codigoAscii=26+codigoAscii;
-                
-                sb.append((char)(codigoAscii+'a'));
-                contadorClaves++;
-            }
-            else{
-                sb.append(charActual);
-            }
+        return spammers;
         
-            //Reiniciar contador
-            if (contadorClaves==10)
-                contadorClaves=9;
-            
-        }
-        return sb.toString();
-    }
-    
-    /**
-     * Funcion para generar las claves
-     *
-     * @return
-     */
-    private static List<Integer> generarClaves() {
-        int numero = 0;
-        List<Integer> numeros = new ArrayList<Integer>();
-
-        do {
-            //Se genera un numero aleatorio entre 1 y 50
-            numero = (int) Math.round(Math.random() * (26 - 1) + 1);
-
-            //Anadir numeros
-            numeros.add(numero);
-
-        } while (numeros.size() < 10);
-
-        return numeros;
     }
 
 }

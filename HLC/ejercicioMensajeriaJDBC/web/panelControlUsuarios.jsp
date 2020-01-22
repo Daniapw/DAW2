@@ -12,7 +12,13 @@
     if (sesion.getAttribute("usuarioLogeado")==null)
         request.getRequestDispatcher("login.jsp").forward(request,response);
     
-    Usuario usuarioLogeado=(Usuario) sesion.getAttribute("usuarioLogeado");
+    Usuario usuarioLogeado=ControladorUsuario.getUsuario((String) sesion.getAttribute("usuarioLogeado"));
+
+    //Si el usuario ha sido baneado se le redirige al login
+    if (usuarioLogeado.isBloqueado()){
+        sesion.setAttribute("usuarioBloqueado", true);
+        request.getRequestDispatcher("LogoffServlet").forward(request,response);
+    }
     
     //Si el usuario no es administrador se le redirige
     if (!usuarioLogeado.getTipo().equalsIgnoreCase("admin"))
@@ -21,6 +27,8 @@
     
     //Obtener lista de usuarios
     List<Usuario> listaUsuarios=ControladorUsuario.getAllUsuarios();
+    List<String> spammers=ControladorMensajes.getPosiblesSpammers();
+
    
 
 %>
@@ -33,6 +41,24 @@
     </head>
     <body>
         <h1>Bienvenido <% out.println(usuarioLogeado.getNombre()); %>!</h1>
+
+        <%
+        //Mostrar mensaje spammers
+        if (usuarioLogeado.getTipo().equals("admin") && spammers.size()>0){%>
+            <div class="advertencia">
+                <h5><b>ATENCION, POSIBLES SPAMMERS DETECTADOS:</b></h5>
+                <ul>
+                <%
+                    for (String spammer:spammers){
+                        out.println("<li>'"+spammer+"'</li>");
+                    }
+                %>
+                </ul>
+            </div>
+            
+        <%
+        }
+        %>
         
         <!--Menu-->
         <div class="contenedorMenu">
