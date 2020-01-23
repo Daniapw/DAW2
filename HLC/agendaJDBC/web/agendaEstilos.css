@@ -1,0 +1,70 @@
+.body{
+    font-family:"Arial";
+}
+
+.contendorAgenda{
+    width:100%;
+}
+
+.agenda{
+    border:1px solid black;
+    margin:auto;
+    width:33%;
+}
+
+.camposContacto{
+    padding:10px;
+}
+
+.botonera{
+    margin-top:5px;
+    border-top:1px solid black;
+    padding:5px 0px 5px 0px;
+    text-align:center;
+}
+
+.tablaAgenda{
+    width:100%;
+}
+
+.anadirContacto{
+    margin-top:10px;
+    text-align:center;
+    padding:5px;
+}
+
+.contendorErrorNoContactos{
+    padding:5px;
+    color:blue;
+    text-align:center;
+    background-color:#a0c9f0;
+    border:1px solid blue;
+    width:50%;
+    margin:auto;
+}
+
+.contendorErrorNoContactos p{
+    margin:0px;
+}
+
+.mensajeExito{
+    padding:5px;
+    color:green;
+    text-align:center;
+    background-color:lightgreen;
+    border:1px solid green;
+    width:25%;
+    margin:auto;
+    margin-bottom:10px;
+}
+
+.mensajeError{
+    padding:5px;
+    color:red;
+    text-align:center;
+    background-color:#ffd3d7;
+    border:1px solid red;
+    width:25%;
+    margin:auto;
+    margin-bottom:10px;
+}
